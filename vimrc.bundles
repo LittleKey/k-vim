@@ -141,6 +141,27 @@ Plug 'tomasr/molokai'
 " tomorrow
 " 主题 tomorrow
 Plug 'chriskempson/vim-tomorrow-theme'
+" dracula
+" 主题 dracula
+Plug 'dracula/vim'
+" onedark
+" 主题 onedark
+Plug 'joshdick/onedark.vim'
+" monokai
+" 主题 monokai
+Plug 'sickill/vim-monokai'
+" lucario
+" 主题 lucario
+Plug 'raphamorim/lucario'
+" github
+" 主题 github
+Plug 'endel/vim-github-colorscheme'
+" google primary
+" 主题 google primary
+Plug 'google/vim-colorscheme-primary'
+" apprentice
+" 主题 apprentice
+Plug 'romainl/Apprentice'
 
 
 " nav

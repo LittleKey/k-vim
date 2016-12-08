@@ -38,8 +38,8 @@ echo "It will take a long time, just be patient!"
 echo "If error,you need to compile it yourself"
 echo "cd $CURRENT_DIR/bundle/YouCompleteMe/ && python install.py --clang-completer --gocode-completer"
 cd $CURRENT_DIR/bundle/YouCompleteMe/
-git submodule update --init --recursive
-python install.py --clang-completer
+proxychains git submodule update --init --recursive
+proxychains python install.py --clang-completer
 # link YCM config file
 if [ -e $YCM_DIR/.ycm_extra_conf.py ]; then
     mv $YCM_DIR/\.$YCM_CONF_FILE_NAME\.py $YCM_DIR/\.$YCM_CONF_FILE_NAME\.py\.bak

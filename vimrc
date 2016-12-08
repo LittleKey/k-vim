@@ -703,12 +703,21 @@ endif
 " theme主题
 set background=dark
 set t_Co=256
+" colorscheme onedark
+" colorscheme dracula
 " colorscheme solarized
 " let g:solarized_termcolors=256
 " colorscheme molokai
 " colorscheme Tomorrow-Night
-colorscheme Tomorrow-Night-Bright
+" colorscheme Tomorrow-Night-Eighties
+" colorscheme Tomorrow-Night-Bright
+" colorscheme Tomorrow
 " colorscheme desert
+" colorscheme monokai
+colorscheme lucario
+" colorscheme github
+" colorscheme primary
+" colorscheme apprentice
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
