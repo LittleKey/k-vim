@@ -702,7 +702,7 @@ endif
 
 " theme主题
 set background=dark
-set t_Co=256
+" set t_Co=256
 " colorscheme onedark
 " colorscheme dracula
 " colorscheme solarized
@@ -712,7 +712,7 @@ set t_Co=256
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme Tomorrow-Night-Bright
 " colorscheme Tomorrow
-" colorscheme desert
+" colorscheme desert256v2
 " colorscheme monokai
 colorscheme lucario
 " colorscheme github
