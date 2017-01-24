@@ -702,7 +702,7 @@ endif
 
 " theme主题
 set background=dark
-" set t_Co=256
+set t_Co=256
 " colorscheme onedark
 " colorscheme dracula
 " colorscheme solarized
@@ -714,10 +714,10 @@ set background=dark
 " colorscheme Tomorrow
 " colorscheme desert256v2
 " colorscheme monokai
-colorscheme lucario
+" colorscheme lucario
 " colorscheme github
 " colorscheme primary
-" colorscheme apprentice
+colorscheme apprentice
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
