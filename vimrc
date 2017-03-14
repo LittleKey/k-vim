@@ -564,8 +564,8 @@ nnoremap <C-y> 2<C-y>
 
 " Jump to start and end of line using the home row keys
 " 增强tab操作, 导致这个会有问题, 考虑换键
-nmap t o<ESC>k
-nmap T O<ESC>j
+" nmap t o<ESC>k
+" nmap T O<ESC>j
 
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
@@ -704,20 +704,24 @@ endif
 set background=dark
 set t_Co=256
 " colorscheme onedark
-" colorscheme dracula
-" colorscheme solarized
-" let g:solarized_termcolors=256
 " colorscheme molokai
 " colorscheme Tomorrow-Night
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme Tomorrow-Night-Bright
 " colorscheme Tomorrow
-" colorscheme desert256v2
 " colorscheme monokai
 " colorscheme lucario
 " colorscheme github
-" colorscheme primary
-colorscheme apprentice
+" colorscheme apprentice
+" colorscheme hybrid
+" colorscheme pencil
+" colorscheme papercolor
+" colorscheme jellybeans
+" colorscheme kolor
+" colorscheme lucius
+" colorscheme seoul256
+" colorscheme iceberg
+colorscheme tender
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

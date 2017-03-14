@@ -59,15 +59,11 @@ git clone https://github.com/wklken/k-vim.git
 ```
 # ubuntu
 sudo apt-get install ctags
-sudo apt-get install build-essential cmake python-dev  #编译YCM自动补全插件依赖
 sudo apt-get install silversearcher-ag
 
 # centos
 sudo yum install python-devel.x86_64
 sudo yum groupinstall 'Development Tools'
-sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-sudo yum install the_silver_searcher
-sudo yum install cmake
 
 # mac
 brew install ctags
@@ -77,26 +73,29 @@ brew install the_silver_searcher
 ##### 2.2 使用Python
 
 ```
-sudo pip install pyflakes
-sudo pip install pylint
-sudo pip install pep8
+<!-- pip install pyflakes -->
+<!-- pip install pylint -->
+<!-- pip install pep8 -->
+pip install flake8
 ```
 
 ##### 2.3 如果使用Javascript(不需要的跳过)
 
 ```
-# 安装jshint和jslint,用于javascript语法检查
+# 安装jshint,jslint,eslint,用于javascript语法检查
 # 需要nodejs支持,各个系统安装见文档 https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 
 # ubuntu
 sudo apt-get install nodejs npm
 sudo npm install -g jslint
 sudo npm install jshint -g
+sudo npm install eslint -g
 
 # mac
 brew install node
 npm install jshint -g
 npm install jslint -g
+npm install eslint -g
 ```
 
 
@@ -105,7 +104,6 @@ npm install jslint -g
 ```
 进入目录, 执行安装
 # 注意原先装过的童鞋, 重装时，不要到~/.vim下执行(这是软连接指向k-vim真是目录)，必须到k-vim原生目录执行
-# 会进入安装插件的列表，一安装是从github clone的，完全取决于网速, 之后会自动编译 YCM, 编译失败的话需要手动编译, 有问题见YCM文档
 # 如果发现有插件安装失败 可以进入vim, 执行`:PlugInstall'
 
 cd k-vim/
@@ -298,7 +296,7 @@ version 9.1
 
 细节:
 1. 增加 leader+w 保存文件
-2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1'
+<!-- 2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1' -->
 3. 插件 'terryma/vim-expand-region', 增加自定义每次加减的区域配置
 4. 解决在insert mode粘贴代码缩进错乱问题(以前需要:set paste . 即k-vim中F5快捷键, 现在不需要了)
 
@@ -318,11 +316,7 @@ thx a lot. 可以给我提pull request:)
 
 2. install.sh 参考`spf13-vim` 的`bootstrap.sh` [spf13-vim](https://github.com/spf13/spf13-vim)
 
-2. 插件管理使用[Vundle](https://github.com/gmarik/Vundle.vim)
-
-3. 自动补全 [YCM](https://github.com/Valloric/YouCompleteMe)
-
-4. 插件挑选 [VimAwesome](http://vimawesome.com/)
+3. 插件挑选 [VimAwesome](http://vimawesome.com/)
 
 ### Resources
 

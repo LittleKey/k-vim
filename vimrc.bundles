@@ -32,6 +32,9 @@ call plug#begin('~/.vim/bundle')
 " syntastic
 Plug 'scrooloose/syntastic'
 
+" validator.vim
+Plug 'maralla/validator.vim'
+
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
@@ -39,9 +42,8 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
 " 代码自动补全
-" 迄今为止用到的最好的自动VIM自动补全插件
-" 重启 :YcmRestartServer
-" Plug 'Valloric/YouCompleteMe'
+" completor for vim8
+Plug 'maralla/completor.vim'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -169,6 +171,17 @@ Plug 'morhetz/gruvbox'
 " 主题 desert
 Plug 'fugalh/desert.vim'
 
+Plug 'tomasr/molokai'
+Plug 'reedes/vim-colors-pencil'
+Plug 'w0ng/vim-hybrid'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'nanotech/jellybeans.vim'
+Plug 'zeis/vim-kolor'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'junegunn/seoul256.vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'jacoborus/tender.vim'
+
 " nav
 " nerdtree nerdtreetabs
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
@@ -242,11 +255,6 @@ if count(g:bundle_groups, 'javascript')
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
     let g:used_javascript_libs = 'AngularJS,AngularUI,AngularUI Router,underscore,backbone'
-
-    " for javascript 自动补全, 配合YCM, 需要安装全局环境的（非nvm中) node.js&npm
-    " 安装完成后还需要在 bundle/tern_for_vim 下执行 npm install 安装依赖
-    " see https://github.com/marijnh/tern_for_vim
-    Plug 'marijnh/tern_for_vim'
 endif
 
 
@@ -404,50 +412,25 @@ call plug#end()
     let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go'] }
 " }}}
 
+" validator.vim {{{
+" checker
+let g:validator_python_checker = ['flake8']
+let g:validator_sh_checker = ['shellcheck']
+let g:validator_javascript_checker = ['jshint', 'eslint', 'jscs']
+" let g:validator_c_checker = ['clang-tidy']
+
+let g:validator_permament_sign = 1
+
+" For flake8
+let g:validator_python_flake8_args = '--max-line-length=120'
+" }}}
+
 
 " ################### 自动补全 ###################
 
-" YouCompleteMe {{{
-    "youcompleteme  默认tab  s-tab 和自动补全冲突
-    let g:ycm_key_list_select_completion=['<c-n>']
-    " let g:ycm_key_list_select_completion = ['<Down>']
-    let g:ycm_key_list_previous_completion=['<c-p>']
-    " let g:ycm_key_list_previous_completion = ['<Up>']
-    let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
-    let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
-    let g:ycm_use_ultisnips_completer = 1 "提示UltiSnips
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1   "注释和字符串中的文字也会被收入补全
-    let g:ycm_collect_identifiers_from_tags_files = 1
-    let g:ycm_confirm_extra_conf = 1
-    let g:ycm_seed_identifiers_with_syntax=0   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
-    let g:ycm_server_python_interpreter = 'python'
-    let g:ycm_path_to_python_interpreter='python'
-    " let g:ycm_path_to_python_interpreter='/usr/bin/python'
-    " let g:ycm_path_to_python_interpreter='/home/littlekey/littlekey/bin/python'
-
-    " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
-    " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
-
-    " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
-    " old version
-    if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
-    endif
-    " new version
-    if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
-        let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-    endif
-
+" completor.vim {{{
     " 直接触发自动补全 insert模式下
-    let g:ycm_key_invoke_completion = '<C-Space>'
-    " 黑名单,不启用
-    let g:ycm_filetype_blacklist = {
-        \ 'tagbar' : 1,
-        \ 'gitcommit' : 1,
-        \}
+    let g:comletor_auto_trigger = 1
 " }}}
 
 
