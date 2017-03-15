@@ -170,21 +170,39 @@ Plug 'morhetz/gruvbox'
 " desert.vim
 " 主题 desert
 Plug 'fugalh/desert.vim'
-
-Plug 'tomasr/molokai'
+" vim-colors-pencil
+" 主题 vim-colors-pencil
 Plug 'reedes/vim-colors-pencil'
+" vim-hybird
+" 主题 vim-hybird
 Plug 'w0ng/vim-hybrid'
+" papercolor-theme
+" 主题 papercolor-theme
 Plug 'NLKNguyen/papercolor-theme'
+" jellybeans.vim
+" 主题 jellybeans.vim
 Plug 'nanotech/jellybeans.vim'
+" vim-kolor
+" 主题 vim-kolor
 Plug 'zeis/vim-kolor'
+" vim-lucius
+" 主题 vim-lucius
 Plug 'jonathanfilip/vim-lucius'
+" seoul256.vim
+" 主题 seoul256.vim
 Plug 'junegunn/seoul256.vim'
+" iceberg.vim
+" 主题 iceberg.vim
 Plug 'cocopon/iceberg.vim'
+" tender.vim
+" 主题 tender.vim
 Plug 'jacoborus/tender.vim'
 
 " nav
 " nerdtree nerdtreetabs
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
+" nerdtree git
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar

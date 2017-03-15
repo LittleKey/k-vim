@@ -76,7 +76,7 @@ brew install the_silver_searcher
 <!-- pip install pyflakes -->
 <!-- pip install pylint -->
 <!-- pip install pep8 -->
-pip install flake8
+pip install flake8 jedi
 ```
 
 ##### 2.3 如果使用Javascript(不需要的跳过)
@@ -98,6 +98,13 @@ npm install jslint -g
 npm install eslint -g
 ```
 
+###### 2.4 一些杂项
+
+```
+# mac
+brew install shellcheck
+cd bundle/maralla/completor.vim && make js && cd -
+```
 
 ### 3. 安装
 
@@ -373,7 +380,9 @@ Modify By LittleKey
 
 ## 插件
 
-   具体分类请参照vimrc.bundles
+    使用completor.vim代替YouCompleteMe
+
+    具体分类请参照vimrc.bundles
 
 ### add plugin
 
@@ -390,3 +399,15 @@ Modify By LittleKey
 3. #### [hwrod/interactive](https://github.com/hwrod/interactive-replace)
 
    提供交互式的文本替换，使用Enter跳过一次替换，使用Ctrl-c 结束.
+
+4. #### [maralla/completor.vim](https://github.com/maralla/completor.vim)
+
+   用于代替YouCompleteMe的异步补全
+
+5. #### [maralla/validator.vim](https://github.com/maralla/validator.vim)
+
+   lint工具
+
+6. #### [Xuyuanp](https://github.com/Xuyuanp/nerdtree-git-plugin)
+
+   在nerdtree上显示git的相关信息
