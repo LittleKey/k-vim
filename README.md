@@ -356,8 +356,8 @@ Modify By LittleKey
 ### 缩进设置
 
     default               默认(所有文件)使用四个空格缩进
-    ruby,js,cs,css,html   使用两个空格缩进
-    vimrc                 使用两个空格缩进
+    ts,js,cs,css,html     使用两个空格缩进
+    ruby,vimrc            使用两个空格缩进
     python                使用四个空格缩进
 
 ## 自定义快捷键

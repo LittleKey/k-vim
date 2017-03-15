@@ -225,14 +225,14 @@ function! TAB(size)
   execute "set softtabstop=".a:size
 endfunc
 
-autocmd FileType * :call TAB(4)               " default Tabsize
-autocmd FileType ruby :call TAB(2)            " ruby Tabsize
-autocmd FileType vim :call TAB(2)             " vimrc Tabsize
-autocmd FileType html :call TAB(2)            " html Tabsize
-autocmd FileType cs,coffee :call TAB(2)       " coffeescript Tabsize
-autocmd FileType c,h :call TAB(2)             " c Tabsize
-autocmd FileType cpp,hpp,cc,cxx :call TAB(2)  " cpp Tabsize
-autocmd FileType java :call TAB(2)            " java Tabsize
+autocmd FileType * :call TAB(4)                  " default Tabsize
+autocmd FileType ruby :call TAB(2)               " ruby Tabsize
+autocmd FileType vim :call TAB(2)                " vimrc Tabsize
+autocmd FileType html :call TAB(2)               " html Tabsize
+autocmd FileType js,ts,cs,coffee :call TAB(2)    " typescript javascript coffeescript Tabsize
+autocmd FileType c,h :call TAB(2)                " c Tabsize
+autocmd FileType cpp,hpp,cc,cxx :call TAB(2)     " cpp Tabsize
+autocmd FileType java :call TAB(2)               " java Tabsize
 
 " 使用F7切换是否使用空格代替tab(或tab代替空格)
 function! TabToggle()
