@@ -408,6 +408,6 @@ Modify By LittleKey
 
    lint工具
 
-6. #### [Xuyuanp](https://github.com/Xuyuanp/nerdtree-git-plugin)
+6. #### [Xuyuanp/nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 
    在nerdtree上显示git的相关信息
