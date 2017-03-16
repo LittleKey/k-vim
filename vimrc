@@ -584,6 +584,9 @@ nnoremap U <C-r>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" close buffer
+nmap <Leader>bd :bd<CR>
+
 "==========================================
 " FileType Settings  文件类型设置
 "==========================================

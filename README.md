@@ -374,6 +374,7 @@ Modify By LittleKey
     cs<Space> 当前行替换
     ns<Space> 后续所有行替换
     <Leader>r 交互式替换，被选中文本
+    <Leader>bd 关闭当前buffer
 
     H 跳到行首
     L 跳到行尾
