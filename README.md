@@ -375,6 +375,9 @@ Modify By LittleKey
     ns<Space> 后续所有行替换
     <Leader>r 交互式替换，被选中文本
     <Leader>bd 关闭当前buffer
+    <Leader>ss 保存当前session
+    <Leader>os 载入之前保存的session
+    <Leader>ds 删除之前保存的session
 
     H 跳到行首
     L 跳到行尾
@@ -412,3 +415,7 @@ Modify By LittleKey
 6. #### [Xuyuanp/nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 
    在nerdtree上显示git的相关信息
+
+7. ### [xolox/vim-session](https://github.com/xolox/vim-session)
+
+   用于保存vim当前的session，异于`mksession`的是能支持各种plugin

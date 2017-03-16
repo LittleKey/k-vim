@@ -5,3 +5,4 @@ bundle/*
 configs
 myconfig.sh
 *.orig
+sessions/
