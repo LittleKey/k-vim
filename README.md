@@ -379,12 +379,18 @@ Modify By LittleKey
     <Leader>os 载入之前保存的session
     <Leader>ds 删除之前保存的session
 
+    <Leader>q 改为关闭所有窗口(直接退出，用于支持保存session)
+
     H 跳到行首
     L 跳到行尾
 
 ## 插件
 
     使用completor.vim代替YouCompleteMe
+
+    使用vim-session保存session, 打开退出时自动保存session与打开时自动载入session
+    session保存在.vim/sessions目录下，session文件名对应保存时的目录(实现不同目录有各自的session)
+    **note: 每个目录必须使用<Leader>ss或:SaveSession保存一次后才会打开自动保存**
 
     具体分类请参照vimrc.bundles
 

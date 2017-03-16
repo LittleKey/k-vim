@@ -355,10 +355,11 @@ call plug#end()
 " ################### 基础 ######################
 
 " vim-session | vim-misc {{{
-    let g:session_autoload='yes'
     let g:session_lock_enabled=0
+    let g:session_autosave="yes"
+    let g:session_autoload='yes'
     let g:session_default_name=getcwd()
-    let g:session_autosave="no"
+    lef g:session_autosave_to=getcwd()
 
     nnoremap <Leader>ss :SaveSession<CR>
     nnoremap <Leader>os :OpenSession<CR>
