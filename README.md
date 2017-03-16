@@ -386,7 +386,7 @@ Modify By LittleKey
 
 ## 插件
 
-    使用completor.vim代替YouCompleteMe
+    使用completor.vim代替YouCompleteMe, python使用flake8做lint，可以安装hacking增强使用`pip install hacking`
 
     使用vim-session保存session, 打开退出时自动保存session与打开时自动载入session
     session保存在.vim/sessions目录下，session文件名对应保存时的目录(实现不同目录有各自的session)
