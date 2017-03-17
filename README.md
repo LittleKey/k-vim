@@ -378,6 +378,7 @@ Modify By LittleKey
     <Leader>ss 保存当前session
     <Leader>os 载入之前保存的session
     <Leader>ds 删除之前保存的session
+    <Leader>ww 标记/交换 窗口(window/buffer)的位置
 
     <Leader>q 改为关闭所有窗口(直接退出，用于支持保存session)
 
@@ -422,6 +423,10 @@ Modify By LittleKey
 
    在nerdtree上显示git的相关信息
 
-7. ### [xolox/vim-session](https://github.com/xolox/vim-session)
+7. #### [xolox/vim-session](https://github.com/xolox/vim-session)
 
    用于保存vim当前的session，异于`mksession`的是能支持各种plugin
+
+8. #### [wesQ3/vim-windowswap](https://github.com/wesQ3/vim-windowswap)
+
+   用于开了多个window时交换window的位置而不用重新layout

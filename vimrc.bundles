@@ -211,6 +211,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
+" window swap
+Plug 'wesQ3/vim-windowswap'
 
 " text object
 " 支持自定义文本对象
