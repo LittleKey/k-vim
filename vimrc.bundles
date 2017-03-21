@@ -51,7 +51,7 @@ Plug 'maralla/completor.vim'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim'
+Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 
 " 高亮TAG
 Plug 'Valloric/MatchTagAlways'
@@ -243,7 +243,7 @@ endif
 if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
-    " vimgo
+    " vimgo  https://github.com/fatih/vim-go
     Plug 'fatih/vim-go', {'for': 'go'}
 endif
 
@@ -254,9 +254,17 @@ if count(g:bundle_groups, 'python')
     Plug 'hdima/python-syntax'
     Plug 'hynek/vim-python-pep8-indent'
     Plug 'Glench/Vim-Jinja2-Syntax'
+
+    " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
+    " pip install isort
+    Plug 'fisadev/vim-isort'
+    " Shift-V 上下选中, ctrl + i 规范化
+    let g:vim_isort_map = '<C-i>'
 endif
 
 if count(g:bundle_groups, 'php')
+    " piv
+    " shift-v可以查看函数手册 / leader-pd生成注释
     Plug 'spf13/PIV'
 endif
 
@@ -266,7 +274,7 @@ if count(g:bundle_groups, 'ruby')
     " dir / dar
     Plug 'nelstrom/vim-textobj-rubyblock'
 
-    " 有bug, 和当前有冲突, 尚未解决, 不要打开
+    " 有bug, 和当前有冲突, 尚未解决, 不要打开 => TODO: solve this problem
     " Plug 'tpope/vim-endwise'
 endif
 
@@ -279,6 +287,7 @@ if count(g:bundle_groups, 'javascript')
 
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
+
     let g:used_javascript_libs = 'React'
     Plug 'mxw/vim-jsx'
 
@@ -290,6 +299,10 @@ endif
 if count(g:bundle_groups, 'coffeescript')
     Plug 'kchmck/vim-coffee-script'
 endif
+
+" if count(g:bundle_groups, 'shell')
+    " Plug 'Shougo/vimshell.vim'
+" endif
 
 if count(g:bundle_groups, 'json')
     " json
@@ -308,6 +321,7 @@ if count(g:bundle_groups, 'css')
 
     " 这个有坑, see issue https://github.com/wklken/k-vim/issues/49
     " Plug 'gorodinskiy/vim-coloresque'
+    " Plug 'lilydjwg/colorizer'
 endif
 
 if count(g:bundle_groups, 'less')
@@ -456,6 +470,9 @@ call plug#end()
 
     " 禁止插件检查java
     " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
+
+    " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
+    nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
     " 关闭插件检查qml和go ---by littlekey
     let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go'] }
 " }}}
@@ -532,7 +549,7 @@ let g:validator_permament_sign = 1
 
 " nerdcommenter {{{
     let g:NERDSpaceDelims=1
-    "TODO: for python, one space
+    let g:NERDAltDelims_python = 1
 " }}}
 
 " trailingwhitespace {{{
@@ -546,6 +563,9 @@ let g:validator_permament_sign = 1
     let g:easy_align_delimiters = {}
     endif
     let g:easy_align_delimiters['#'] = { 'pattern': '#', 'ignore_groups': ['String'] }
+    " Default:
+    " If a delimiter is in a highlight group whose name matches any of the followings, it will be ignored.
+    let g:easy_align_ignore_groups = ['Comment', 'String']
 " }}}
 
 " ################### 快速移动 ###################
@@ -763,7 +783,7 @@ let g:indentLine_char = '¦'
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
-    map <leader>n :NERDTreeToggle<CR>
+    " map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
     "close vim if the only window left open is a NERDTree
@@ -776,12 +796,12 @@ let g:indentLine_char = '¦'
     " nerdtreetabs
     map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " 关闭同步
-    let g:nerdtree_tabs_synchronize_view=0
-    let g:nerdtree_tabs_synchronize_focus=0
+    " let g:nerdtree_tabs_synchronize_view=0
+    " let g:nerdtree_tabs_synchronize_focus=0
     " 是否自动开启nerdtree
     " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-    let g:nerdtree_tabs_open_on_console_startup=0
-    let g:nerdtree_tabs_open_on_gui_startup=0
+    " let g:nerdtree_tabs_open_on_console_startup=0
+    " let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
 
@@ -866,6 +886,10 @@ let g:indentLine_char = '¦'
     let python_highlight_all = 1
 " }}}
 
+" piv {{{
+    let g:DisableAutoPHPFolding = 1
+" }}}
+
 
 " vimgo {{{
     let g:go_highlight_functions = 1
@@ -875,8 +899,10 @@ let g:indentLine_char = '¦'
     let g:go_highlight_build_constraints = 1
 
     let g:go_fmt_fail_silently = 1
-    " let g:go_fmt_command = "goimports"
-    " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+    " format with goimports instead of gofmt
+    let g:go_fmt_command = "goimports"
+    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java'] }
 " }}}
 
 " markdown {{{

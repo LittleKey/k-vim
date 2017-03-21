@@ -39,7 +39,6 @@ molokai主题
 ![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
 
 ---------------------------------
-
 ---------------------------------
 
 # 安装步骤
@@ -64,6 +63,9 @@ sudo apt-get install silversearcher-ag
 # centos
 sudo yum install python-devel.x86_64
 sudo yum groupinstall 'Development Tools'
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum install the_silver_searcher
+sudo yum install cmake
 
 # mac
 brew install ctags
@@ -120,6 +122,15 @@ sh -x install.sh
 ------------------------
 ------------------------
 
+# 移除安装
+
+```
+cd ~ && rm -rf .vim .vimrc .vimrc.bundles && cd -
+```
+
+---------------------------------
+---------------------------------
+
 # 常见问题
 
 详见 [wiki](https://github.com/wklken/k-vim/wiki) 以及  [issues](https://github.com/wklken/k-vim/issues)
@@ -146,6 +157,7 @@ let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 
 使用 [vim-plug](https://github.com/junegunn/vim-plug) 管理插件
 
 `vim-plug` 常见问题: [vim-plug faq](https://github.com/junegunn/vim-plug/wiki/faq) / [YCM timeout](https://github.com/junegunn/vim-plug/wiki/faq#youcompleteme-timeout)
+／[YCM 国人在国内做的镜像](https://github.com/LooEv/A-bridge-to-YouCompleteMe)
 
 管理插件的命令
 
@@ -323,13 +335,21 @@ thx a lot. 可以给我提pull request:)
 
 2. install.sh 参考`spf13-vim` 的`bootstrap.sh` [spf13-vim](https://github.com/spf13/spf13-vim)
 
-3. 插件挑选 [VimAwesome](http://vimawesome.com/)
+3. 插件管理使用[Vim-plug](https://github.com/junegunn/vim-plug)
+
+4. 自动补全 [YCM](https://github.com/Valloric/YouCompleteMe)
+
+5. 插件挑选 [VimAwesome](http://vimawesome.com/)
 
 ### Resources
 
 [链接](http://www.wklken.me/posts/2014/10/03/vim-resources.html)
 
 ### Donation
+
+如果你认为对你有所帮助, You can Buy me a coffee:)
+
+![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation_w.jpg)
 
 ------------------------
 ------------------------
