@@ -281,6 +281,9 @@ if count(g:bundle_groups, 'javascript')
     Plug 'othree/javascript-libraries-syntax.vim'
     let g:used_javascript_libs = 'React'
     Plug 'mxw/vim-jsx'
+
+    " for tagbar
+    Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git'}
 endif
 
 
