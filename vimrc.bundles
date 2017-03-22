@@ -281,15 +281,15 @@ endif
 if count(g:bundle_groups, 'javascript')
     " javascript
     " 注意: syntax这个插件要放前面
-    " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
-    " Plug 'othree/es.next.syntax.vim'
-    Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
+    Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+    Plug 'othree/es.next.syntax.vim'
+    Plug 'mxw/vim-jsx'
+    " Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
 
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
 
-    let g:used_javascript_libs = 'React'
-    Plug 'mxw/vim-jsx'
+    let g:used_javascript_libs = 'React,Flux'
 
     " for tagbar
     Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git'}
@@ -916,6 +916,7 @@ let g:indentLine_char = '¦'
     let g:html_indent_script1 = "inc"
     let g:html_indent_style1 = "inc"
 
+    let g:javascript_plugin_flow = 1
     let g:jsx_ext_required = 0
 " }}}
 
