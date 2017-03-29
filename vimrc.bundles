@@ -281,10 +281,10 @@ endif
 if count(g:bundle_groups, 'javascript')
     " javascript
     " 注意: syntax这个插件要放前面
-    Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
-    Plug 'othree/es.next.syntax.vim'
+    " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+    " Plug 'othree/es.next.syntax.vim'
+    Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
     Plug 'mxw/vim-jsx'
-    " Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
 
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
