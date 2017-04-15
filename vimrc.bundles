@@ -138,51 +138,21 @@ Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
-" 主题 solarized
-" solarized
-Plug 'altercation/vim-colors-solarized'
 " molokai
 " 主题 molokai
 Plug 'tomasr/molokai'
 " tomorrow
 " 主题 tomorrow
 Plug 'chriskempson/vim-tomorrow-theme'
-" dracula
-" 主题 dracula
-Plug 'dracula/vim'
 " onedark
 " 主题 onedark
 Plug 'joshdick/onedark.vim'
 " monokai
 " 主题 monokai
 Plug 'sickill/vim-monokai'
-" lucario
-" 主题 lucario
-Plug 'raphamorim/lucario'
-" github
-" 主题 github
-Plug 'endel/vim-github-colorscheme'
-" google primary
-" 主题 google primary
-Plug 'google/vim-colorscheme-primary'
-" apprentice
-" 主题 apprentice
-Plug 'romainl/Apprentice'
-" grubbox
-" 主题 grubbox
-Plug 'morhetz/gruvbox'
-" desert.vim
-" 主题 desert
-Plug 'fugalh/desert.vim'
-" vim-colors-pencil
-" 主题 vim-colors-pencil
-Plug 'reedes/vim-colors-pencil'
 " vim-hybird
 " 主题 vim-hybird
 Plug 'w0ng/vim-hybrid'
-" papercolor-theme
-" 主题 papercolor-theme
-Plug 'NLKNguyen/papercolor-theme'
 " jellybeans.vim
 " 主题 jellybeans.vim
 Plug 'nanotech/jellybeans.vim'
@@ -192,15 +162,15 @@ Plug 'zeis/vim-kolor'
 " vim-lucius
 " 主题 vim-lucius
 Plug 'jonathanfilip/vim-lucius'
-" seoul256.vim
-" 主题 seoul256.vim
-Plug 'junegunn/seoul256.vim'
 " iceberg.vim
 " 主题 iceberg.vim
 Plug 'cocopon/iceberg.vim'
 " tender.vim
 " 主题 tender.vim
 Plug 'jacoborus/tender.vim'
+" gruvbox
+" 主题 gruvbox
+Plug 'morhetz/gruvbox'
 
 " nav
 " nerdtree nerdtreetabs
@@ -719,8 +689,6 @@ map ns<Space> :.,$s/
     let g:airline#extensions#tabline#enabled = 1
 " }}}
 
-
-
 " rainbow_parentheses {{{
     " 不加入这行, 防止黑色括号出现, 很难识别
     " \ ['black',       'SeaGreen3'],
@@ -748,6 +716,7 @@ map ns<Space> :.,$s/
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
+" }}}
 
 " 代码排版缩进标识
 Plug 'Yggdroot/indentLine'

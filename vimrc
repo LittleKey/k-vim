@@ -715,20 +715,14 @@ set t_Co=256
 " colorscheme Tomorrow-Night
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme Tomorrow-Night-Bright
-" colorscheme Tomorrow
 " colorscheme monokai
-" colorscheme lucario
-" colorscheme github
-" colorscheme apprentice
 " colorscheme hybrid
-" colorscheme pencil
-" colorscheme papercolor
 " colorscheme jellybeans
 " colorscheme kolor
 " colorscheme lucius
-" colorscheme seoul256
 " colorscheme iceberg
-colorscheme tender
+" colorscheme tender
+colorscheme gruvbox
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
