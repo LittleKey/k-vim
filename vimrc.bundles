@@ -658,9 +658,9 @@ let g:validator_permament_sign = 1
     " :Gdiff  :Gstatus :Gvsplit
     nnoremap <leader>ge :Gdiff<CR>
     " not ready to open
-    " <leader>gb maps to :Gblame<CR>
+    nnoremap <leader>gb :Gblame<CR>
     " <leader>gs maps to :Gstatus<CR>
-    " <leader>gd maps to :Gdiff<CR>  和现有冲突
+    nnoremap <leader>gd :Gdiff<CR>
     " <leader>gl maps to :Glog<CR>
     " <leader>gc maps to :Gcommit<CR>
     " <leader>gp maps to :Git push<CR>
