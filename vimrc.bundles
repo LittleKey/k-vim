@@ -110,6 +110,8 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 " T - Lkie t but focus CtrlSF window instead of opened new tab.
 " q - Quit CtrlSF window.
 Plug 'dyng/ctrlsf.vim'
+" vim-grepper
+Plug 'mhinz/vim-grepper'
 " incsearch
 " Plug 'haya14busa/incsearch.vim'
 " map /  <Plug>(incsearch-forward)
@@ -606,12 +608,12 @@ let g:validator_permament_sign = 1
     let g:ctrlp_mruf_max=500
     let g:ctrlp_follow_symlinks=1
     " 如果安装了ag, 使用ag
-    " if executable('ag')
-    " " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    " " ag is fast enough that CtrlP doesn't need to cache
-    " let g:ctrlp_use_caching = 0
-    " endif
+    if executable('ag')
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+    endif
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
@@ -645,6 +647,11 @@ let g:validator_permament_sign = 1
         \ }
 " }}}
 
+
+" vim-grepper {{{
+    nnoremap <leader>g :Grepper<CR>
+" }}}
+
 " git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
 
 " fugitive {{{
@@ -669,6 +676,8 @@ let g:validator_permament_sign = 1
 " }}}
 
 " gundo {{{
+    " support python3
+    let g:gundo_prefer_python3 = 1
     noremap <leader>h :GundoToggle<CR>
 " }}}
 
