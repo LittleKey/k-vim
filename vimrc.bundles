@@ -274,8 +274,8 @@ endif
 
 if count(g:bundle_groups, 'shell')
     " Plug 'Shougo/vimshell.vim'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    map <C-r> :FZF<cr>
+    " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    " map <C-r> :FZF<cr>
 endif
 
 if count(g:bundle_groups, 'json')
