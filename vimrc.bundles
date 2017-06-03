@@ -256,7 +256,7 @@ if count(g:bundle_groups, 'javascript')
     " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
     " Plug 'othree/es.next.syntax.vim'
     Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
-    Plug 'mxw/vim-jsx'
+    " Plug 'mxw/vim-jsx' FIXME 如果打开validator.vim不能正常检查javascript
 
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
@@ -349,6 +349,9 @@ call plug#end()
 
 " ################### 基础 ######################
 
+" falke8 ignore args
+let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max-line-length=79'
+
 " vim-session | vim-misc {{{
     let g:session_lock_enabled=0
     let g:session_autosave="yes"
@@ -367,8 +370,8 @@ call plug#end()
 
     let g:syntastic_error_symbol='>>'
     let g:syntastic_warning_symbol='>'
-    let g:syntastic_check_on_open=1
-    let g:syntastic_check_on_wq=1
+    let g:syntastic_check_on_open=0
+    let g:syntastic_check_on_wq=0
     let g:syntastic_enable_highlighting=1
 
     " checkers
@@ -381,7 +384,7 @@ call plug#end()
     " let g:syntastic_python_pep8_args='--ignore=E501,E225'
     " dependence: flake8 `pip install flake8`
     let g:syntastic_python_checkers=['flake8'] " around pyflakes and pep8
-    let g:syntastic_python_flake8_args='--ignore=E225,W503,H405,H306,H301,H201,H404 --max-line-length=79'
+    let g:syntastic_python_flake8_args=flake8_ignore_args
     " 重量级, 但是足够强大, 定制完成后相当个性化
     " pylint codes: http://pylint-messages.wikidot.com/all-codes
     " let g:syntastic_python_checkers=['pyflakes', 'pylint'] " 使用pyflakes,速度比pylint快
@@ -400,8 +403,6 @@ call plug#end()
     let g:syntastic_auto_loc_list = 0
     let g:syntastic_auto_jump = 0
     let g:syntastic_loc_list_height = 5
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
 
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -448,17 +449,27 @@ call plug#end()
     " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
     " 关闭插件检查qml和go ---by littlekey
-    let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go'] }
+    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript'] }
 " }}}
 
 " validator.vim {{{
 " checker
-let g:validator_python_checker = ['flake8']
-let g:validator_python_flake8_args='--ignore=E225,W503,H405,H306,H301,H201,H404 --max-line-length=79'
+" let g:validator_error_symbol = '>>'
+" let g:validator_warning_symbol = '>'
+" let g:validator_auto_open_quickfix = 1
+function! AirlineInit()
+  let g:validator_error_msg_format = "[ ● %d/%d issues ]"
+  call airline#parts#define_function('validator', 'validator#get_status_string')
+  let g:airline_section_error = airline#section#create(['validator', 'syntastic'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
-" let g:validator_javascript_checker = ['eslint']
+let g:validator_python_checkers = ['flake8']
+let g:validator_python_flake8_args = flake8_ignore_args
 
-let g:validator_sh_checker = ['shellcheck']
+let g:validator_javascript_checkers = ['eslint']
+
+let g:validator_sh_checkers = ['shellcheck']
 
 " let g:validator_c_checker = ['clang-tidy']
 
@@ -878,7 +889,6 @@ let g:indentLine_char = '¦'
     " format with goimports instead of gofmt
     let g:go_fmt_command = "goimports"
     let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'java'] }
 " }}}
 
 " markdown {{{
