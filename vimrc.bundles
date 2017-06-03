@@ -256,7 +256,10 @@ if count(g:bundle_groups, 'javascript')
     " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
     " Plug 'othree/es.next.syntax.vim'
     Plug 'jelera/vim-javascript-syntax' | Plug 'pangloss/vim-javascript'
-    " Plug 'mxw/vim-jsx' FIXME 如果打开validator.vim不能正常检查javascript
+    Plug 'maxmellon/vim-jsx-pretty'
+    Plug 'chemzqm/vim-jsx-improve'
+    let g:vim_jsx_pretty_colorful_config = 1
+    " Plug 'mxw/vim-jsx' " FIXME 如果打开validator.vim不能正常检查javascript
 
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim'
