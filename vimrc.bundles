@@ -6,7 +6,7 @@
 
 " ################### 包依赖 #####################
 " package dependence:  ctags, ag(he_silver_searcher)
-" python dependence:   pep8, pyflake
+" python dependence:   flake8
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible
@@ -60,7 +60,7 @@ Plug 'maralla/completor.vim'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript'] }
+Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
 " 高亮TAG
 Plug 'Valloric/MatchTagAlways'
@@ -453,7 +453,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
     " 关闭插件检查qml和go ---by littlekey
-    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript'] }
+    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript', 'jsx'] }
 " }}}
 
 " validator.vim {{{
