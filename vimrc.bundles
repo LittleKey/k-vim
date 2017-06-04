@@ -16,8 +16,8 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less', 'php', 'coffeescript']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'shell']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
+    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'shell', 'java']
 endif
 
 " ----------------------------------------------------------------------------
@@ -32,6 +32,15 @@ call plug#begin('~/.vim/bundle')
 " vim-session
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
+
+" indent
+Plug 'Yggdroot/indentLine'
+let g:indentLine_noConcealCursor = 1
+let g:indentLine_color_term = 239
+let g:indentLine_char = '┆'
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
+let g:indentLine_enabled = 1
 
 " syntastic
 Plug 'scrooloose/syntastic'
@@ -234,12 +243,6 @@ if count(g:bundle_groups, 'python')
     let g:vim_isort_map = '<C-i>'
 endif
 
-if count(g:bundle_groups, 'php')
-    " piv
-    " shift-v可以查看函数手册 / leader-pd生成注释
-    Plug 'spf13/PIV'
-endif
-
 if count(g:bundle_groups, 'ruby')
     Plug 'vim-ruby/vim-ruby'
     Plug 'tpope/vim-rails'
@@ -268,11 +271,6 @@ if count(g:bundle_groups, 'javascript')
 
     " for tagbar
     Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git'}
-endif
-
-
-if count(g:bundle_groups, 'coffeescript')
-    Plug 'kchmck/vim-coffee-script'
 endif
 
 if count(g:bundle_groups, 'shell')
@@ -330,19 +328,22 @@ if count(g:bundle_groups, 'java')
   nmap <F1> <Plug>(JavaComplete-Imports-RemoveUnused)
   imap <F1> <Plug>(JavaComplete-Imports-AddMissing)
 
+  let g:JavaComplete_ImportOrder = ['java.', 'javax.', 'com.', 'org.', 'net.']
+  let g:JavaComplete_RegularClasses = ['java.lang.String', 'java.lang.Object', 'java.util.List']
+
+  let g:completor_java_omni_trigger = '\.'
 endif
 
 " this is just for beta version
 if count(g:bundle_groups, 'beta')
-    " indent
-    Plug 'nathanaelkane/vim-indent-guides'
-    " <leader>ig to trigger
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_guide_size = 1
-    let g:indent_guides_auto_colors = 0
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
-
+  " indent
+  Plug 'nathanaelkane/vim-indent-guides'
+  " <leader>ig to trigger
+  let g:indent_guides_start_level = 2
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_auto_colors = 0
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 endif
 
 
@@ -360,7 +361,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:session_autosave="yes"
     let g:session_autoload='yes'
     let g:session_default_name=getcwd()
-    lef g:session_autosave_to=getcwd()
+    let g:session_autosave_to=getcwd()
 
     nnoremap <Leader>ss :SaveSession<CR>
     nnoremap <Leader>os :OpenSession<CR>
@@ -752,18 +753,6 @@ map ns<Space> :.,$s/
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 " }}}
-
-" 代码排版缩进标识
-Plug 'Yggdroot/indentLine'
-let g:indentLine_noConcealCursor = 1
-let g:indentLine_color_term = 0
-let g:indentLine_char = '¦'
-
-" 代码排版缩进标识
-Plug 'Yggdroot/indentLine'
-let g:indentLine_noConcealCursor = 1
-let g:indentLine_color_term = 0
-let g:indentLine_char = '¦'
 
 " ################### 显示增强-主题 ###################"
 
