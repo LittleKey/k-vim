@@ -51,7 +51,7 @@ Plug 'maralla/completor.vim'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
+Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript'] }
 
 " 高亮TAG
 Plug 'Valloric/MatchTagAlways'
@@ -487,6 +487,16 @@ let g:validator_permament_sign = 1
     let g:comletor_auto_trigger = 1
 " }}}
 
+" MatchTagAlways {{{
+let g:mta_use_matchparen_group = 1
+let g:mta_filetypes = {
+  \ 'html': 1,
+  \ 'javascript': 1,
+  \ 'jsx': 1,
+  \ 'xml': 1,
+  \ 'jinja': 1,
+  \}
+" }}}
 
 " ultisnips {{{
     let g:UltiSnipsExpandTrigger       = "<tab>"
