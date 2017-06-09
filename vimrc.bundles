@@ -265,19 +265,19 @@ if count(g:bundle_groups, 'javascript')
     " 注意: syntax这个插件要放前面
     " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
     " Plug 'othree/es.next.syntax.vim'
-    Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'} | Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    Plug 'maxmellon/vim-jsx-pretty', {'for': 'javascript'}
-    Plug 'chemzqm/vim-jsx-improve', {'for': 'javascript'} " FIXME 会导致js缩进出问题
+    Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
+    Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
+    Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
     let g:vim_jsx_pretty_colorful_config = 1
     " Plug 'mxw/vim-jsx' " FIXME 如果打开，validator.vim不能正常检查javascript
 
     " TODO: jquery? for, remove or keep
-    Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
+    Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
 
     let g:used_javascript_libs = 'React,Flux'
 
     " for tagbar
-    Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': 'javascrip'}
+    Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
 endif
 
 if count(g:bundle_groups, 'shell')
