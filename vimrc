@@ -233,7 +233,7 @@ autocmd FileType ruby :call TAB(2)                     " ruby Tabsize
 autocmd FileType vim :call TAB(2)                      " vimrc Tabsize
 autocmd FileType html :call TAB(2)                     " html Tabsize
 autocmd FileType javascript,typescript :call TAB(2)    " typescript javascript Tabsize
-autocmd FileType js,ts,cs,coffee :call TAB(2)          " typescript javascript coffeescript Tabsize
+autocmd FileType js,ts,cs,coffee,jsx :call TAB(2)      " typescript javascript coffeescript Tabsize
 autocmd FileType c,h :call TAB(2)                      " c Tabsize
 autocmd FileType cpp,hpp,cc,cxx :call TAB(2)           " cpp Tabsize
 autocmd FileType java :call TAB(2)                     " java Tabsize
@@ -436,6 +436,8 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <Leader>z :ZoomToggle<CR>
+nnoremap <silent> <Leader>` :ZoomToggle<CR>
+nnoremap <silent> <Leader><Esc> :ZoomToggle<CR>
 
 
 " Go to home and end using capitalized directions
@@ -575,7 +577,7 @@ nnoremap <C-y> 2<C-y>
 nnoremap <leader>q :qa<CR>
 
 " Quickly save the current file
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :wa<CR>
 
 " 交换 ' `, 使得可以快速使用'跳到marked位置
 nnoremap ' `
@@ -721,9 +723,10 @@ set t_Co=256
 " colorscheme kolor
 " colorscheme lucius
 " colorscheme iceberg
-" colorscheme tender
-colorscheme gruvbox
-
+colorscheme tender
+" colorscheme gruvbox
+" colorscheme Apprentice
+" colorscheme space-vim-dark
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
