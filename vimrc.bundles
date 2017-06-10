@@ -644,8 +644,8 @@ let g:mta_filetypes = {
     let g:ctrlp_cmd = 'CtrlP'
     map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn|rvm|node_modules)$',
-        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc|bundle.js)$',
+        \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
+        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc|bundle.js|jar|aac|png|ttf|otf|jpg|jpeg)$',
         \ }
     let g:ctrlp_working_path_mode=0
     let g:ctrlp_match_window_bottom=1
