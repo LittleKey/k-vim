@@ -2,7 +2,7 @@
 
 # refer  spf13-vim bootstrap.sh`
 BASEDIR=$(dirname $0)
-cd $BASEDIR
+cd $BASEDIR || exit
 CURRENT_DIR=`pwd`
 
 # parse arguments
