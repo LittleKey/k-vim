@@ -28,19 +28,6 @@ k-vim
 
 ---------------------------------
 
-# 截图
-
-solarized主题
-
-![solarized](https://github.com/wklken/gallery/blob/master/vim/solarized.png?raw=true)
-
-molokai主题
-
-![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
-
----------------------------------
----------------------------------
-
 # 安装步骤
 
 ### 1. clone 到本地
@@ -104,8 +91,7 @@ npm install eslint -g
 
 ```
 # mac
-brew install shellcheck
-cd bundle/maralla/completor.vim && make js && cd -
+brew install shellcheck  # for completor.vim
 ```
 
 ### 3. 安装
@@ -211,7 +197,7 @@ F5 set paste/nopaste,粘贴模式paste_mode开关,用于有格式的代码粘贴
 F6 syntax on/off,语法开关，关闭语法可以加快大文件的展示
 
 F9 tagbar
-F10 运行当前文件(quickrun)
+~~F10 运行当前文件(quickrun)~~
 
 5. 分屏移动
 
@@ -345,26 +331,6 @@ thx a lot. 可以给我提pull request:)
 
 [链接](http://www.wklken.me/posts/2014/10/03/vim-resources.html)
 
-### Donation
-
-如果你认为对你有所帮助, You can Buy me a coffee:)
-
-![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation_w.jpg)
-
-------------------------
-------------------------
-
-The End!
-
-wklken (凌岳/pythoner/vim党预备党员)
-
-Email: wklken@yeah.net
-
-Github: https://github.com/wklken
-
-Blog: [http://www.wklken.me](http://www.wklken.me)
-
-2013-06-11 于深圳
 
 ------------------------
 ------------------------
