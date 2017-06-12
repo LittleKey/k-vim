@@ -54,12 +54,12 @@ Plug 'littlekey/validator.vim'
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
 " 代码自动补全
 " completor for vim8
-Plug 'maralla/completor.vim'
+Plug 'maralla/completor.vim', {'do': 'make js'}
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -521,34 +521,34 @@ let g:mta_filetypes = {
 " }}}
 
 " ultisnips {{{
-    let g:UltiSnipsExpandTrigger       = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-    let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+    " let g:UltiSnipsExpandTrigger       = "<tab>"
+    " let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+    " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    " let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
+    " let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
     " 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
     " 进入对应filetype的snippets进行编辑
-    map <leader>us :UltiSnipsEdit<CR>
+    " map <leader>us :UltiSnipsEdit<CR>
 
     " ctrl+j/k 进行选择
-    func! g:JInYCM()
-        if pumvisible()
-            return "\<C-n>"
-        else
-            return "\<c-j>"
-        endif
-    endfunction
+    " func! g:JInYCM()
+        " if pumvisible()
+            " return "\<C-n>"
+        " else
+            " return "\<c-j>"
+        " endif
+    " endfunction
 
-    func! g:KInYCM()
-        if pumvisible()
-            return "\<C-p>"
-        else
-            return "\<c-k>"
-        endif
-    endfunction
-    inoremap <c-j> <c-r>=g:JInYCM()<cr>
-    au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
-    let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
+    " func! g:KInYCM()
+        " if pumvisible()
+            " return "\<C-p>"
+        " else
+            " return "\<c-k>"
+        " endif
+    " endfunction
+    " inoremap <c-j> <c-r>=g:JInYCM()<cr>
+    " au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
+    " let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " }}}
 
 
@@ -645,7 +645,7 @@ let g:mta_filetypes = {
     map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
-        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc|bundle.js|jar|aac|png|ttf|otf|jpg|jpeg)$',
+        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc|bundle.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle)$',
         \ }
     let g:ctrlp_working_path_mode=0
     let g:ctrlp_match_window_bottom=1
@@ -789,7 +789,7 @@ map ns<Space> :.,$s/
 " nerdtree nerdtreetabs {{{
     " map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
-    let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+    let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/' ]
     "close vim if the only window left open is a NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
     " s/v 分屏打开文件
