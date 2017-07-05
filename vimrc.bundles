@@ -799,7 +799,7 @@ map ns<Space> :.,$s/
 
     " nerdtreetabs
     map <Leader>n <plug>NERDTreeTabsToggle<CR>
-    " 关闭同步
+    " 打开tab同步
     let g:nerdtree_tabs_synchronize_view=1
     let g:nerdtree_tabs_synchronize_focus=1
     " 是否自动开启nerdtree
