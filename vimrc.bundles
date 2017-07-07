@@ -344,13 +344,13 @@ endif
 " this is just for beta version
 if count(g:bundle_groups, 'beta')
   " indent
-  Plug 'nathanaelkane/vim-indent-guides'
+  " Plug 'nathanaelkane/vim-indent-guides'
   " <leader>ig to trigger
-  let g:indent_guides_start_level = 2
-  let g:indent_guides_guide_size = 1
-  let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+  " let g:indent_guides_start_level = 2
+  " let g:indent_guides_guide_size = 1
+  " let g:indent_guides_auto_colors = 0
+  " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
+  " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
 endif
 
 
@@ -475,10 +475,12 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " checker
 " let g:validator_error_symbol = '>>'
 " let g:validator_warning_symbol = '>'
+" let g:validator_style_error_symbol = '>>'
+" let g:validator_style_warning_symbol = '>'
 " let g:validator_auto_open_quickfix = 1
 function! AirlineInit()
-  let g:validator_error_msg_format = "[● %d/%d issues]"
-  let g:validator_warning_msg_format = "[● %d/%d issues]"
+  let g:validator_error_msg_format = "[● %d/%d errors]"
+  let g:validator_warning_msg_format = "[● %d/%d warnings]"
   call airline#parts#define_function('validator', 'validator#get_status_string')
   let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
 endfunction

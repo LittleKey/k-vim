@@ -551,12 +551,6 @@ vnoremap <leader>y "+y
 " vnoremap <silent> p p`]
 " nnoremap <silent> p p`]
 
-" select all
-map <Leader>sa ggVG
-
-" select block
-nnoremap <leader>v V`}
-
 " w!! to sudo & write a file
 cmap w!! w !sudo tee >/dev/null %
 
@@ -582,9 +576,6 @@ nnoremap <leader>w :wa<CR>
 " 交换 ' `, 使得可以快速使用'跳到marked位置
 nnoremap ' `
 nnoremap ` '
-
-" remap U to <C-r> for easier redo
-nnoremap U <C-r>
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
