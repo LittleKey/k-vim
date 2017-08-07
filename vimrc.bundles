@@ -387,14 +387,14 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " dependence
     " 1. shellcheck `brew install shellcheck` https://github.com/koalaman/shellcheck
 
-    let g:syntastic_error_symbol='>>'
-    let g:syntastic_warning_symbol='>'
-    let g:syntastic_check_on_open=0
-    let g:syntastic_check_on_wq=0
-    let g:syntastic_enable_highlighting=1
+    " let g:syntastic_error_symbol='>>'
+    " let g:syntastic_warning_symbol='>'
+    " let g:syntastic_check_on_open=0
+    " let g:syntastic_check_on_wq=0
+    " let g:syntastic_enable_highlighting=1
 
     " checkers
-    let g:syntastic_shell_checkers=['shellcheck']
+    " let g:syntastic_shell_checkers=['shellcheck']
     " 最轻量
     " let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes
     " 中等
@@ -417,58 +417,58 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " let g:syntastic_html_checkers=['tidy', 'jshint']
 
     " to see error location list
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_enable_signs = 1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_auto_jump = 0
-    let g:syntastic_loc_list_height = 5
+    " let g:syntastic_always_populate_loc_list = 1
+    " let g:syntastic_enable_signs = 1
+    " let g:syntastic_auto_loc_list = 0
+    " let g:syntastic_auto_jump = 0
+    " let g:syntastic_loc_list_height = 5
 
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+    " set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    " set statusline+=%*
 
-    function! ToggleErrors()
-        let old_last_winnr = winnr('$')
-        lclose
-        if old_last_winnr == winnr('$')
+    " function! ToggleErrors()
+        " let old_last_winnr = winnr('$')
+        " lclose
+        " if old_last_winnr == winnr('$')
             " Nothing was closed, open syntastic_error location panel
-            Errors
-        endif
-    endfunction
-    nnoremap <Leader>s :call ToggleErrors()<cr>
+            " Errors
+        " endif
+    " endfunction
+    " nnoremap <Leader>s :call ToggleErrors()<cr>
 
     " ,en ,ep to jump between errors
-    function! <SID>LocationPrevious()
-    try
-        lprev
-    catch /^Vim\%((\a\+)\)\=:E553/
-        llast
-    endtry
-    endfunction
+    " function! <SID>LocationPrevious()
+    " try
+        " lprev
+    " catch /^Vim\%((\a\+)\)\=:E553/
+        " llast
+    " endtry
+    " endfunction
 
-    function! <SID>LocationNext()
-    try
-        lnext
-    catch /^Vim\%((\a\+)\)\=:E553/
-        lfirst
-    endtry
-    endfunction
+    " function! <SID>LocationNext()
+    " try
+        " lnext
+    " catch /^Vim\%((\a\+)\)\=:E553/
+        " lfirst
+    " endtry
+    " endfunction
 
-    nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-    nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-    nmap <silent> <Leader>ep    <Plug>LocationPrevious
-    nmap <silent> <Leader>en    <Plug>LocationNext
+    " nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
+    " nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
+    " nmap <silent> <Leader>ep    <Plug>LocationPrevious
+    " nmap <silent> <Leader>en    <Plug>LocationNext
 
     " 修改高亮的背景色, 适应主题
-    highlight SyntasticErrorSign guifg=white guibg=black
+    " highlight SyntasticErrorSign guifg=white guibg=black
 
     " 禁止插件检查java
     " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
 
     " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
-    nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
+    " nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
     " 关闭插件检查qml和go ---by littlekey
-    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript', 'jsx'] }
+    " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript', 'jsx'] }
 " }}}
 
 " validator.vim {{{
