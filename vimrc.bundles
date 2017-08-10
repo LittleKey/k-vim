@@ -204,12 +204,15 @@ Plug 'wesQ3/vim-windowswap'
 " text object
 " 支持自定义文本对象
 Plug 'kana/vim-textobj-user'
-" 增加行文本对象: l   dal yal cil
-Plug 'kana/vim-textobj-line'
+" 增加行文本对象: l   dal yal cil # FIXME line的大概没什么用
+" Plug 'kana/vim-textobj-line'
 " 增加文件文本对象: e   dae yae cie
 " Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
-Plug 'kana/vim-textobj-indent'
+" Plug 'kana/vim-textobj-indent'
+" Plug 'kana/vim-textobj-underscore'
+" 选择一个函数
+Plug 'bps/vim-textobj-python'
 
 if count(g:bundle_groups, 'tmux')
     " tmux
@@ -557,7 +560,6 @@ let g:mta_filetypes = {
 " delimitMate {{{
     " for python docstring ",优化输入
     au FileType python let b:delimitMate_nesting_quotes = ['"']
-    au FileType php let delimitMate_matchpairs = "(:),[:],{:}"
     " 关闭某些类型文件的自动补全
     "au FileType mail let b:delimitMate_autoclose = 0
 " }}}
@@ -700,18 +702,11 @@ let g:mta_filetypes = {
     nnoremap <leader>g :Grepper<CR>
 " }}}
 
-" git.  git操作还是习惯命令行,vim里面处理简单diff编辑操作
-
 " fugitive {{{
     " :Gdiff  :Gstatus :Gvsplit
-    nnoremap <leader>ge :Gdiff<CR>
-    " not ready to open
     nnoremap <leader>gb :Gblame<CR>
     " <leader>gs maps to :Gstatus<CR>
     nnoremap <leader>gd :Gdiff<CR>
-    " <leader>gl maps to :Glog<CR>
-    " <leader>gc maps to :Gcommit<CR>
-    " <leader>gp maps to :Git push<CR>
 " }}}
 
 " gitgutter {{{
@@ -876,26 +871,21 @@ map ns<Space> :.,$s/
 " ################### 语言相关 ###################
 
 " quickrun {{{
-    let g:quickrun_config = {
-    \   "_" : {
-    \       "outputter" : "message",
-    \   },
-    \}
+    " let g:quickrun_config = {
+    " \   "_" : {
+    " \       "outputter" : "message",
+    " \   },
+    " \}
 
-    let g:quickrun_no_default_key_mappings = 1
-    nmap <Leader>r <Plug>(quickrun)
-    map <F10> :QuickRun<CR>
+    " let g:quickrun_no_default_key_mappings = 1
+    " nmap <Leader>r <Plug>(quickrun)
+    " map <F10> :QuickRun<CR>
 " }}}
 
 
 " pythonsyntax {{{
     let python_highlight_all = 1
 " }}}
-
-" piv {{{
-    let g:DisableAutoPHPFolding = 1
-" }}}
-
 
 " vimgo {{{
     let g:go_highlight_functions = 1
