@@ -214,6 +214,11 @@ Plug 'kana/vim-textobj-user'
 " 选择一个函数
 Plug 'bps/vim-textobj-python'
 
+" wakatime
+Plug 'wakatime/vim-wakatime'
+" let g:wakatime_ScreenRedraw = 0 " disable redraw screen after sending heartbeats
+
+
 if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
