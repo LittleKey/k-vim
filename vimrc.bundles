@@ -516,7 +516,9 @@ let g:validator_permament_sign = 1
 
 " completor.vim {{{
     " 直接触发自动补全 insert模式下
-    let g:comletor_auto_trigger = 1
+    let g:completor_auto_trigger = 1
+    " 临时给completor添加的跳转到定义功能
+    nnoremap gd :CompletorGoto<CR>
 " }}}
 
 " MatchTagAlways {{{
@@ -614,10 +616,10 @@ let g:mta_filetypes = {
 " quickscope {{{
     let g:qs_highlight_on_keys = ['f', 'F']
     " macvim/gvim会有问题, 暂时注解
-    " let g:qs_first_occurrence_highlight_uolor = '#afff5f' " gui vim
-    " let g:qs_first_occurrence_highlight_color = 155       " terminal vim
+    " let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
+    let g:qs_first_occurrence_highlight_color = 155       " terminal vim
     " let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
-    " let g:qs_second_occurrence_highlight_color = 81         " terminal vim
+    let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 " }}}
 
 " ################### 快速选中 ###################
@@ -654,7 +656,7 @@ let g:mta_filetypes = {
     map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
-        \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc|bundle.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle)$',
+        \ 'file': '\v\.(exe|so|dll|zip|tar|tar\.gz|pyc|bundle\.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle|bundle)$',
         \ }
     let g:ctrlp_working_path_mode=0
     let g:ctrlp_match_window_bottom=1
@@ -683,10 +685,15 @@ let g:mta_filetypes = {
 
 " ctrlsf {{{
     nmap \ <Plug>CtrlSFCwordPath<CR>
-    " let g:ctrlsf_position = 'below'
+    " let g:ctrlsf_position = 'bottom'
     " let g:ctrlsf_winsize = '30%'
     let g:ctrlsf_auto_close = 0
     let g:ctrlsf_confirm_save = 0
+    let g:ctrlsf_default_vim_mode = 'compact'
+    let g:ctrlsf_ignore_dir = ['node_modules', '__mocks__', 'target', 'dist', 'build', '__pycache__', '.git', 'assets']
+    let g:ctrlsf_extra_backend_args = {
+          \ 'ag': '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc"'
+          \ }
     " Note: cannot use <CR> or <C-m> for open
     " Use : <sapce> or <tab>
     let g:ctrlsf_mapping = {
