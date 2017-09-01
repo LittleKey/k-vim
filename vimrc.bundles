@@ -197,7 +197,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'for': ['python', 'go'] }
 " window swap
 Plug 'wesQ3/vim-windowswap'
 
@@ -212,7 +212,7 @@ Plug 'kana/vim-textobj-user'
 " Plug 'kana/vim-textobj-indent'
 " Plug 'kana/vim-textobj-underscore'
 " 选择一个函数
-Plug 'bps/vim-textobj-python'
+Plug 'bps/vim-textobj-python', { 'for': 'python' }
 
 " wakatime
 Plug 'wakatime/vim-wakatime'
@@ -285,7 +285,7 @@ if count(g:bundle_groups, 'javascript')
     let g:used_javascript_libs = 'React,Flux'
 
     " for tagbar
-    Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
+    " Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
 endif
 
 if count(g:bundle_groups, 'shell')
@@ -391,124 +391,36 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     nnoremap <Leader>ds :DeleteSession<CR>
 " }}}
 
-" syntastic {{{
-    " dependence
-    " 1. shellcheck `brew install shellcheck` https://github.com/koalaman/shellcheck
-
-    " let g:syntastic_error_symbol='>>'
-    " let g:syntastic_warning_symbol='>'
-    " let g:syntastic_check_on_open=0
-    " let g:syntastic_check_on_wq=0
-    " let g:syntastic_enable_highlighting=1
-
-    " checkers
-    " let g:syntastic_shell_checkers=['shellcheck']
-    " 最轻量
-    " let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes
-    " 中等
-    " error code: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
-    " let g:syntastic_python_checkers=['pyflakes', 'pep8'] " 使用pyflakes,速度比pylint快
-    " let g:syntastic_python_pep8_args='--ignore=E501,E225'
-    " dependence: flake8 `pip install flake8`
-    " let g:syntastic_python_checkers=['flake8'] " around pyflakes and pep8
-    " let g:syntastic_python_flake8_args=flake8_ignore_args
-    " 重量级, 但是足够强大, 定制完成后相当个性化
-    " pylint codes: http://pylint-messages.wikidot.com/all-codes
-    " let g:syntastic_python_checkers=['pyflakes', 'pylint'] " 使用pyflakes,速度比pylint快
-    " let g:syntastic_python_checkers=['pylint'] " 使用pyflakes,速度比pylint快
-    " let g:syntastic_python_pylint_args='--disable=C0111,R0903,C0301'
-
-    " if js
-    " let g:syntastic_javascript_checkers = ['eslint']
-    " let g:syntastic_javascript_jshint_args='--config ${HOME}/.vim/others/.jshintrc'
-    " let g:syntastic_javascript_jscs_args='--config ${HOME}/.vim/others/.jscsrc'
-    " let g:syntastic_html_checkers=['tidy', 'jshint']
-
-    " to see error location list
-    " let g:syntastic_always_populate_loc_list = 1
-    " let g:syntastic_enable_signs = 1
-    " let g:syntastic_auto_loc_list = 0
-    " let g:syntastic_auto_jump = 0
-    " let g:syntastic_loc_list_height = 5
-
-    " set statusline+=%#warningmsg#
-    " set statusline+=%{SyntasticStatuslineFlag()}
-    " set statusline+=%*
-
-    " function! ToggleErrors()
-        " let old_last_winnr = winnr('$')
-        " lclose
-        " if old_last_winnr == winnr('$')
-            " Nothing was closed, open syntastic_error location panel
-            " Errors
-        " endif
-    " endfunction
-    " nnoremap <Leader>s :call ToggleErrors()<cr>
-
-    " ,en ,ep to jump between errors
-    " function! <SID>LocationPrevious()
-    " try
-        " lprev
-    " catch /^Vim\%((\a\+)\)\=:E553/
-        " llast
-    " endtry
-    " endfunction
-
-    " function! <SID>LocationNext()
-    " try
-        " lnext
-    " catch /^Vim\%((\a\+)\)\=:E553/
-        " lfirst
-    " endtry
-    " endfunction
-
-    " nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-    " nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-    " nmap <silent> <Leader>ep    <Plug>LocationPrevious
-    " nmap <silent> <Leader>en    <Plug>LocationNext
-
-    " 修改高亮的背景色, 适应主题
-    " highlight SyntasticErrorSign guifg=white guibg=black
-
-    " 禁止插件检查java
-    " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
-
-    " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
-    " nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
-    " 关闭插件检查qml和go ---by littlekey
-    " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java', 'qml', 'go', 'javascript', 'jsx'] }
-" }}}
-
 " validator.vim {{{
-" checker
-" let g:validator_error_symbol = '>>'
-" let g:validator_warning_symbol = '>'
-" let g:validator_style_error_symbol = '>>'
-" let g:validator_style_warning_symbol = '>'
-" let g:validator_auto_open_quickfix = 1
-function! AirlineInit()
-  let g:validator_error_msg_format = "[● %d/%d errors]"
-  let g:validator_warning_msg_format = "[● %d/%d warnings]"
-  call airline#parts#define_function('validator', 'validator#get_status_string')
-  let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
+    " checker
+    " let g:validator_error_symbol = '>>'
+    " let g:validator_warning_symbol = '>'
+    " let g:validator_style_error_symbol = '>>'
+    " let g:validator_style_warning_symbol = '>'
+    " let g:validator_auto_open_quickfix = 1
+    function! AirlineInit()
+      let g:validator_error_msg_format = "[● %d/%d errors]"
+      let g:validator_warning_msg_format = "[● %d/%d warnings]"
+      call airline#parts#define_function('validator', 'validator#get_status_string')
+      let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
+    endfunction
+    autocmd User AirlineAfterInit call AirlineInit()
 
-let g:validator_python_checkers = ['flake8']
-let g:validator_python_flake8_args = flake8_ignore_args
+    let g:validator_python_checkers = ['flake8']
+    let g:validator_python_flake8_args = flake8_ignore_args
 
-let g:validator_javascript_checkers = ['eslint']
+    let g:validator_javascript_checkers = ['eslint']
 
-let g:validator_sh_checkers = ['shellcheck']
+    let g:validator_sh_checkers = ['shellcheck']
 
-" let g:validator_c_checker = ['clang-tidy']
+    " let g:validator_c_checker = ['clang-tidy']
 
-" let g:validator_filetype_map = {"py.j2": "python"}
-" 使用littlekey修改版validator.vim
-" g:validator_ignore 会检查文件类型与文件是否包含关键字
-let g:validator_ignore = ['java', 'ControlP']
+    " let g:validator_filetype_map = {"py.j2": "python"}
+    " 使用littlekey修改版validator.vim
+    " g:validator_ignore 会检查文件类型与文件是否包含关键字
+    let g:validator_ignore = ['java', 'ControlP']
 
-let g:validator_permament_sign = 1
+    let g:validator_permament_sign = 1
 " }}}
 
 
@@ -522,47 +434,15 @@ let g:validator_permament_sign = 1
 " }}}
 
 " MatchTagAlways {{{
-let g:mta_use_matchparen_group = 1
-let g:mta_filetypes = {
-  \ 'html': 1,
-  \ 'javascript': 1,
-  \ 'jsx': 1,
-  \ 'xml': 1,
-  \ 'jinja': 1,
-  \}
+    let g:mta_use_matchparen_group = 1
+    let g:mta_filetypes = {
+      \ 'html': 1,
+      \ 'javascript': 1,
+      \ 'jsx': 1,
+      \ 'xml': 1,
+      \ 'jinja': 1,
+      \}
 " }}}
-
-" ultisnips {{{
-    " let g:UltiSnipsExpandTrigger       = "<tab>"
-    " let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-    " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    " let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-    " let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-    " 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
-    " 进入对应filetype的snippets进行编辑
-    " map <leader>us :UltiSnipsEdit<CR>
-
-    " ctrl+j/k 进行选择
-    " func! g:JInYCM()
-        " if pumvisible()
-            " return "\<C-n>"
-        " else
-            " return "\<c-j>"
-        " endif
-    " endfunction
-
-    " func! g:KInYCM()
-        " if pumvisible()
-            " return "\<C-p>"
-        " else
-            " return "\<c-k>"
-        " endif
-    " endfunction
-    " inoremap <c-j> <c-r>=g:JInYCM()<cr>
-    " au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
-    " let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
-" }}}
-
 
 " delimitMate {{{
     " for python docstring ",优化输入
@@ -825,6 +705,12 @@ map ns<Space> :.,$s/
     hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
     hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
     hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
+
+    if executable("ag")
+      let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+    endif
+
+    " let g:CtrlSpaceIgnoredFiles = '\v(node_modules|\.git)[\/]'
 " }}}
 
 

@@ -436,8 +436,6 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <Leader>z :ZoomToggle<CR>
-nnoremap <silent> <Leader>` :ZoomToggle<CR>
-nnoremap <silent> <Leader><Esc> :ZoomToggle<CR>
 
 
 " Go to home and end using capitalized directions
