@@ -582,6 +582,9 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " close buffer
 nmap <Leader>bd :bd<CR>
 
+" split line 快速分割一行
+nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+
 "==========================================
 " FileType Settings  文件类型设置
 "==========================================

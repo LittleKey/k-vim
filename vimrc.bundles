@@ -76,9 +76,11 @@ Plug 'scrooloose/nerdcommenter'
 " 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
+
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
 Plug 'bronson/vim-trailing-whitespace'
+
 " easyalign
 " 快速赋值语句对齐
 Plug 'junegunn/vim-easy-align'
