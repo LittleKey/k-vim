@@ -136,6 +136,9 @@ Plug 'mhinz/vim-grepper'
 " quickrun
 " Plug 'thinca/vim-quickrun'
 
+" eunuch
+Plug 'tpope/vim-eunuch'
+
 " git
 " fugitive
 Plug 'tpope/vim-fugitive'
@@ -202,6 +205,8 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'majutsushi/tagbar', { 'for': ['python', 'go'] }
 " window swap
 Plug 'wesQ3/vim-windowswap'
+" buffer operation improve
+Plug 'qpkorr/vim-bufkill'
 
 " text object
 " 支持自定义文本对象
@@ -765,6 +770,15 @@ map ns<Space> :.,$s/
         \ 'ctagsbin'  : 'gotags',
         \ 'ctagsargs' : '-sort -silent'
     \ }
+" }}}
+
+" Buffer操作
+" bufkill {{{
+    " close buffer
+    nmap <Leader>bd :BD<CR>
+    nmap <Leader>bb :BB<CR>
+    nmap <Leader>bf :BF<CR>
+    nmap <Leader>ba :BA<CR>
 " }}}
 
 
