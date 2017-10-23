@@ -276,9 +276,9 @@ if count(g:bundle_groups, 'javascript')
     " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
     " Plug 'othree/es.next.syntax.vim'
     Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
-    Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
+    " Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
     Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
-    let g:vim_jsx_pretty_colorful_config = 1
+    " let g:vim_jsx_pretty_colorful_config = 1
     " Plug 'mxw/vim-jsx' " FIXME 如果打开，validator.vim不能正常检查javascript
 
     " TODO: jquery? for, remove or keep
