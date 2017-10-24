@@ -436,8 +436,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " completor.vim {{{
     " 直接触发自动补全 insert模式下
     let g:completor_auto_trigger = 1
-    " 临时给completor添加的跳转到定义功能
-    nnoremap gd :CompletorGoto<CR>
 " }}}
 
 " MatchTagAlways {{{
