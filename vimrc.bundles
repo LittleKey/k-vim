@@ -773,10 +773,10 @@ map ns<Space> :.,$s/
 " Buffer操作
 " bufkill {{{
     " close buffer
-    nmap <Leader>bd :BD<CR>
-    nmap <Leader>bb :BB<CR>
-    nmap <Leader>bf :BF<CR>
-    nmap <Leader>ba :BA<CR>
+    nmap <Leader>BD :BD<CR>
+    nmap <Leader>BB :BB<CR>
+    nmap <Leader>BF :BF<CR>
+    nmap <leader>BA :ba<cr>
 " }}}
 
 

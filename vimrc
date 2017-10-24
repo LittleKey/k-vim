@@ -531,6 +531,9 @@ autocmd TabLeave * let g:last_active_tab = tabpagenr()
 nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
 
+" 关闭buffer和window
+nnoremap <Leader>bd :bd<CR>
+
 
 " => 选中及操作改键
 
