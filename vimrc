@@ -94,6 +94,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 set cursorcolumn
 " 突出显示当前行
 set cursorline
+set colorcolumn=80
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -458,8 +459,8 @@ cnoremap <C-e> <End>
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 " 进入搜索Use sane regexes"
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 
 " Keep search pattern at the center of the screen.
 nnoremap <silent> n nzz
