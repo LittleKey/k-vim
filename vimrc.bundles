@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
-    let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'shell', 'java', 'kotlin']
+    let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'shell']
 endif
 
 " ----------------------------------------------------------------------------
