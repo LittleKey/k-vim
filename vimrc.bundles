@@ -505,11 +505,11 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
 " quickscope {{{
     let g:qs_highlight_on_keys = ['f', 'F']
-    " macvim/gvim会有问题, 暂时注解
-    " let g:qs_first_occurrence_highlight_color = '#afff5f' " gui vim
-    let g:qs_first_occurrence_highlight_color = 155       " terminal vim
-    " let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
-    let g:qs_second_occurrence_highlight_color = 81         " terminal vim
+    augroup qs_colors
+      autocmd!
+      autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+      autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+    augroup END
 " }}}
 
 " ################### 快速选中 ###################
