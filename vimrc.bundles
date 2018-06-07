@@ -205,7 +205,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
-Plug 'majutsushi/tagbar', { 'for': ['python', 'go'] }
+Plug 'majutsushi/tagbar'
 " window swap
 Plug 'wesQ3/vim-windowswap'
 " buffer operation improve
@@ -656,6 +656,10 @@ map ns<Space> :.,$s/
     let g:airline_powerline_fonts = 1
     " 是否打开tabline
     let g:airline#extensions#tabline#enabled = 1
+    " 集成tagbar
+    let g:airline#extensions#tagbar#enabled = 1
+    " 集成ctrlspace
+    let g:airline#extensions#ctrlspace#enabled = 1
 " }}}
 
 " rainbow_parentheses {{{
@@ -741,8 +745,9 @@ map ns<Space> :.,$s/
 " tagbar {{{
     nmap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
-    " let g:tagbar_autoshowtag = 1
-    " let g:tagbar_show_visibility = 1
+    let g:tagbar_autoshowtag = 1
+    let g:tagbar_show_visibility = 1
+    let g:tagbar_show_linenumbers = -1
     " for ruby
     let g:tagbar_type_ruby = {
         \ 'kinds' : [
