@@ -68,6 +68,9 @@ Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 " 高亮TAG
 Plug 'Valloric/MatchTagAlways'
 
+" 高亮选中单词
+Plug 't9md/vim-quickhl'
+
 " quick edit
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
@@ -456,6 +459,14 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
       \}
 " }}}
 
+" vim-quickhl {{{
+    nmap <CR> <Plug>(quickhl-manual-this)
+    xmap <CR> <Plug>(quickhl-manual-this)
+
+    " nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+    " xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+" }}}
+
 " delimitMate {{{
     " for python docstring ",优化输入
     au FileType python let b:delimitMate_nesting_quotes = ['"']
@@ -534,7 +545,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " multiplecursors {{{
     let g:multi_cursor_use_default_mapping=0
     " Default mapping
-    let g:multi_cursor_next_key='<C-m>'
+    let g:multi_cursor_next_key='<C-n>'
     let g:multi_cursor_prev_key='<C-p>'
     let g:multi_cursor_skip_key='<C-x>'
     let g:multi_cursor_quit_key='<Esc>'

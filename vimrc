@@ -273,7 +273,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -470,7 +470,11 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
-noremap <silent><leader>/ :nohls<CR>
+autocmd VimEnter * if exists(":QuickhlManualReset")
+autocmd VimEnter *  noremap <silent><leader>/ :QuickhlManualReset<CR>:nohls<CR>
+autocmd VimEnter * else
+autocmd VimEnter *  noremap <silent><leader>/ :nohls<CR>
+autocmd VimEnter * endif
 
 " switch # *
 nnoremap # *
