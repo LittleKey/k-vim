@@ -16,7 +16,7 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
     let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'shell', 'golang']
 endif
 
@@ -29,9 +29,10 @@ call plug#begin('~/.vim/bundle')
 
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
 
-" vim-session
-Plug 'xolox/vim-session'
-Plug 'xolox/vim-misc'
+" vim-misc 提供一些vimscript的接口(e.g: join, is_mac, ...)
+" Plug 'xolox/vim-misc'
+" vital.vim 用于vimscript的一些函数
+" Plug 'vim-jp/vital.vim'
 
 " indent  FIXME: 打开这个会出现一些自动缩进错误的问题
 "Plug 'Yggdroot/indentLine'
@@ -62,6 +63,8 @@ Plug 'littlekey/validator.vim'
 Plug 'maralla/completor.vim', {'do': 'make js'}
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
+" 自动配对补全符号`e.g: (,[,{,',"`
+Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
@@ -75,10 +78,9 @@ Plug 't9md/vim-quickhl'
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
 
-
-" 快速加入修改环绕字符
+" 快速加入修改环绕字符 已使用sandwich代替
 " for repeat -> enhance surround.vim, . to repeat command
-Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
@@ -92,6 +94,9 @@ Plug 'junegunn/vim-easy-align'
 " easymotion
 "更高效的移动 [,, + w/fx/h/j/k/l]
 " Plug 'Lokaltog/vim-easymotion'
+
+" 便利的操作: 平缓scroll: [<C-d, C-u, C-f, C-b]
+" Plug 'yuttie/comfortable-motion.vim'  看着眼花
 
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
@@ -135,10 +140,6 @@ Plug 'mhinz/vim-grepper'
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
 
-" quick run
-" quickrun
-" Plug 'thinca/vim-quickrun'
-
 " eunuch
 Plug 'tpope/vim-eunuch'
 
@@ -147,10 +148,15 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
+" committia 提升编辑git commit时的功能
+Plug 'rhysd/committia.vim'
 
 " gundo
 " edit history, 可以查看回到某个历史状态
 Plug 'sjl/gundo.vim'
+"
+" interactive-replace 替换
+" Plug 'hwrod/interactive-replace'
 
 " view
 " airline
@@ -160,42 +166,48 @@ Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
+" numbers 相对行号与绝对行号显示增强
+Plug 'myusuf3/numbers.vim'
+" polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
+Plug 'sheerun/vim-polyglot'
+Plug 'MattesGroeger/vim-bookmarks'
+
 " molokai
 " 主题 molokai
-Plug 'tomasr/molokai'
+" Plug 'tomasr/molokai'
 " tomorrow
 " 主题 tomorrow
-Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'chriskempson/vim-tomorrow-theme'
 " onedark
 " 主题 onedark
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
 " monokai
 " 主题 monokai
-Plug 'sickill/vim-monokai'
+" Plug 'sickill/vim-monokai'
 " vim-hybird
 " 主题 vim-hybird
-Plug 'w0ng/vim-hybrid'
+" Plug 'w0ng/vim-hybrid'
 " jellybeans.vim
 " 主题 jellybeans.vim
-Plug 'nanotech/jellybeans.vim'
+" Plug 'nanotech/jellybeans.vim'
 " vim-kolor
 " 主题 vim-kolor
-Plug 'zeis/vim-kolor'
+" Plug 'zeis/vim-kolor'
 " vim-lucius
 " 主题 vim-lucius
-Plug 'jonathanfilip/vim-lucius'
+" Plug 'jonathanfilip/vim-lucius'
 " iceberg.vim
 " 主题 iceberg.vim
-Plug 'cocopon/iceberg.vim'
+" Plug 'cocopon/iceberg.vim'
 " tender.vim
 " 主题 tender.vim
 Plug 'jacoborus/tender.vim'
 " gruvbox
 " 主题 gruvbox
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 " space-vim-dark
 " 主题space-vim-dark
-Plug 'liuchengxu/space-vim-dark'
+" Plug 'liuchengxu/space-vim-dark'
 
 " nav
 " nerdtree nerdtreetabs
@@ -223,6 +235,11 @@ Plug 'kana/vim-textobj-user'
 " Plug 'kana/vim-textobj-underscore'
 " 选择一个函数
 Plug 'bps/vim-textobj-python', { 'for': 'python' }
+
+" targets.vim 添加更多的文本对象支持
+Plug 'wellle/targets.vim'
+" vim-sendwich 修改选中文本对象的环绕字符
+Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
 
 " wakatime
 Plug 'wakatime/vim-wakatime'
@@ -269,10 +286,10 @@ if count(g:bundle_groups, 'python')
 endif
 
 if count(g:bundle_groups, 'ruby')
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'tpope/vim-rails'
+    Plug 'vim-ruby/vim-ruby', {'for: 'ruby'}
+    Plug 'tpope/vim-rails', {'for': 'ruby'}
     " dir / dar
-    Plug 'nelstrom/vim-textobj-rubyblock'
+    Plug 'nelstrom/vim-textobj-rubyblock', {'for': 'ruby'}
 
     " 有bug, 和当前有冲突, 尚未解决, 不要打开 => TODO: solve this problem
     " Plug 'tpope/vim-endwise'
@@ -346,7 +363,7 @@ endif
 
 if count(g:bundle_groups, 'kotlin')
   " ##### kotlin syntax #####
-  Plug 'udalov/kotlin-vim'
+  Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
 endif
 
 if count(g:bundle_groups, 'java')
@@ -364,19 +381,6 @@ if count(g:bundle_groups, 'java')
   let g:completor_java_omni_trigger = '\.'
 endif
 
-" this is just for beta version
-if count(g:bundle_groups, 'beta')
-  " indent
-  " Plug 'nathanaelkane/vim-indent-guides'
-  " <leader>ig to trigger
-  " let g:indent_guides_start_level = 2
-  " let g:indent_guides_guide_size = 1
-  " let g:indent_guides_auto_colors = 0
-  " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
-  " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
-endif
-
-
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -385,26 +389,6 @@ call plug#end()
 
 " falke8 ignore args
 let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max-line-length=79'
-
-" vim-session | vim-misc {{{
-    let g:session_lock_enabled=0
-    let g:session_autosave="yes"
-    let g:session_autoload='yes'
-    let g:session_default_name=getcwd()
-    " let g:session_autosave_to=getcwd()
-    let g:session_autosave_silent=1
-    let g:session_verbose_messages=0
-    " let g:session_persist_font = 0
-    " let g:session_persist_colors = 0
-
-    set sessionoptions-=help
-    set sessionoptions-=buffers
-    set sessionoptions-=options
-
-    nnoremap <Leader>ss :SaveSession<CR>
-    nnoremap <Leader>os :OpenSession<CR>
-    nnoremap <Leader>ds :DeleteSession<CR>
-" }}}
 
 " validator.vim {{{
     " checker
@@ -460,8 +444,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " }}}
 
 " vim-quickhl {{{
-    nmap <CR> <Plug>(quickhl-manual-this)
-    xmap <CR> <Plug>(quickhl-manual-this)
+    nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
+    xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
 
     " nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
     " xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
@@ -503,18 +487,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " }}}
 
 " ################### 快速移动 ###################
-
-" easymotion {{{
-    " let g:EasyMotion_smartcase = 1
-    "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-    " map <Leader><leader>h <Plug>(easymotion-linebackward)
-    " map <Leader><Leader>j <Plug>(easymotion-j)
-    " map <Leader><Leader>k <Plug>(easymotion-k)
-    " map <Leader><leader>l <Plug>(easymotion-lineforward)
-    " 重复上一次操作, 类似repeat插件, 很强大
-    " map <Leader><leader>. <Plug>(easymotion-repeat)
-" }}}
-
 
 " quickscope {{{
     let g:qs_highlight_on_keys = ['f', 'F']
@@ -633,18 +605,23 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
+" committia {{{
+  " 如果使用了fugitive插件, 推荐打开次设置
+  let g:committia_open_only_vim_starting = 1
+" }}}
+
 " gundo {{{
     " support python3
     let g:gundo_prefer_python3 = 1
     noremap <leader>h :GundoToggle<CR>
 " }}}
 
-" interactive-replace 替换
-Plug 'hwrod/interactive-replace'
-" 设置替换功能
-map as<Space> :1,$s/
-map cs<Space> :.s/
-map ns<Space> :.,$s/
+" interactive-replace {{{
+    " 设置替换功能
+    " map as<Space> :1,$s/
+    " map cs<Space> :.s/
+    " map ns<Space> :.,$s/
+" }}}
 
 " ################### 显示增强 ###################
 
@@ -685,19 +662,67 @@ map ns<Space> :.,$s/
     au Syntax * RainbowParenthesesLoadBraces
 " }}}
 
+" polyglot {{{
+    " 已配置语法支持插件的语言, 不使用polyglot
+    let g:polyglot_disabled = ['python', 'go']
+" }}}
+
+" bookmarks {{{
+    " let g:bookmark_sign = '♥'
+    let g:bookmark_highlight_lines = 1
+    let g:bookmark_show_warning = 1
+    let g:bookmark_auto_save = 1
+    let g:bookmark_show_toggle_warning = 1
+    " nmap <Leader><Leader> <Plug>BookmarkToggle
+    " nmap <Leader>i <Plug>BookmarkAnnotate
+    " nmap <Leader>a <Plug>BookmarkShowAll
+    " nmap <Leader>j <Plug>BookmarkNext
+    " nmap <Leader>k <Plug>BookmarkPrev
+    " nmap <Leader>c <Plug>BookmarkClear
+    " nmap <Leader>x <Plug>BookmarkClearAll
+    " nmap <Leader>kk <Plug>BookmarkMoveUp
+    " nmap <Leader>jj <Plug>BookmarkMoveDown
+    " nmap <Leader>g <Plug>BookmarkMoveToLine
+    let g:bookmark_no_default_key_mappings = 1
+    function! BookmarkMapKeys()
+        nmap mm :BookmarkToggle<CR>
+        nmap mi :BookmarkAnnotate<CR>
+        nmap mn :BookmarkNext<CR>
+        nmap mp :BookmarkPrev<CR>
+        nmap ma :BookmarkShowAll<CR>
+        nmap mc :BookmarkClear<CR>
+        nmap mx :BookmarkClearAll<CR>
+        nmap mkk :BookmarkMoveUp
+        nmap mjj :BookmarkMoveDown
+    endfunction
+    function! BookmarkUnmapKeys()
+        unmap mm
+        unmap mi
+        unmap mn
+        unmap mp
+        unmap ma
+        unmap mc
+        unmap mx
+        unmap mkk
+        unmap mjj
+    endfunction
+    autocmd BufEnter * :call BookmarkMapKeys()
+    autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" }}}
+
 " ################### 显示增强-主题 ###################"
 
 " solarized {{{
-    let g:solarized_termtrans=1
-    let g:solarized_contrast="normal"
-    let g:solarized_visibility="normal"
+    " let g:solarized_termtrans=1
+    " let g:solarized_contrast="normal"
+    " let g:solarized_visibility="normal"
     " let g:solarized_termcolors=256
 " }}}
 
 " molokai {{{
     " monokai原始背景色
-    let g:molokai_original = 1
-    let g:rehash256 = 1
+    " let g:molokai_original = 1
+    " let g:rehash256 = 1
 " }}}
 
 " ################### 快速导航 ###################
@@ -705,7 +730,7 @@ map ns<Space> :.,$s/
 " nerdtree nerdtreetabs {{{
     " map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
-    let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/' ]
+    let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/', '__pycache__' ]
     "close vim if the only window left open is a NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
     " s/v 分屏打开文件
@@ -805,19 +830,6 @@ map ns<Space> :.,$s/
 
 " ################### 语言相关 ###################
 
-" quickrun {{{
-    " let g:quickrun_config = {
-    " \   "_" : {
-    " \       "outputter" : "message",
-    " \   },
-    " \}
-
-    " let g:quickrun_no_default_key_mappings = 1
-    " nmap <Leader>r <Plug>(quickrun)
-    " map <F10> :QuickRun<CR>
-" }}}
-
-
 " pythonsyntax {{{
     let python_highlight_all = 1
 " }}}
@@ -832,7 +844,7 @@ map ns<Space> :.,$s/
     let g:go_fmt_fail_silently = 1
     " format with goimports instead of gofmt
     let g:go_fmt_command = "goimports"
-    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+    " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " }}}
 
 " markdown {{{
@@ -858,24 +870,6 @@ map ns<Space> :.,$s/
 " }}}
 
 " nginx {{{
-" }}}
-
-
-" ####### temp #######
-
-" beta {{{
-    " python code format
-    " format all file
-    " autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-    " format select block
-    " autocmd FileType python vnoremap <leader>y :!yapf<Cr>
-
-    " Plug 'mindriot101/vim-yapf'
-    " scriptencoding utf-8
-    " let g:yapf_style = "google"
-    " let g:yapf_style = "pep8"
-    " setenv PYTHONIOENCODING UTF-8
-    " nnoremap <leader>y :call Yapf()<cr>
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------

@@ -444,10 +444,6 @@ noremap H ^
 noremap L $
 
 
-" Map ; to : and save a million keystrokes 用于快速进入命令行
-nnoremap ; :
-
-
 " 命令行模式增强，ctrl - a到行首， -e 到行尾
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
@@ -470,11 +466,15 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
-autocmd VimEnter * if exists(":QuickhlManualReset")
-autocmd VimEnter *  noremap <silent><leader>/ :QuickhlManualReset<CR>:nohls<CR>
-autocmd VimEnter * else
-autocmd VimEnter *  noremap <silent><leader>/ :nohls<CR>
-autocmd VimEnter * endif
+function! ClearHighlight()
+  if exists(":QuickhlManualReset")
+    QuickhlManualReset
+  endif
+  if exists(":BookmarkClear")
+    call BookmarkClear()
+  endif
+endfunction
+noremap <silent><leader>/ :nohls<CR>:call ClearHighlight()<CR>
 
 " switch # *
 nnoremap # *
@@ -575,13 +575,6 @@ nnoremap <C-y> 2<C-y>
 
 " Quickly close the all window
 nnoremap <leader>q :qa<CR>
-
-" Quickly save the current file
-nnoremap <leader>w :wa<CR>
-
-" 交换 ' `, 使得可以快速使用'跳到marked位置
-nnoremap ' `
-nnoremap ` '
 
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
