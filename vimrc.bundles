@@ -34,15 +34,6 @@ call plug#begin('~/.vim/bundle')
 " vital.vim 用于vimscript的一些函数
 " Plug 'vim-jp/vital.vim'
 
-" indent  FIXME: 打开这个会出现一些自动缩进错误的问题
-"Plug 'Yggdroot/indentLine'
-"let g:indentLine_noConcealCursor = 1
-"let g:indentLine_color_term = 239
-"let g:indentLine_char = '┆'
-"let g:indentLine_concealcursor = 'inc'
-"let g:indentLine_conceallevel = 2
-"let g:indentLine_enabled = 0
-
 " syntastic
 " Plug 'scrooloose/syntastic'
 
@@ -90,14 +81,6 @@ Plug 'bronson/vim-trailing-whitespace'
 " 快速赋值语句对齐
 Plug 'junegunn/vim-easy-align'
 
-" quick movement
-" easymotion
-"更高效的移动 [,, + w/fx/h/j/k/l]
-" Plug 'Lokaltog/vim-easymotion'
-
-" 便利的操作: 平缓scroll: [<C-d, C-u, C-f, C-b]
-" Plug 'yuttie/comfortable-motion.vim'  看着眼花
-
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
 Plug 'unblevable/quick-scope'
@@ -134,11 +117,6 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
 Plug 'mhinz/vim-grepper'
-" incsearch
-" Plug 'haya14busa/incsearch.vim'
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
 
 " eunuch
 Plug 'tpope/vim-eunuch'
@@ -154,9 +132,6 @@ Plug 'rhysd/committia.vim'
 " gundo
 " edit history, 可以查看回到某个历史状态
 Plug 'sjl/gundo.vim'
-"
-" interactive-replace 替换
-" Plug 'hwrod/interactive-replace'
 
 " view
 " airline
@@ -588,23 +563,18 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " }}}
 
 " fugitive {{{
-    " :Gdiff  :Gstatus :Gvsplit
     nnoremap <leader>gb :Gblame<CR>
-    " <leader>gs maps to :Gstatus<CR>
-    nnoremap <leader>gd :Gdiff<CR>
 " }}}
 
 " gitgutter {{{
-    " 同git diff,实时展示文件中修改的行
-    " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
     let g:gitgutter_map_keys = 0
     let g:gitgutter_enabled = 1
     let g:gitgutter_highlight_lines = 0
-    nnoremap <leader>gs :GitGutterToggle<CR>
+    " nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " committia {{{
-  " 如果使用了fugitive插件, 推荐打开次设置
+  " 如果使用了fugitive插件, 推荐打开此设置
   let g:committia_open_only_vim_starting = 1
 " }}}
 
@@ -612,13 +582,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " support python3
     let g:gundo_prefer_python3 = 1
     noremap <leader>h :GundoToggle<CR>
-" }}}
-
-" interactive-replace {{{
-    " 设置替换功能
-    " map as<Space> :1,$s/
-    " map cs<Space> :.s/
-    " map ns<Space> :.,$s/
 " }}}
 
 " ################### 显示增强 ###################
@@ -862,12 +825,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
 " json {{{
     let g:vim_json_syntax_conceal = 0
-" }}}
-
-" css {{{
-" }}}
-
-" nginx {{{
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------
