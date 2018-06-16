@@ -266,7 +266,7 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries' }
+    Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
 endif
 
 
@@ -517,9 +517,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " multiplecursors {{{
     let g:multi_cursor_use_default_mapping=0
     " Default mapping
-    let g:multi_cursor_next_key='<C-n>'
-    let g:multi_cursor_prev_key='<C-p>'
-    let g:multi_cursor_skip_key='<C-x>'
+    let g:multi_cursor_start_key='<CR>'
     let g:multi_cursor_quit_key='<Esc>'
 " }}}
 

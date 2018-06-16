@@ -700,7 +700,7 @@ endif
 
 
 " theme主题
-set background=dark
+" set background=dark  " noused
 set t_Co=256
 " colorscheme onedark
 " colorscheme molokai
@@ -723,6 +723,9 @@ hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
+" 解决使用iterm2-tender配色时, 选择模式背景色看不见得问题
+hi Visual guifg=NONE ctermfg=NONE guibg=#040404 ctermbg=238 gui=NONE cterm=NONE
+
 " for error highlight，防止错误整行标红导致看不清
 highlight clear SpellBad
 highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
@@ -732,4 +735,3 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
-
