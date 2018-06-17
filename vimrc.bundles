@@ -16,7 +16,7 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'qml', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
+    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
     let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'shell', 'golang']
 endif
 
@@ -92,6 +92,7 @@ Plug 'vim-scripts/matchit.zip'
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
 " m/        list all marks
+" m.        add new mark just follow previous mark
 Plug 'kshenoy/vim-signature'
 
 " quick selection and edit
@@ -251,13 +252,6 @@ if count(g:bundle_groups, 'python')
     Plug 'hdima/python-syntax', {'for': 'python'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
     Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
-
-    " isort  https://github.com/timothycrosley/isort#readme + https://github.com/fisadev/vim-isort#installation
-    " pip install isort
-    " Plug 'fisadev/vim-isort'
-    " let g:vim_isort_python_version = 'python3'
-    " Shift-V 上下选中, ctrl + i 规范化
-    " let g:vim_isort_map = '<C-i>'
 endif
 
 if count(g:bundle_groups, 'ruby')
@@ -296,6 +290,10 @@ if count(g:bundle_groups, 'shell')
     " map <C-r> :FZF<cr>
 endif
 
+" if count(g:bundle_groups, 'shell')
+    " Plug 'Shougo/vimshell.vim'
+" endif
+
 if count(g:bundle_groups, 'json')
     " json
     Plug 'elzr/vim-json', {'for': 'json'}
@@ -318,27 +316,29 @@ endif
 
 if count(g:bundle_groups, 'less')
     " ###### vim.less : less 自动更新##########
-    " Plug 'groenewege/vim-less'
+    Plug 'groenewege/vim-less'
     " autocmd BufWritePost *.less :!lessc % > %:p:r.css
 endif
 
 if count(g:bundle_groups, 'html')
     " ###### emmet HTML complete #########
-    " Plug "mattn/emmet-vim"
+    " Plug 'mattn/emmet-vim'
 endif
 
 if count(g:bundle_groups, 'nginx')
     " Plug 'evanmiller/nginx-vim-syntax'
 endif
 
-if count(g:bundle_groups, 'qml')
-  " ##### qml syntax #####
-  Plug 'peterhoeg/vim-qml', {'for': 'qml'}
-endif
-
 if count(g:bundle_groups, 'kotlin')
   " ##### kotlin syntax #####
   Plug 'udalov/kotlin-vim', {'for': 'kotlin'}
+endif
+
+" this is just for beta version
+if count(g:bundle_groups, 'beta')
+    " Plug 'robbles/logstash.vim'
+
+    " Plug 'ConradIrwin/vim-bracketed-paste'
 endif
 
 if count(g:bundle_groups, 'java')
@@ -398,7 +398,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
     let g:validator_permament_sign = 1
 " }}}
-
 
 " ################### 自动补全 ###################
 
@@ -480,13 +479,16 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     vmap v <Plug>(expand_region_expand)
     vmap V <Plug>(expand_region_shrink)
     " Extend the global default
-    call expand_region#custom_text_objects({
-      \ 'a]' :1,
-      \ 'ab' :1,
-      \ 'aB' :1,
-      \ 'ii' :0,
-      \ 'ai' :0,
-      \ })
+    if exists("*expand_region#custom_text_objects")
+        call expand_region#custom_text_objects({
+        \ 'a]' :1,
+        \ 'ab' :1,
+        \ 'aB' :1,
+        \ 'ii' :0,
+        \ 'ai' :0,
+        \ })
+    endif
+
 " }}}
 
 " multiplecursors {{{
@@ -805,7 +807,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:go_fmt_fail_silently = 1
     " format with goimports instead of gofmt
     let g:go_fmt_command = "goimports"
-    " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " }}}
 
 " markdown {{{

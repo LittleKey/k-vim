@@ -1,17 +1,12 @@
 k-vim
 =======================
 
-**Note**: 9.1版本的文档/wiki等, 处理中(原先的常见问题FAQ/插件演示和使用/自定义快捷键等)
 
-当前进度30%
+> VERSION: 9.2
 
-----------------
+> LAST_UPDATE_TIME: 2017-07-29
 
-> VERSION: 9.1
-
-> LAST_UPDATE_TIME: 2015-12-15
-
-> 本次更新: 大版本更新, 众多细节优化
+> 本次更新: 小版本更新, 支持vim8异步语法检查
 
 详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
 
@@ -26,6 +21,19 @@ k-vim
 
 ---------------------------------
 
+---------------------------------
+
+# 截图
+
+solarized主题
+
+![solarized](https://github.com/wklken/gallery/blob/master/vim/solarized.png?raw=true)
+
+molokai主题
+
+![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
+
+---------------------------------
 ---------------------------------
 
 # 安装步骤
@@ -62,9 +70,6 @@ brew install the_silver_searcher
 ##### 2.2 使用Python
 
 ```
-<!-- pip install pyflakes -->
-<!-- pip install pylint -->
-<!-- pip install pep8 -->
 pip install flake8 jedi
 ```
 
@@ -78,13 +83,13 @@ pip install flake8 jedi
 sudo apt-get install nodejs npm
 sudo npm install -g jslint
 sudo npm install jshint -g
-sudo npm install eslint -g
+sudo npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
 
 # mac
 brew install node
 npm install jshint -g
 npm install jslint -g
-npm install eslint -g
+npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
 ```
 
 ###### 2.4 一些杂项
@@ -250,6 +255,7 @@ ctrl+t 新建一个tab
 Y         =y$   复制到行尾
 U         =Ctrl-r
 ,sa       select all,全选
+gv        选中并高亮最后一次插入的内容
 ,v        选中段落
 kj        代替<Esc>，不用到角落去按esc了
 
@@ -281,32 +287,16 @@ ctrl+n    相对/绝对行号切换
 
 ### UPDATE_LOG
 
-version 9.1
+version 9.2
 
 ```
 插件部分:
-1. 使用 'junegunn/vim-plug' 替代 'VundleVim/Vundle.vim' 来管理插件, 安装/更新速度更快
-2. 支持自定义插件集合, 可以配置自己需要安装的插件
-3. 去除tomorrow主题插件 'chriskempson/vim-tomorrow-theme'
-4. Javascript插件, 使用 'othree/javascript-libraries-syntax.vim' 替代 'nono/jquery.vim',
-5. Javascript插件, 使用 'othree/yajs.vim' 替代 'jelera/vim-javascript-syntax'
-6. 去除 minibufferexpl 所有配置(ctrlspace替代)
-7. 去除 taglist 所有配置(tagbar和ctrl-funky替代)
-8. Python插件, 增加 'hynek/vim-python-pep8-indent'
-9. Python插件, 去除 'kevinw/pyflakes-vim'
-10. Go插件, 使用 'fatih/vim-go' 替代 'Blackrush/vim-gocode'
-11. 快速移动, 增加插件 'unblevable/quick-scope', 按f/F/t/T时触发, 行内快速移动, 与 easymotion 互补
-12. (bundle_groups配置了tmux)tmux插件 'christoomey/vim-tmux-navigator'
-13. (bundle_groups配置了json)json插件 'elzr/vim-json'
+1. 增加 w0rp/ale 异步语法检查插件, 用户vim版本为8.0时自动启用. 非8时, 启用默认scrooloose/syntastic, 两套插件快捷键一致
+2. 切换使用flake8作为python风格检查(pip install pep8)
+3. 启用yapf作为python代码格式化(pip install yapf)
+4. 启用eslint作为javascript代码检查
+5. YCM 设置回车选中不再弹补全框
 
-细节:
-1. 增加 leader+w 保存文件
-<!-- 2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1' -->
-3. 插件 'terryma/vim-expand-region', 增加自定义每次加减的区域配置
-4. 解决在insert mode粘贴代码缩进错乱问题(以前需要:set paste . 即k-vim中F5快捷键, 现在不需要了)
-
-其他:
-1. UPDATE_LOG文件迁移到github wiki
 ```
 
 ### Contributors
@@ -335,7 +325,6 @@ thx a lot. 可以给我提pull request:)
 ------------------------
 ------------------------
 
-
 Modify By LittleKey
 ===================
 
@@ -352,19 +341,8 @@ Modify By LittleKey
 
     F7  切换Tab与Space模式, 具体操作会参照当时的Tab相关设置(Default: 'Space mode')
     F9  TagBar开关
-    F10 运行脚本(目前支持python与ruby)
-    <Leader>gs gitgutter开关 (default: on)
-    as<Space> 全文替换
-    cs<Space> 当前行替换
-    ns<Space> 后续所有行替换
-    <Leader>r 交互式替换，被选中文本
     <Leader>bd 关闭当前buffer
-    <Leader>ss 保存当前session
-    <Leader>os 载入之前保存的session
-    <Leader>ds 删除之前保存的session
     <Leader>ww 标记/交换 窗口(window/buffer)的位置
-
-    <Leader>q 改为关闭所有窗口(直接退出，用于支持保存session)
 
     H 跳到行首
     L 跳到行尾
@@ -372,10 +350,6 @@ Modify By LittleKey
 ## 插件
 
     使用completor.vim代替YouCompleteMe, python使用flake8做lint，可以安装hacking增强使用`pip install hacking`
-
-    使用vim-session保存session, 打开退出时自动保存session与打开时自动载入session
-    session保存在.vim/sessions目录下，session文件名对应保存时的目录(实现不同目录有各自的session)
-    **note: 每个目录必须使用<Leader>ss或:SaveSession保存一次后才会打开自动保存**
 
     具体分类请参照vimrc.bundles
 
@@ -391,26 +365,18 @@ Modify By LittleKey
 
    高亮html/xml等文件的tag
 
-3. #### [hwrod/interactive](https://github.com/hwrod/interactive-replace)
-
-   提供交互式的文本替换，使用Enter跳过一次替换，使用Ctrl-c 结束.
-
-4. #### [maralla/completor.vim](https://github.com/maralla/completor.vim)
+3. #### [maralla/completor.vim](https://github.com/maralla/completor.vim)
 
    用于代替YouCompleteMe的异步补全
 
-5. #### [maralla/validator.vim](https://github.com/maralla/validator.vim)
+4. #### [maralla/validator.vim](https://github.com/maralla/validator.vim)
 
    lint工具
 
-6. #### [Xuyuanp/nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+5. #### [Xuyuanp/nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 
    在nerdtree上显示git的相关信息
 
-7. #### [xolox/vim-session](https://github.com/xolox/vim-session)
-
-   用于保存vim当前的session，异于`mksession`的是能支持各种plugin
-
-8. #### [wesQ3/vim-windowswap](https://github.com/wesQ3/vim-windowswap)
+6. #### [wesQ3/vim-windowswap](https://github.com/wesQ3/vim-windowswap)
 
    用于开了多个window时交换window的位置而不用重新layout

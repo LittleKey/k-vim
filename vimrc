@@ -17,6 +17,7 @@
 "       -> Theme Settings  主题设置
 "
 "       -> 插件配置和具体设置在vimrc.bundles中
+" Note: Don't put anything in your .vimrc you don't understand!
 "==========================================
 
 "==========================================
@@ -557,12 +558,6 @@ vnoremap <leader>y "+y
 " vnoremap <silent> p p`]
 " nnoremap <silent> p p`]
 
-" w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
-
-" kj 替换 Esc
-inoremap kj <Esc>
-
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
@@ -577,8 +572,12 @@ nnoremap <C-y> 2<C-y>
 nnoremap <leader>q :qa<CR>
 
 " Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" edit vimrc/zshrc and load vimrc bindings
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " split line 快速分割一行
 nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
@@ -593,6 +592,8 @@ autocmd FileType ruby,javascript,html,css,xml,go :call TAB(2)
 autocmd FileType python,ruby,javascript,html,css,xml,go set expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+
 " disable showmatch when use > in php
 au BufWinEnter *.php set mps-=<:>
 
@@ -618,8 +619,9 @@ function! AutoSetFileHead()
 
     " 如果文件类型为python
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
+        " call setline(1, "\#!/usr/bin/env python")
+        " call append(1, "\# encoding: utf-8")
+        call setline(1, "\# -*- coding: utf-8 -*-")
     endif
 
     " 如果文件类型为ruby
@@ -652,28 +654,9 @@ endif
 " TEMP 设置, 尚未确定要不要
 "==========================================
 
-" tmux
-" function! WrapForTmux(s)
-"   if !exists('$TMUX')
-"     return a:s
-"   endif
-"
-"   let tmux_start = "\<Esc>Ptmux;"
-"   let tmux_end = "\<Esc>\\"
-"
-"   return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
-" endfunction
-"
-" let &t_SI .= WrapForTmux("\<Esc>[?2004h")
-" let &t_EI .= WrapForTmux("\<Esc>[?2004l")
-
-" allows cursor change in tmux mode
-" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" if exists('$TMUX')
-    " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-" endif
+" beta
+" https://dougblack.io/words/a-good-vimrc.html
+set lazyredraw          " redraw only when we need to.
 
 
 "==========================================

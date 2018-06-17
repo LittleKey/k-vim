@@ -82,5 +82,4 @@ else
 fi
 export SHELL=$system_shell
 
-
 echo "Install Done!"
