@@ -621,14 +621,6 @@ if has("autocmd")
   endif
 endif
 
-"==========================================
-" TEMP 设置, 尚未确定要不要
-"==========================================
-
-" beta
-" https://dougblack.io/words/a-good-vimrc.html
-set lazyredraw          " redraw only when we need to.
-
 
 "==========================================
 " Theme Settings  主题设置
