@@ -69,6 +69,9 @@ Plug 't9md/vim-quickhl'
 " 快速注释
 Plug 'scrooloose/nerdcommenter'
 
+" 增强<C-a>/<C-x>可以作用于日期
+Plug 'tpope/vim-speeddating'
+
 " 快速加入修改环绕字符 已使用sandwich代替
 " for repeat -> enhance surround.vim, . to repeat command
 " Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
@@ -118,6 +121,8 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
 Plug 'mhinz/vim-grepper'
+" vim启动页面增强
+Plug 'mhinz/vim-startify'
 
 " eunuch
 Plug 'tpope/vim-eunuch'
@@ -129,10 +134,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " committia 提升编辑git commit时的功能
 Plug 'rhysd/committia.vim'
+" git hist 浏览器, 作用不大
+Plug 'junegunn/gv.vim'
 
 " gundo
 " edit history, 可以查看回到某个历史状态
 Plug 'sjl/gundo.vim'
+" undo tree
+" 可视化undo历史
+Plug 'mbbill/undotree'
+" 增强 ["\@\<C-r>] (vim寄存器)
+Plug 'junegunn/vim-peekaboo'
 
 " view
 " airline
@@ -146,8 +158,10 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'myusuf3/numbers.vim'
 " polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
 Plug 'sheerun/vim-polyglot'
+" 支持跨越文件的书签
 Plug 'MattesGroeger/vim-bookmarks'
 
+Plug 'flazz/vim-colorschemes'
 " molokai
 " 主题 molokai
 " Plug 'tomasr/molokai'
@@ -580,6 +594,14 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " support python3
     let g:gundo_prefer_python3 = 1
     noremap <leader>h :GundoToggle<CR>
+" }}}
+
+" undotree {{{
+    noremap <leader>u :UndotreeToggle<CR>
+    if has("persistent_undo")
+        set undodir=~/.undodir/
+        set undofile
+    endif
 " }}}
 
 " ################### 显示增强 ###################
