@@ -17,7 +17,7 @@ filetype off " required! turn off
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
-    let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'shell', 'golang']
+    let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'golang']
 endif
 
 " ----------------------------------------------------------------------------
@@ -290,10 +290,6 @@ if count(g:bundle_groups, 'shell')
     " map <C-r> :FZF<cr>
 endif
 
-" if count(g:bundle_groups, 'shell')
-    " Plug 'Shougo/vimshell.vim'
-" endif
-
 if count(g:bundle_groups, 'json')
     " json
     Plug 'elzr/vim-json', {'for': 'json'}
@@ -316,7 +312,7 @@ endif
 
 if count(g:bundle_groups, 'less')
     " ###### vim.less : less 自动更新##########
-    Plug 'groenewege/vim-less'
+    " Plug 'groenewege/vim-less'
     " autocmd BufWritePost *.less :!lessc % > %:p:r.css
 endif
 
