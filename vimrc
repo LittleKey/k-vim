@@ -646,6 +646,9 @@ endif
 
 
 " theme主题
+if (has("termguicolors"))
+ set termguicolors
+endif
 " set background=dark  " noused
 set t_Co=256
 " colorscheme onedark

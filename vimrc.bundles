@@ -618,6 +618,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:airline#extensions#tagbar#enabled = 1
     " 集成ctrlspace
     let g:airline#extensions#ctrlspace#enabled = 1
+    " 设置airline主题为tender
+    let g:airline_theme = 'tender'
 " }}}
 
 " rainbow_parentheses {{{
