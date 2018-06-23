@@ -548,6 +548,8 @@ nnoremap <C-y> 2<C-y>
 
 " Quickly close the all window
 nnoremap <leader>q :qa<CR>
+cmap Q q!
+cmap Q! q!
 
 " split line 快速分割一行
 nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>

@@ -134,15 +134,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " committia 提升编辑git commit时的功能
 Plug 'rhysd/committia.vim'
-" git hist 浏览器, 作用不大
-Plug 'junegunn/gv.vim'
 
-" gundo
-" edit history, 可以查看回到某个历史状态
-Plug 'sjl/gundo.vim'
-" undo tree
-" 可视化undo历史
-Plug 'mbbill/undotree'
 " 增强 ["\@\<C-r>] (vim寄存器)
 Plug 'junegunn/vim-peekaboo'
 
@@ -588,20 +580,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " committia {{{
   " 如果使用了fugitive插件, 推荐打开此设置
   let g:committia_open_only_vim_starting = 1
-" }}}
-
-" gundo {{{
-    " support python3
-    let g:gundo_prefer_python3 = 1
-    noremap <leader>h :GundoToggle<CR>
-" }}}
-
-" undotree {{{
-    noremap <leader>u :UndotreeToggle<CR>
-    if has("persistent_undo")
-        set undodir=~/.undodir/
-        set undofile
-    endif
 " }}}
 
 " ################### 显示增强 ###################
