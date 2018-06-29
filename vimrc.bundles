@@ -150,8 +150,6 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'myusuf3/numbers.vim'
 " polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
 Plug 'sheerun/vim-polyglot'
-" 支持跨越文件的书签
-Plug 'MattesGroeger/vim-bookmarks'
 
 Plug 'flazz/vim-colorschemes'
 " molokai
@@ -422,9 +420,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " vim-quickhl {{{
     nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
     xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
-
-    " nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
-    " xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
 " }}}
 
 " delimitMate {{{
@@ -626,49 +621,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " polyglot {{{
     " 已配置语法支持插件的语言, 不使用polyglot
     let g:polyglot_disabled = ['python', 'go']
-" }}}
-
-" bookmarks {{{
-    " let g:bookmark_sign = '♥'
-    let g:bookmark_highlight_lines = 1
-    let g:bookmark_show_warning = 1
-    let g:bookmark_auto_save = 1
-    let g:bookmark_show_toggle_warning = 1
-    " nmap <Leader><Leader> <Plug>BookmarkToggle
-    " nmap <Leader>i <Plug>BookmarkAnnotate
-    " nmap <Leader>a <Plug>BookmarkShowAll
-    " nmap <Leader>j <Plug>BookmarkNext
-    " nmap <Leader>k <Plug>BookmarkPrev
-    " nmap <Leader>c <Plug>BookmarkClear
-    " nmap <Leader>x <Plug>BookmarkClearAll
-    " nmap <Leader>kk <Plug>BookmarkMoveUp
-    " nmap <Leader>jj <Plug>BookmarkMoveDown
-    " nmap <Leader>g <Plug>BookmarkMoveToLine
-    let g:bookmark_no_default_key_mappings = 1
-    function! BookmarkMapKeys()
-        nmap mm :BookmarkToggle<CR>
-        nmap mi :BookmarkAnnotate<CR>
-        nmap mn :BookmarkNext<CR>
-        nmap mp :BookmarkPrev<CR>
-        nmap ma :BookmarkShowAll<CR>
-        nmap mc :BookmarkClear<CR>
-        nmap mx :BookmarkClearAll<CR>
-        nmap mkk :BookmarkMoveUp
-        nmap mjj :BookmarkMoveDown
-    endfunction
-    function! BookmarkUnmapKeys()
-        unmap mm
-        unmap mi
-        unmap mn
-        unmap mp
-        unmap ma
-        unmap mc
-        unmap mx
-        unmap mkk
-        unmap mjj
-    endfunction
-    autocmd BufEnter * :call BookmarkMapKeys()
-    autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 " }}}
 
 " ################### 显示增强-主题 ###################"
