@@ -582,18 +582,11 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,pe
 
 
 " 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.py,*.rb,*.qml exec ":call AutoSetFileHead()"
+autocmd BufNewFile *.sh,*.rb,*.qml exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     " 如果文件类型为.sh文件
     if &filetype == 'sh'
         call setline(1, "\#!/bin/bash")
-    endif
-
-    " 如果文件类型为python
-    if &filetype == 'python'
-        " call setline(1, "\#!/usr/bin/env python")
-        " call append(1, "\# encoding: utf-8")
-        call setline(1, "\# -*- coding: utf-8 -*-")
     endif
 
     " 如果文件类型为ruby

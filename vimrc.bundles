@@ -51,7 +51,10 @@ Plug 'littlekey/validator.vim'
 " auto complete
 " 代码自动补全
 " completor for vim8
-Plug 'maralla/completor.vim', {'do': 'make js'}
+" Plug 'maralla/completor.vim', {'do': 'make js'}
+" completor.vim 目前有问题不可使用, 暂用YCM代替
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --java-completer --system-libclang' }
+
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动配对补全符号`e.g: (,[,{,',"`
@@ -246,7 +249,7 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoInstallBinaries' }
+    Plug 'fatih/vim-go', { 'tag': 'v1.17', 'do': 'GoUpdateBinaries' }
 endif
 
 
@@ -404,6 +407,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " completor.vim {{{
     " 直接触发自动补全 insert模式下
     let g:completor_auto_trigger = 1
+" }}}
+
+" YouCompleteMe {{{
+    let g:ycm_python_binary_path = 'python'
 " }}}
 
 " MatchTagAlways {{{
