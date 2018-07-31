@@ -58,7 +58,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-comp
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动配对补全符号`e.g: (,[,{,',"`
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
@@ -139,7 +139,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/committia.vim'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
-Plug 'junegunn/vim-peekaboo'
+" Plug 'junegunn/vim-peekaboo'
 
 " view
 " airline
@@ -208,7 +208,7 @@ Plug 'qpkorr/vim-bufkill'
 
 " text object
 " 支持自定义文本对象
-Plug 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-user'
 " 增加行文本对象: l   dal yal cil # FIXME line的大概没什么用
 " Plug 'kana/vim-textobj-line'
 " 增加文件文本对象: e   dae yae cie
@@ -217,12 +217,12 @@ Plug 'kana/vim-textobj-user'
 " Plug 'kana/vim-textobj-indent'
 " Plug 'kana/vim-textobj-underscore'
 " 选择一个函数
-Plug 'bps/vim-textobj-python', { 'for': 'python' }
+" Plug 'bps/vim-textobj-python', { 'for': 'python' }
 
 " targets.vim 添加更多的文本对象支持
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 " vim-sendwich 修改选中文本对象的环绕字符
-Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
+" Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
 
 " wakatime
 Plug 'wakatime/vim-wakatime'
@@ -411,6 +411,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
 " YouCompleteMe {{{
     let g:ycm_python_binary_path = 'python'
+    let g:ycm_key_list_select_completion = ['<C-P>', '<C-N>']
+    let g:ycm_key_list_stop_completion = ['<CR>']
 " }}}
 
 " MatchTagAlways {{{
