@@ -54,7 +54,7 @@ Plug 'littlekey/validator.vim'
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
 let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
 
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
