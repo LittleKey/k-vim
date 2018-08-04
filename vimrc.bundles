@@ -53,7 +53,8 @@ Plug 'littlekey/validator.vim'
 " completor for vim8
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --go-completer --java-completer --system-libclang' }
+let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
+Plug 'Valloric/YouCompleteMe', { 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
 
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
@@ -220,9 +221,9 @@ Plug 'qpkorr/vim-bufkill'
 " Plug 'bps/vim-textobj-python', { 'for': 'python' }
 
 " targets.vim 添加更多的文本对象支持
-" Plug 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 " vim-sendwich 修改选中文本对象的环绕字符
-" Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
+Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
 
 " wakatime
 Plug 'wakatime/vim-wakatime'
@@ -249,7 +250,7 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', { 'tag': 'v1.17', 'do': 'GoUpdateBinaries' }
+    Plug 'fatih/vim-go', { 'tag': 'v1.17', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 endif
 
 
