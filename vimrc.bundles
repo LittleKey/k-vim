@@ -76,10 +76,6 @@ Plug 'scrooloose/nerdcommenter'
 " 增强<C-a>/<C-x>可以作用于日期
 Plug 'tpope/vim-speeddating'
 
-" 快速加入修改环绕字符 已使用sandwich代替
-" for repeat -> enhance surround.vim, . to repeat command
-" Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
-
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
 Plug 'bronson/vim-trailing-whitespace'
@@ -125,8 +121,8 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
 Plug 'mhinz/vim-grepper'
-" vim启动页面增强
-Plug 'mhinz/vim-startify'
+" vim启动页面增强: 会缓存很多buffers. 导致编辑很卡顿
+" Plug 'mhinz/vim-startify'
 
 " eunuch
 Plug 'tpope/vim-eunuch'
@@ -207,19 +203,6 @@ Plug 'wesQ3/vim-windowswap'
 " buffer operation improve
 Plug 'qpkorr/vim-bufkill'
 
-" text object
-" 支持自定义文本对象
-" Plug 'kana/vim-textobj-user'
-" 增加行文本对象: l   dal yal cil # FIXME line的大概没什么用
-" Plug 'kana/vim-textobj-line'
-" 增加文件文本对象: e   dae yae cie
-" Plug 'kana/vim-textobj-entire'
-" 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
-" Plug 'kana/vim-textobj-indent'
-" Plug 'kana/vim-textobj-underscore'
-" 选择一个函数
-" Plug 'bps/vim-textobj-python', { 'for': 'python' }
-
 " targets.vim 添加更多的文本对象支持
 Plug 'wellle/targets.vim'
 " vim-sendwich 修改选中文本对象的环绕字符
@@ -260,16 +243,6 @@ if count(g:bundle_groups, 'python')
     Plug 'hdima/python-syntax', {'for': 'python'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
     Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
-endif
-
-if count(g:bundle_groups, 'ruby')
-    Plug 'vim-ruby/vim-ruby', {'for: 'ruby'}
-    Plug 'tpope/vim-rails', {'for': 'ruby'}
-    " dir / dar
-    Plug 'nelstrom/vim-textobj-rubyblock', {'for': 'ruby'}
-
-    " 有bug, 和当前有冲突, 尚未解决, 不要打开 => TODO: solve this problem
-    " Plug 'tpope/vim-endwise'
 endif
 
 if count(g:bundle_groups, 'javascript')
@@ -343,21 +316,6 @@ if count(g:bundle_groups, 'beta')
     " Plug 'robbles/logstash.vim'
 
     " Plug 'ConradIrwin/vim-bracketed-paste'
-endif
-
-if count(g:bundle_groups, 'java')
-  " ##### java complete #####
-  Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
-
-  autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-  nmap <F1> <Plug>(JavaComplete-Imports-RemoveUnused)
-  imap <F1> <Plug>(JavaComplete-Imports-AddMissing)
-
-  let g:JavaComplete_ImportOrder = ['java.', 'javax.', 'com.', 'org.', 'net.']
-  let g:JavaComplete_RegularClasses = ['java.lang.String', 'java.lang.Object', 'java.util.List']
-
-  let g:completor_java_omni_trigger = '\.'
 endif
 
 " Add plugins to &runtimepath
