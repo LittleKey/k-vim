@@ -57,7 +57,7 @@ let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-
 Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
 
 " 自动补全单引号，双引号等
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
@@ -68,6 +68,9 @@ Plug 'Valloric/MatchTagAlways'
 
 " 高亮选中单词
 Plug 't9md/vim-quickhl'
+
+" 高亮模式匹配并提供preview
+Plug 'markonm/traces.vim'
 
 " quick edit
 " 快速注释
@@ -84,7 +87,8 @@ Plug 'bronson/vim-trailing-whitespace'
 " quickscope
 Plug 'unblevable/quick-scope'
 
-Plug 'vim-scripts/matchit.zip'
+" 增强配对能力, 并提供高亮
+Plug 'andymass/vim-matchup'
 " signature
 " 显示marks - 方便自己进行标记和跳转
 " m[a-zA-Z] add mark
@@ -147,7 +151,7 @@ Plug 'myusuf3/numbers.vim'
 " polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
 Plug 'sheerun/vim-polyglot'
 
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 " molokai
 " 主题 molokai
 " Plug 'tomasr/molokai'
@@ -196,6 +200,8 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'majutsushi/tagbar'
 " window swap
 Plug 'wesQ3/vim-windowswap'
+" window resize
+Plug 'simeji/winresizer'
 " buffer operation improve
 Plug 'qpkorr/vim-bufkill'
 
@@ -386,13 +392,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
 " }}}
 
-" delimitMate {{{
-    " for python docstring ",优化输入
-    au FileType python let b:delimitMate_nesting_quotes = ['"']
-    " 关闭某些类型文件的自动补全
-    "au FileType mail let b:delimitMate_autoclose = 0
-" }}}
-
 
 " closetag {{{
     let g:closetag_html_style=1
@@ -426,6 +425,11 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
       autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
       autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
     augroup END
+" }}}
+
+" matchup {{{
+  " async
+  let g:matchup_transmute_enabled = 1
 " }}}
 
 " ################### 快速选中 ###################
@@ -557,6 +561,9 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:airline#extensions#ctrlspace#enabled = 1
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
+
+    let g:airline_extensions = ['tabline', 'ctrlp', 'hunks', 'ctrlspace']
+    let g:airline_highlighting_cache = 1
 " }}}
 
 " rainbow_parentheses {{{
