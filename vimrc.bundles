@@ -63,9 +63,6 @@ Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
-" 高亮TAG
-Plug 'Valloric/MatchTagAlways'
-
 " 高亮选中单词
 Plug 't9md/vim-quickhl'
 
@@ -376,17 +373,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:ycm_key_list_stop_completion = ['<CR>']
 " }}}
 
-" MatchTagAlways {{{
-    let g:mta_use_matchparen_group = 1
-    let g:mta_filetypes = {
-      \ 'html': 1,
-      \ 'javascript': 1,
-      \ 'jsx': 1,
-      \ 'xml': 1,
-      \ 'jinja': 1,
-      \}
-" }}}
-
 " vim-quickhl {{{
     nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
     xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
@@ -430,6 +416,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " matchup {{{
   " async
   let g:matchup_transmute_enabled = 1
+
+  let g:matchup_matchparen_enabled = 0
+  " let g:matchup_motion_enabled = 0
+  let g:matchup_text_obj_enabled = 0
 " }}}
 
 " ################### 快速选中 ###################
@@ -562,7 +552,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
 
-    let g:airline_extensions = ['tabline', 'ctrlp', 'hunks', 'ctrlspace']
+    let g:airline_extensions = ['tabline', 'ctrlp', 'ctrlspace']
     let g:airline_highlighting_cache = 1
 " }}}
 
