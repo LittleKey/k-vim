@@ -1,0 +1,32 @@
+diff --git a/autoload/airline/extensions/branch.vim b/autoload/airline/extensions/branch.vim
+index fcf4d3a..271327b 100644
+--- a/autoload/airline/extensions/branch.vim
++++ b/autoload/airline/extensions/branch.vim
+@@ -36,6 +36,9 @@ let s:vcs_config = {
+ \  },
+ \}
+ 
++" for cache get head
++let s:branch_head = ''
++
+ " Initializes b:buffer_vcs_config. b:buffer_vcs_config caches the branch and
+ " untracked status of the file in the buffer. Caching those fields is necessary,
+ " because s:vcs_config may be updated asynchronously and s:vcs_config fields may
+@@ -271,12 +274,14 @@ function! airline#extensions#branch#head()
+ endfunction
+ 
+ function! airline#extensions#branch#get_head()
+-  let head = airline#extensions#branch#head()
++  if s:branch_head == ''
++    let s:branch_head = airline#extensions#branch#head()
++  endif
+   let empty_message = get(g:, 'airline#extensions#branch#empty_message', '')
+   let symbol = get(g:, 'airline#extensions#branch#symbol', g:airline_symbols.branch)
+-  return empty(head)
++  return empty(s:branch_head)
+         \ ? empty_message
+-        \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), head)
++        \ : printf('%s%s', empty(symbol) ? '' : symbol.(g:airline_symbols.space), s:branch_head)
+ endfunction
+ 
+ function! s:reset_untracked_cache(shellcmdpost)

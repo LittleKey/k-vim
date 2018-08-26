@@ -138,7 +138,7 @@ Plug 'rhysd/committia.vim'
 " view
 " airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline', { 'do': 'git apply ../../others/airline_branch_cached_patch' }
 Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
