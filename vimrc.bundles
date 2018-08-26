@@ -552,7 +552,16 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
 
-    let g:airline_extensions = ['tabline', 'ctrlp', 'ctrlspace']
+    let g:airline_extensions = [
+        \ 'tabline',
+        \ 'ctrlp',
+        \ 'ctrlspace',
+        \ 'branch',
+        \ 'tagbar',
+        \ 'grepper',
+        \ 'ycm',
+        \ 'quickfix',
+        \ ]
     let g:airline_highlighting_cache = 1
 " }}}
 
