@@ -56,10 +56,8 @@ Plug 'littlekey/validator.vim'
 let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
 Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
 
-" 自动补全单引号，双引号等
-Plug 'jiangmiao/auto-pairs'
 " 自动配对补全符号`e.g: (,[,{,',"`
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
@@ -98,7 +96,7 @@ Plug 'kshenoy/vim-signature'
 " quick selection and edit
 " expandregion
 " 选中区块
-Plug 'terryma/vim-expand-region'
+" Plug 'terryma/vim-expand-region'
 " 多光标选中编辑
 " multiplecursors
 Plug 'terryma/vim-multiple-cursors'
@@ -122,11 +120,11 @@ Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-startify'
 
 " eunuch
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 
 " git
 " fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 " committia 提升编辑git commit时的功能
@@ -187,16 +185,14 @@ Plug 'jacoborus/tender.vim'
 " Plug 'liuchengxu/space-vim-dark'
 
 " nav
-" nerdtree nerdtreetabs
-Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
-" nerdtree git
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" nerdtree nerdtree-git-plugin
+Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
 " window swap
-Plug 'wesQ3/vim-windowswap'
+" Plug 'wesQ3/vim-windowswap'
 " window resize
 Plug 'simeji/winresizer'
 " buffer operation improve
