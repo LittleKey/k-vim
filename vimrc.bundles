@@ -62,7 +62,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
 " 高亮选中单词
-Plug 't9md/vim-quickhl'
+" Plug 't9md/vim-quickhl'
 
 " 高亮模式匹配并提供preview
 Plug 'markonm/traces.vim'
@@ -607,7 +607,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
-    " map <leader>n :NERDTreeToggle<CR>
+    map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/', '__pycache__' ]
     "close vim if the only window left open is a NERDTree
