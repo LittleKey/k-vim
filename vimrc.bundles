@@ -16,8 +16,8 @@ filetype off " required! turn off
 
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'json', 'protobuf', 'nginx', 'golang', 'ruby', 'less']
-    let g:bundle_groups=['python', 'markdown', 'tmux', 'json', 'protobuf', 'nginx', 'golang']
+    " let g:bundle_groups=['python', 'javascript', 'tmux', 'golang', 'ruby', 'less']
+    let g:bundle_groups=['python', 'tmux', 'golang']
 endif
 
 " ----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Plug 'littlekey/validator.vim'
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
 let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'c++'] }
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'c++'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 Plug 'jiangmiao/auto-pairs'
@@ -214,21 +214,11 @@ if count(g:bundle_groups, 'tmux')
     Plug 'christoomey/vim-tmux-navigator'
 endif
 
-if count(g:bundle_groups, 'markdown')
-    Plug 'plasticboy/vim-markdown', {'for': 'md'}
-    " https://github.com/suan/vim-instant-markdown
-    " npm -g install instant-markdown-d
-    " Plug 'suan/vim-instant-markdown'
-    " let g:instant_markdown_slow = 1
-    " let g:instant_markdown_autostart = 0
-    " map <F12> :InstantMarkdownPreview<CR>
-endif
-
 if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', { 'tag': 'v1.17', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+    " Plug 'fatih/vim-go', { 'tag': 'v1.17', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 endif
 
 
@@ -260,45 +250,10 @@ if count(g:bundle_groups, 'javascript')
     " Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
 endif
 
-if count(g:bundle_groups, 'shell')
-    " Plug 'Shougo/vimshell.vim'
-    " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    " map <C-r> :FZF<cr>
-endif
-
-if count(g:bundle_groups, 'json')
-    " json
-    Plug 'elzr/vim-json', {'for': 'json'}
-endif
-
-if count(g:bundle_groups, 'protobuf')
-  " protobuf
-  Plug 'uarun/vim-protobuf', {'for': 'protobuf'}
-endif
-
-if count(g:bundle_groups, 'css')
-    " css
-    " not work in iterm2 which termianl selection is not xterm-256, and it slow
-    " Plug 'ap/vim-css-color'
-
-    " 这个有坑, see issue https://github.com/wklken/k-vim/issues/49
-    " Plug 'gorodinskiy/vim-coloresque'
-    " Plug 'lilydjwg/colorizer'
-endif
-
 if count(g:bundle_groups, 'less')
     " ###### vim.less : less 自动更新##########
     " Plug 'groenewege/vim-less'
     " autocmd BufWritePost *.less :!lessc % > %:p:r.css
-endif
-
-if count(g:bundle_groups, 'html')
-    " ###### emmet HTML complete #########
-    " Plug 'mattn/emmet-vim'
-endif
-
-if count(g:bundle_groups, 'nginx')
-    " Plug 'evanmiller/nginx-vim-syntax'
 endif
 
 if count(g:bundle_groups, 'kotlin')
@@ -586,22 +541,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
 " polyglot {{{
     " 已配置语法支持插件的语言, 不使用polyglot
-    let g:polyglot_disabled = ['python', 'go']
-" }}}
-
-" ################### 显示增强-主题 ###################"
-
-" solarized {{{
-    " let g:solarized_termtrans=1
-    " let g:solarized_contrast="normal"
-    " let g:solarized_visibility="normal"
-    " let g:solarized_termcolors=256
-" }}}
-
-" molokai {{{
-    " monokai原始背景色
-    " let g:molokai_original = 1
-    " let g:rehash256 = 1
+    let g:polyglot_disabled = ['python']
 " }}}
 
 " ################### 快速导航 ###################
@@ -618,7 +558,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
 
     " nerdtreetabs
-    map <Leader>n <plug>NERDTreeTabsToggle<CR>
+    " map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " 打开tab同步
     let g:nerdtree_tabs_synchronize_view=1
     let g:nerdtree_tabs_synchronize_focus=1
@@ -721,14 +661,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:go_highlight_build_constraints = 1
 
     let g:go_fmt_fail_silently = 1
-    " format with goimports instead of gofmt
-    let g:go_fmt_command = "goimports"
+    let g:go_fmt_command = "gofmt"
 " }}}
-
-" markdown {{{
-    let g:vim_markdown_folding_disabled=1
-" }}}
-
 
 " javascript {{{
     " pangloss/vim-javascript
@@ -738,10 +672,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
     let g:javascript_plugin_flow = 1
     let g:jsx_ext_required = 0
-" }}}
-
-" json {{{
-    let g:vim_json_syntax_conceal = 0
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------
