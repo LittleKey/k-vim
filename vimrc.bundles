@@ -226,6 +226,8 @@ if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
     Plug 'hdima/python-syntax', {'for': 'python'}
+    let python_highlight_all = 1
+    let python_slow_sync = 0
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
     Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 endif
