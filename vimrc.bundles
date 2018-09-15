@@ -61,6 +61,9 @@ Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
+" 自动进入粘贴模式
+Plug 'roxma/vim-paste-easy'
+
 " 高亮选中单词
 " Plug 't9md/vim-quickhl'
 
@@ -76,7 +79,8 @@ Plug 'tpope/vim-speeddating'
 
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
-Plug 'bronson/vim-trailing-whitespace'
+" Plug 'bronson/vim-trailing-whitespace'
+Plug 'ntpeters/vim-better-whitespace'
 
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
@@ -124,7 +128,7 @@ Plug 'mhinz/vim-startify'
 
 " git
 " fugitive
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 " committia 提升编辑git commit时的功能
@@ -212,6 +216,7 @@ if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
     Plug 'christoomey/vim-tmux-navigator'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
 endif
 
 if count(g:bundle_groups, 'golang')
@@ -303,7 +308,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 
     " let g:validator_c_checker = ['clang-tidy']
 
-    let g:validator_go_checkers = ['gometalinter']
+    " let g:validator_go_checkers = ['gometalinter']
 
     " let g:validator_filetype_map = {"py.j2": "python"}
     " 使用littlekey修改版validator.vim
@@ -344,7 +349,9 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
 " }}}
 
 " trailingwhitespace {{{
-    map <leader><space> :FixWhitespace<cr>
+    map <leader><space> :StripWhitespace<cr>
+    let g:strip_whitespace_on_save = 1
+    let g:strip_whitelines_at_eof=1
 " }}}
 
 " targets.vim {{{
