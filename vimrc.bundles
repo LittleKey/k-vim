@@ -216,7 +216,7 @@ if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'tmux-plugins/vim-tmux-focus-events'
+    " Plug 'tmux-plugins/vim-tmux-focus-events'
 endif
 
 if count(g:bundle_groups, 'golang')
