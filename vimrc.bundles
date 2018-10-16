@@ -308,7 +308,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " let g:validator_c_checker = ['clang-tidy']
 
     let g:validator_go_checkers = ['gometalinter']
-    let g:validator_go_gometalinter_args = '--enable-all --fast --enable-gc --aggregate --vendor --errors'
+    let g:validator_go_gometalinter_args = '--enable-all --fast --enable-gc --aggregate --vendor --errors --disable=gotype --disable=gotypex'
 
     " let g:validator_filetype_map = {"py.j2": "python"}
     " 使用littlekey修改版validator.vim
@@ -516,11 +516,11 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
         \ 'tabline',
         \ 'ctrlp',
         \ 'ctrlspace',
+        \ 'quickfix',
         \ 'branch',
         \ 'tagbar',
         \ 'grepper',
         \ 'ycm',
-        \ 'quickfix',
         \ ]
     let g:airline_highlighting_cache = 1
 " }}}
