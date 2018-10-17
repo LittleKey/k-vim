@@ -145,8 +145,8 @@ Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
-" numbers 相对行号与绝对行号显示增强
-Plug 'myusuf3/numbers.vim'
+" numbers 相对行号与绝对行号显示增强 too lag
+" Plug 'myusuf3/numbers.vim'
 " polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
 Plug 'sheerun/vim-polyglot'
 
