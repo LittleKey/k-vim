@@ -208,7 +208,7 @@ Plug 'wellle/targets.vim'
 Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
 
 " wakatime
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 " let g:wakatime_ScreenRedraw = 0 " disable redraw screen after sending heartbeats
 
 
@@ -329,6 +329,9 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     let g:ycm_python_binary_path = 'python'
     let g:ycm_key_list_select_completion = ['<C-P>', '<C-N>']
     let g:ycm_key_list_stop_completion = ['<CR>']
+    " vertical-split | new-or-existing-tab
+    let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+    let g:ycm_complete_in_comments = 1
 " }}}
 
 " vim-quickhl {{{
@@ -512,17 +515,17 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
 
+    " not include ctrlp
     let g:airline_extensions = [
         \ 'tabline',
-        \ 'ctrlp',
         \ 'ctrlspace',
         \ 'quickfix',
         \ 'branch',
-        \ 'tagbar',
         \ 'grepper',
         \ 'ycm',
         \ ]
     let g:airline_highlighting_cache = 1
+    let g:airline_focuslost_inactive = 1
 " }}}
 
 " rainbow_parentheses {{{

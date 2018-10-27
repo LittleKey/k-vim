@@ -76,7 +76,6 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 " set cursorline
 set colorcolumn=89
 
-
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
 set t_ti= t_te=
@@ -125,6 +124,8 @@ set showmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 set scrolloff=7
+" keep cursor always in the middle of screen
+" set scrolloff=9999
 
 " set winwidth=79
 
@@ -154,7 +155,7 @@ set ignorecase
 set smartcase
 
 " 代码折叠
-set foldenable
+" set foldenable
 " 折叠方法
 " manual    手工折叠
 " indent    使用缩进表示折叠
@@ -162,11 +163,11 @@ set foldenable
 " syntax    使用语法定义折叠
 " diff      对没有更改的文本进行折叠
 " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=indent
-set foldlevel=99
+" set foldmethod=indent
+" set foldlevel=99
 " 代码折叠自定义快捷键 <leader>zz
 let g:FoldMethod = 0
-map <leader>zz :call ToggleFold()<cr>
+" map <leader>zz :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -241,20 +242,20 @@ set nrformats=
 
 " too lag
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-" set relativenumber number
-" au FocusLost * :set norelativenumber number
-" au FocusGained * :set relativenumber
+set relativenumber number
+au FocusLost * :set norelativenumber number
+au FocusGained * :set relativenumber
 " " 插入模式下用绝对行号, 普通模式下用相对
-" autocmd InsertEnter * :set norelativenumber number
-" autocmd InsertLeave * :set relativenumber
-" function! NumberToggle()
-  " if(&relativenumber == 1)
-    " set norelativenumber number
-  " else
-    " set relativenumber
-  " endif
-" endfunc
-" nnoremap <C-n> :call NumberToggle()<cr>
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber number
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -612,7 +613,7 @@ endfunc
 if has("autocmd")
   " Highlight TODO, FIXME, NOTE, etc.
   if v:version > 701
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\|@LITTLEKEY\|@LittleKey\|@littlekey\)')
     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
   endif
 endif
@@ -680,3 +681,6 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+" Speed UP!
+set re=1
+set lazyredraw
