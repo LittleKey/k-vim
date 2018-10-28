@@ -523,6 +523,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
         \ 'branch',
         \ 'grepper',
         \ 'ycm',
+        \ 'ctrlp',
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
@@ -593,7 +594,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812 --max
       let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
     endif
 
-    " let g:CtrlSpaceIgnoredFiles = '\v(node_modules|\.git)[\/]'
+    let g:CtrlSpaceIgnoredFiles = '\v(node_modules|\.git)[\/]'
+    " let g:CtrlSpaceDefaultMappingKey = "<C-Space>"
 " }}}
 
 

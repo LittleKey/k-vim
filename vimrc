@@ -71,9 +71,9 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " very lag when move cursor
 " 突出显示当前列
-" set cursorcolumn
+set cursorcolumn
 " 突出显示当前行
-" set cursorline
+set cursorline
 set colorcolumn=89
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -242,20 +242,20 @@ set nrformats=
 
 " too lag
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
+" set relativenumber number
+" au FocusLost * :set norelativenumber number
+" au FocusGained * :set relativenumber
 " " 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" autocmd InsertEnter * :set norelativenumber number
+" autocmd InsertLeave * :set relativenumber
+" function! NumberToggle()
+  " if(&relativenumber == 1)
+    " set norelativenumber number
+  " else
+    " set relativenumber
+  " endif
+" endfunc
+" nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
