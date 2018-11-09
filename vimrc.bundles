@@ -54,7 +54,7 @@ Plug 'littlekey/validator.vim'
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
 let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'c++'] }
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'cpp'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -478,6 +478,12 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
         \ "prev"  : "<C-K>",
         \ "pquit" : "q",
         \ }
+
+    let g:ctrlsf_auto_focus = {
+        \ "at": "done",
+        \ "duration_less_than": 1000
+        \ }
+
 " }}}
 
 
