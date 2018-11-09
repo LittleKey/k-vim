@@ -308,8 +308,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
     " let g:validator_c_checker = ['clang-tidy']
 
-    let g:validator_go_checkers = ['gometalinter']
-    let g:validator_go_gometalinter_args = '--enable-all --fast --aggregate --vendor --disable=gotype --disable=gotypex'
+    " let g:validator_go_checkers = ['gometalinter']
+    " let g:validator_go_gometalinter_args = '--disable-all --line-length=88 --aggregate --vendor --enable=gochecknoinits --enable=gofmt --enable=vet --enable=vetshadow --enable=gotype'
+    " let g:validator_go_checkers = ['gofmt']
+    " let g:validator_go_golangci-lint = ''
 
     " let g:validator_filetype_map = {"py.j2": "python"}
     " 使用littlekey修改版validator.vim
@@ -335,6 +337,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:ycm_goto_buffer_command = 'new-or-existing-tab'
     let g:ycm_complete_in_comments = 1
     let g:ycm_auto_trigger = 0
+
+    let g:ycm_global_ycm_extra_conf = '$HOME/dotfiles/k-vim/others/.ycm_extra_conf.py'
 " }}}
 
 " vim-quickhl {{{
@@ -383,9 +387,9 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
   " async
   let g:matchup_transmute_enabled = 1
 
-  " let g:matchup_matchparen_enabled = 0
+  let g:matchup_matchparen_enabled = 0
   " let g:matchup_motion_enabled = 0
-  " let g:matchup_text_obj_enabled = 0
+  let g:matchup_text_obj_enabled = 0
 " }}}
 
 " ################### 快速选中 ###################
@@ -532,6 +536,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
         \ 'grepper',
         \ 'ycm',
         \ 'ctrlp',
+        \ 'ale',
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
