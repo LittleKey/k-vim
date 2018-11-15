@@ -297,7 +297,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
       call airline#parts#define_function('validator', 'validator#get_status_string')
       let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
     endfunction
-    autocmd User AirlineAfterInit call AirlineInit()
+    augroup validator_airline
+      autocmd!
+      autocmd User AirlineAfterInit call AirlineInit()
+    augroup END
 
     let g:validator_python_checkers = ['flake8']
     let g:validator_python_flake8_args = flake8_ignore_args
@@ -310,7 +313,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
     " let g:validator_go_checkers = ['gometalinter']
     " let g:validator_go_gometalinter_args = '--disable-all --line-length=88 --aggregate --vendor --enable=gochecknoinits --enable=gofmt --enable=vet --enable=vetshadow --enable=gotype'
-    " let g:validator_go_checkers = ['gofmt']
+    let g:validator_go_checkers = ['gofmt']
     " let g:validator_go_golangci-lint = ''
 
     " let g:validator_filetype_map = {"py.j2": "python"}
@@ -325,7 +328,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
 " completor.vim {{{
     " 直接触发自动补全 insert模式下
-    let g:completor_auto_trigger = 1
+    " let g:completor_auto_trigger = 1
 " }}}
 
 " YouCompleteMe {{{
@@ -335,8 +338,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:ycm_key_invoke_completion = '<C-C>'
     " vertical-split | new-or-existing-tab
     let g:ycm_goto_buffer_command = 'new-or-existing-tab'
-    let g:ycm_complete_in_comments = 1
-    let g:ycm_auto_trigger = 0
+    let g:ycm_complete_in_comments = 0
+    let g:ycm_auto_trigger = 1
 
     let g:ycm_global_ycm_extra_conf = '$HOME/dotfiles/k-vim/others/.ycm_extra_conf.py'
 " }}}
@@ -512,9 +515,13 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:signify_sign_delete_first_line = '‾'
     let g:signify_sign_change            = '~'
     let g:signify_sign_changedelete      = g:signify_sign_change
-    autocmd ColorScheme * hi SignifySignAdd cterm=bold ctermbg=none  ctermfg=119
-    autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
-    autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+
+    augroup signify_colors
+      autocmd!
+      autocmd ColorScheme * hi SignifySignAdd cterm=bold ctermbg=none  ctermfg=119
+      autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
+      autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+    augroup END
 " }}}
 
 " committia {{{
@@ -576,10 +583,13 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
     let g:rbpt_max = 16
     let g:rbpt_loadcmd_toggle = 0
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    augroup rainbow_parentheses_group
+      au!
+      au VimEnter * RainbowParenthesesToggle
+      au Syntax * RainbowParenthesesLoadRound
+      au Syntax * RainbowParenthesesLoadSquare
+      au Syntax * RainbowParenthesesLoadBraces
+    augroup END
 " }}}
 
 " polyglot {{{
@@ -594,7 +604,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/', '__pycache__' ]
     "close vim if the only window left open is a NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | end
     " s/v 分屏打开文件
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'

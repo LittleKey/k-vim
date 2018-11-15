@@ -209,16 +209,19 @@ function! TAB(size)
   execute "set softtabstop=".a:size
 endfunc
 
-autocmd FileType * :call TAB(2)                        " default Tabsize
-autocmd FileType py,python :call TAB(4)                " python Tabsize
-autocmd FileType ruby :call TAB(2)                     " ruby Tabsize
-autocmd FileType vim :call TAB(2)                      " vimrc Tabsize
-autocmd FileType html :call TAB(2)                     " html Tabsize
-autocmd FileType javascript,typescript :call TAB(2)    " typescript javascript Tabsize
-autocmd FileType js,ts,cs,coffee,jsx :call TAB(2)      " typescript javascript coffeescript Tabsize
-autocmd FileType c,h :call TAB(2)                      " c Tabsize
-autocmd FileType cpp,hpp,cc,cxx :call TAB(2)           " cpp Tabsize
-autocmd FileType java :call TAB(2)                     " java Tabsize
+augroup filetype_indent_group
+  autocmd!
+  autocmd FileType * :call TAB(2)                        " default Tabsize
+  autocmd FileType py,python :call TAB(4)                " python Tabsize
+  autocmd FileType ruby :call TAB(2)                     " ruby Tabsize
+  autocmd FileType vim :call TAB(2)                      " vimrc Tabsize
+  autocmd FileType html :call TAB(2)                     " html Tabsize
+  autocmd FileType javascript,typescript :call TAB(2)    " typescript javascript Tabsize
+  autocmd FileType js,ts,cs,coffee,jsx :call TAB(2)      " typescript javascript coffeescript Tabsize
+  autocmd FileType c,h :call TAB(2)                      " c Tabsize
+  autocmd FileType cpp,hpp,cc,cxx :call TAB(2)           " cpp Tabsize
+  autocmd FileType java :call TAB(2)                     " java Tabsize
+augroup END
 
 " 使用F7切换是否使用空格代替tab(或tab代替空格)
 function! TabToggle()
@@ -292,7 +295,10 @@ set formatoptions+=B
 " others 其它设置
 "==========================================
 " vimrc文件修改之后自动加载
-autocmd! bufwritepost .vimrc source %
+augroup autoload_vimrc_group
+  autocmd!
+  autocmd bufwritepost .vimrc source %
+augroup END
 
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -304,19 +310,22 @@ set wildmenu
 set wildignore=*.o,*~,*.pyc,*.class
 
 " 离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd! InsertLeave * if pumvisible() == 0|pclose|endif
 " 回车即选中当前项
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 
-" In the quickfix window, <CR> is used to jump to the error under the
-" cursor, so undefine the mapping there.
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-" quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
-autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
-autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
+augroup quickfix_group
+  autocmd!
+  " In the quickfix window, <CR> is used to jump to the error under the
+  " cursor, so undefine the mapping there.
+  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+  " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
+  autocmd BufReadPost quickfix nnoremap <buffer> v <C-w><Enter><C-w>L
+  autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
+augroup END
 
 " command-line window
-autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+autocmd! CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 
 " 上下左右键的行为 会显示其他信息
@@ -327,7 +336,7 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 "==========================================
@@ -381,7 +390,7 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    that won't be autoindented
 
 " disbale paste mode when leaving insert mode
-au InsertLeave * set nopaste
+au! InsertLeave * set nopaste
 
 " F5 set paste问题已解决, 粘贴代码前不需要按F5了
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
@@ -461,7 +470,7 @@ nnoremap # *
 nnoremap * #
 
 " for # indent, python文件中输入新行时#号注释不切回行首
-autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
+autocmd! BufNewFile,BufRead *.py inoremap # X<c-h>#
 
 
 " tab/buffer相关
@@ -472,49 +481,6 @@ nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
 noremap <left> :bp<CR>
 noremap <right> :bn<CR>
-
-
-" tab 操作
-" http://vim.wikia.com/wiki/Alternative_tab_navigation
-" http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
-
-" tab切换
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
-
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
-
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
-
-" normal模式下切换到确切的tab
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
-
-" Toggles between the active and last active tab "
-" The first tab is always 1 "
-let g:last_active_tab = 1
-" nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
-" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
-autocmd TabLeave * let g:last_active_tab = tabpagenr()
-
-" 新建tab  Ctrl+t
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
 
 " 关闭buffer和window
 nnoremap <Leader>bd :bd<CR>
@@ -558,61 +524,27 @@ nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 " FileType Settings  文件类型设置
 "==========================================
 
-" 具体编辑文件类型的一般设置，比如不要 tab 等
-autocmd FileType python :call TAB(4)
-autocmd FileType ruby,javascript,html,css,xml,go :call TAB(2)
-autocmd FileType python,ruby,javascript,html,css,xml,go set expandtab ai
-autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
-autocmd BufRead,BufNewFile *.part set filetype=html
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript expandtab ai
-autocmd BufRead,BufNewFile *.vue :call TAB(2)
-
-" disable showmatch when use > in php
-au BufWinEnter *.php set mps-=<:>
-
-
-
-" 保存python文件时删除多余空格
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-
-" 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.rb,*.qml exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    " 如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
-
-    " 如果文件类型为ruby
-    if &filetype == 'ruby'
-      call setline(1, "\#!/usr/bin/env ruby")
-      call append(1, "\#encoding: utf-8")
-    endif
-
-    " 如果文件类新为qml
-    if &filetype ==  'qml'
-      call setline(1, "import QtQuick 1.0")
-    endif
-
-    normal G
-    normal o
-    normal o
-endfunc
-
+augroup indent_settings_group
+  autocmd!
+  " 具体编辑文件类型的一般设置，比如不要 tab 等
+  autocmd FileType python :call TAB(4)
+  autocmd FileType ruby,javascript,html,css,xml,go :call TAB(2)
+  autocmd FileType python,ruby,javascript,html,css,xml,go set expandtab ai
+  autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
+  autocmd BufRead,BufNewFile *.part set filetype=html
+  autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript expandtab ai
+  autocmd BufRead,BufNewFile *.vue :call TAB(2)
+augroup END
 
 " 设置可以高亮的关键字
 if has("autocmd")
   " Highlight TODO, FIXME, NOTE, etc.
   if v:version > 701
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\)')
-    autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+    augroup highlight_keyword_group
+      autocmd!
+      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\)')
+      autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+    augroup END
   endif
 endif
 
