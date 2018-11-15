@@ -62,7 +62,7 @@ Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': 
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
 " 自动进入粘贴模式
-Plug 'roxma/vim-paste-easy'
+" Plug 'roxma/vim-paste-easy'
 
 " 高亮选中单词
 " Plug 't9md/vim-quickhl'
@@ -131,9 +131,10 @@ Plug 'mhinz/vim-startify'
 " fugitive
 Plug 'tpope/vim-fugitive'
 " gitgutter
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 " committia 提升编辑git commit时的功能
-Plug 'rhysd/committia.vim'
+" Plug 'rhysd/committia.vim'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
 " Plug 'junegunn/vim-peekaboo'
@@ -207,7 +208,6 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'wellle/targets.vim'
 " vim-sendwich 修改选中文本对象的环绕字符
 Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
-
 " wakatime
 " Plug 'wakatime/vim-wakatime'
 " let g:wakatime_ScreenRedraw = 0 " disable redraw screen after sending heartbeats
@@ -496,19 +496,30 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 " }}}
 
 " gitgutter {{{
-    let g:gitgutter_map_keys = 0
-    let g:gitgutter_enabled = 1
-    let g:gitgutter_highlight_lines = 0
-    let g:gitgutter_realtime = 1
-    let g:gitgutter_async = 1
+    " let g:gitgutter_map_keys = 0
+    " let g:gitgutter_enabled = 1
+    " let g:gitgutter_highlight_lines = 0
+    " let g:gitgutter_realtime = 1
+    " let g:gitgutter_async = 1
     " autocmd BufWritePost * GitGutter
     " let g:gitgutter_terminal_reports_focus=0
     " nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
+" signify {{{
+    let g:signify_sign_add               = '+'
+    let g:signify_sign_delete            = '-'
+    let g:signify_sign_delete_first_line = '‾'
+    let g:signify_sign_change            = '~'
+    let g:signify_sign_changedelete      = g:signify_sign_change
+    autocmd ColorScheme * hi SignifySignAdd cterm=bold ctermbg=none  ctermfg=119
+    autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
+    autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
+" }}}
+
 " committia {{{
   " 如果使用了fugitive插件, 推荐打开此设置
-  let g:committia_open_only_vim_starting = 1
+  " let g:committia_open_only_vim_starting = 1
 " }}}
 
 " ################### 显示增强 ###################

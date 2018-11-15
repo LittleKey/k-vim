@@ -291,9 +291,7 @@ set formatoptions+=B
 "==========================================
 " others 其它设置
 "==========================================
-" vimrc文件修改之后自动加载, windows
-autocmd! bufwritepost _vimrc source %
-" vimrc文件修改之后自动加载, linux
+" vimrc文件修改之后自动加载
 autocmd! bufwritepost .vimrc source %
 
 " 自动补全配置
@@ -613,7 +611,7 @@ endfunc
 if has("autocmd")
   " Highlight TODO, FIXME, NOTE, etc.
   if v:version > 701
-    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\|@LITTLEKEY\|@LittleKey\|@littlekey\)')
+    autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\)')
     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
   endif
 endif
@@ -639,8 +637,6 @@ if has("gui_running")
     set noimd
     set t_Co=256
 endif
-
-
 
 " theme主题
 if (has("termguicolors"))
@@ -670,7 +666,7 @@ hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
 " 解决使用iterm2-tender配色时, 选择模式背景色看不见得问题
-hi Visual guifg=NONE ctermfg=NONE guibg=#040404 ctermbg=238 gui=NONE cterm=NONE
+" hi Visual guifg=NONE ctermfg=NONE guibg=#040404 ctermbg=238 gui=NONE cterm=NONE
 
 " for error highlight，防止错误整行标红导致看不清
 highlight clear SpellBad
