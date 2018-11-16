@@ -352,8 +352,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
     let g:ale_sign_column_always = 1
 
-    let g:ale_sign_error = '✖'
-    let g:ale_sign_warning = '●'
+    let g:ale_sign_error = "\uf05e"
+    let g:ale_sign_warning = "\uf071"
 
     let g:ale_echo_msg_error_str = 'E'
     let g:ale_echo_msg_warning_str = 'W'
@@ -589,8 +589,8 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:airline_theme = 'tender'
     " 集成ale
     let g:airline#extensions#ale#enabled = 1
-    let g:airline#extensions#ale#error_symbol = "✖ "
-    let g:airline#extensions#ale#warning_symbol = "● "
+    let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '
+    let g:airline#extensions#ale#warning_symbol = g:ale_sign_warning . ' '
 
     " not include ctrlp
     let g:airline_extensions = [
