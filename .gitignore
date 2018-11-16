@@ -7,3 +7,4 @@ myconfig.sh
 init.vim
 *.orig
 sessions
+black/

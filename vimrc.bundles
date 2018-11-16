@@ -41,7 +41,11 @@ call plug#begin('~/.vim/bundle')
 " fork from 'maralla/validator.vim', support ignore bufname
 " 为了处理CtrlP在使用正则查询函数名时会触发匹配的BUG
 " 添加了按bufname ignore的功能
-Plug 'littlekey/validator.vim'
+" Plug 'littlekey/validator.vim'
+
+" 异步lint组件
+Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json' ] }
+Plug 'ambv/black', { 'for': ['python'] }
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -98,10 +102,6 @@ Plug 'andymass/vim-matchup'
 Plug 'kshenoy/vim-signature'
 " Plug 'Yilin-Yang/vim-markbar'
 
-" quick selection and edit
-" expandregion
-" 选中区块
-" Plug 'terryma/vim-expand-region'
 " 多光标选中编辑
 " multiplecursors
 Plug 'terryma/vim-multiple-cursors'
@@ -109,8 +109,9 @@ Plug 'terryma/vim-multiple-cursors'
 " quick locate file or function
 " 文件搜索
 " change to https://github.com/ctrlpvim/ctrlp.vim
+Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp ctrlpfunky
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+" Plug 'tacahiroy/ctrlp-funky'
 " ctrlsf
 " 类似sublimetext的搜索
 " In CtrlSF window:
@@ -297,10 +298,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
       call airline#parts#define_function('validator', 'validator#get_status_string')
       let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
     endfunction
-    augroup validator_airline
-      autocmd!
-      autocmd User AirlineAfterInit call AirlineInit()
-    augroup END
+    " augroup validator_airline
+      " autocmd!
+      " autocmd User AirlineAfterInit call AirlineInit()
+    " augroup END
 
     let g:validator_python_checkers = ['flake8']
     let g:validator_python_flake8_args = flake8_ignore_args
@@ -322,6 +323,60 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:validator_ignore = ['java', 'ControlP']
 
     let g:validator_permament_sign = 1
+" }}}
+
+" ale {{{
+    " Only run linters named in ale_linters settings.
+    let g:ale_linters_explicit = 1
+
+    " pip install ansible-lint
+    " brew install cppcheck
+    " npm install jsonlint -g
+    let g:ale_linters = {
+          \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell'],
+          \  'proto': ['protoc-gen-lint'],
+          \  'python': ['black', 'mypy', 'pylint'],
+          \  'ansible': ['ansible-lint'],
+          \  'c': ['cppcheck', 'clang'],
+          \  'cpp': ['cppcheck', 'clang'],
+          \  'json': ['jsonlint'],
+          \}
+    " Only run fixers anemd in ale_fixers settings.
+    " npm install -g prettier
+    " let g:ale_fixers_explicit = 1
+    " let g:ale_fixers = {
+          " \  'python': ['black'],
+          " \  'json': ['prettier'],
+          " \}
+    " let g:ale_fix_on_save = 1
+
+    let g:ale_sign_column_always = 1
+
+    let g:ale_sign_error = '✖'
+    let g:ale_sign_warning = '●'
+
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%]% code:% %s [%severity%] '
+
+    " let g:ale_lint_on_text_changed = 'normal'
+    " let g:ale_lint_delay = 200 " ms
+    " let g:ale_lint_on_enter = 1
+    " let g:ale_lint_on_save = 1
+
+    augroup ale_hightlight_group
+      autocmd!
+      autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
+      autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
+    augroup END
+" }}}
+
+" black {{{
+    " let g:black_virtualenv = '' . $VIRTUAL_ENV
+    augroup black_group
+      autocmd!
+      autocmd BufWritePre *.py silent! Black
+    augroup END
 " }}}
 
 " ################### 自动补全 ###################
@@ -397,24 +452,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
 " ################### 快速选中 ###################
 
-" expandregion {{{
-    " map + <Plug>(expand_region_expand)
-    " map _ <Plug>(expand_region_shrink)
-    vmap v <Plug>(expand_region_expand)
-    vmap V <Plug>(expand_region_shrink)
-    " Extend the global default
-    if exists("*expand_region#custom_text_objects")
-        call expand_region#custom_text_objects({
-        \ 'a]' :1,
-        \ 'ab' :1,
-        \ 'aB' :1,
-        \ 'ii' :0,
-        \ 'ai' :0,
-        \ })
-    endif
-
-" }}}
-
 " multiplecursors {{{
     let g:multi_cursor_use_default_mapping=0
     " Default mapping
@@ -448,12 +485,12 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 
     " ctrlpfunky
     " ctrlp插件1 - 不用ctag进行函数快速跳转
-    nnoremap <Leader>fu :CtrlPFunky<Cr>
+    " nnoremap <Leader>fu :CtrlPFunky<Cr>
     " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-    let g:ctrlp_funky_syntax_highlight = 1
+    " nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+    " let g:ctrlp_funky_syntax_highlight = 1
 
-    let g:ctrlp_extensions = ['funky']
+    " let g:ctrlp_extensions = ['funky']
 " }}}
 
 
@@ -550,6 +587,10 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
+    " 集成ale
+    let g:airline#extensions#ale#enabled = 1
+    let g:airline#extensions#ale#error_symbol = "✖ "
+    let g:airline#extensions#ale#warning_symbol = "● "
 
     " not include ctrlp
     let g:airline_extensions = [
