@@ -1,0 +1,23 @@
+diff --git a/plugin/black.vim b/plugin/black.vim
+index 0a26aa0..7fedeb3 100644
+--- a/plugin/black.vim
++++ b/plugin/black.vim
+@@ -51,9 +51,17 @@ def _get_pip(venv_path):
+   return venv_path / 'bin' / 'pip'
+ 
+ def _get_virtualenv_site_packages(venv_path, pyver):
++  import os
+   if sys.platform[:3] == "win":
+     return venv_path / 'Lib' / 'site-packages'
+-  return venv_path / 'lib' / f'python{pyver[0]}.{pyver[1]}' / 'site-packages'
++  path = venv_path / 'lib' / f'python{pyver[0]}.{pyver[1]}' / 'site-packages'
++  if not os.path.exists(path):
++    import glob
++    for ver in glob.glob(str(venv_path / 'lib' / f'python{pyver[0]}.*')):
++      path = venv_path / 'lib' / ver / 'site-packages'
++      if os.path.exists(path):
++        return path
++  return path
+ 
+ def _initialize_black_env(upgrade=False):
+   pyver = sys.version_info[:2]

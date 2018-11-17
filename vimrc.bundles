@@ -45,7 +45,7 @@ call plug#begin('~/.vim/bundle')
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json' ] }
-Plug 'ambv/black', { 'for': ['python'] }
+Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -335,7 +335,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     let g:ale_linters = {
           \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell'],
           \  'proto': ['protoc-gen-lint'],
-          \  'python': ['black', 'mypy', 'pylint'],
+          \  'python': ['black', 'pylint'],
           \  'ansible': ['ansible-lint'],
           \  'c': ['cppcheck', 'clang'],
           \  'cpp': ['cppcheck', 'clang'],
@@ -372,7 +372,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 " }}}
 
 " black {{{
-    " let g:black_virtualenv = '' . $VIRTUAL_ENV
+    let g:black_virtualenv = '' . $VIRTUAL_ENV
     augroup black_group
       autocmd!
       autocmd BufWritePre *.py silent! Black
