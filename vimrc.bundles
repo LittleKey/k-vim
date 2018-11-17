@@ -10,7 +10,6 @@
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible
-filetype off " required! turn off
 
 " ################### 插件管理 ###################
 
@@ -33,15 +32,6 @@ call plug#begin('~/.vim/bundle')
 " Plug 'xolox/vim-misc'
 " vital.vim 用于vimscript的一些函数
 " Plug 'vim-jp/vital.vim'
-
-" syntastic
-" Plug 'scrooloose/syntastic'
-
-" validator.vim
-" fork from 'maralla/validator.vim', support ignore bufname
-" 为了处理CtrlP在使用正则查询函数名时会触发匹配的BUG
-" 添加了按bufname ignore的功能
-" Plug 'littlekey/validator.vim'
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json' ] }
@@ -104,7 +94,7 @@ Plug 'kshenoy/vim-signature'
 
 " 多光标选中编辑
 " multiplecursors
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 
 " quick locate file or function
 " 文件搜索
@@ -134,8 +124,6 @@ Plug 'tpope/vim-fugitive'
 " gitgutter
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
-" committia 提升编辑git commit时的功能
-" Plug 'rhysd/committia.vim'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
 " Plug 'junegunn/vim-peekaboo'
@@ -148,10 +136,43 @@ Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
-" numbers 相对行号与绝对行号显示增强 too lag
-" Plug 'myusuf3/numbers.vim'
-" polyglot 多编程语言, 语法高亮, 主要用于不常用的语言, 省得装太多插件
-Plug 'sheerun/vim-polyglot'
+
+" 语法高亮
+" ansible
+Plug 'pearofducks/ansible-vim', { 'for': ['ansible'], 'do': 'cd ./UltiSnips; ./generate.py' }
+augroup ansible_syntax_group
+  autocmd!
+  au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+augroup END
+" c/cpp
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp', 'c'] }
+" cmake
+" git
+Plug 'tpope/vim-git', { 'for': ['git'] }
+" fish
+Plug 'dag/vim-fish', { 'for': ['sh', 'fish'] }
+" haskell
+Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
+" html
+Plug 'othree/html5.vim', { 'for': ['html'] }
+" json
+Plug 'elzr/vim-json', { 'for': ['json'] }
+" less
+Plug 'groenewege/vim-less', { 'for': ['less'] }
+" lua
+Plug 'tbastos/vim-lua', { 'for': ['lua'] }
+" nginx
+Plug 'chr4/nginx.vim', { 'for': ['nginx'] }
+" protobuf
+Plug 'uarun/vim-protobuf', { 'for': ['proto'] }
+" thrift
+Plug 'solarnz/thrift.vim', { 'for': ['thrift'] }
+" tmux
+Plug 'ericpruitt/tmux.vim', { 'for': ['tmux'], 'rtp': 'vim/' }
+" typescript
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+" yaml
+Plug 'stephpy/vim-yaml', { 'for': ['yaml'] }
 
 " Plug 'flazz/vim-colorschemes'
 " molokai
@@ -198,8 +219,6 @@ Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
-" window swap
-" Plug 'wesQ3/vim-windowswap'
 " window resize
 Plug 'simeji/winresizer'
 " buffer operation improve
@@ -225,7 +244,16 @@ if count(g:bundle_groups, 'golang')
     " 1. vim a.go
     " 2. :GoInstallBinaries
     " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', { 'tag': 'v1.17', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+    Plug 'fatih/vim-go', { 'tag': 'v1.19', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_build_constraints = 1
+
+    let g:go_fmt_fail_silently = 1
+    let g:go_fmt_command = "gofmt"
 endif
 
 
@@ -233,8 +261,9 @@ if count(g:bundle_groups, 'python')
     " for python.vim syntax highlight
     " pythonsyntax
     Plug 'hdima/python-syntax', {'for': 'python'}
-    let python_highlight_all = 1
-    let python_slow_sync = 0
+    let g:python_highlight_all = 1
+    let g:python_highlight_file_headers_as_comments = 1
+    let g:python_slow_sync = 1
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
     Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 endif
@@ -245,6 +274,15 @@ if count(g:bundle_groups, 'javascript')
     " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
     " Plug 'othree/es.next.syntax.vim'
     Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
+    " pangloss/vim-javascript
+    let g:html_indent_inctags = "html,body,head,tbody"
+    let g:html_indent_script1 = "inc"
+    let g:html_indent_style1 = "inc"
+
+    let g:javascript_plugin_flow = 1
+    let g:jsx_ext_required = 0
+
+    let g:used_javascript_libs = 'React,Flux'
     " Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
     Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
     " let g:vim_jsx_pretty_colorful_config = 1
@@ -253,16 +291,8 @@ if count(g:bundle_groups, 'javascript')
     " TODO: jquery? for, remove or keep
     Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
 
-    let g:used_javascript_libs = 'React,Flux'
-
     " for tagbar
     " Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
-endif
-
-if count(g:bundle_groups, 'less')
-    " ###### vim.less : less 自动更新##########
-    " Plug 'groenewege/vim-less'
-    " autocmd BufWritePost *.less :!lessc % > %:p:r.css
 endif
 
 if count(g:bundle_groups, 'kotlin')
@@ -283,48 +313,6 @@ call plug#end()
 
 " ################### 基础 ######################
 
-" falke8 ignore args
-let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 --max-line-length=88'
-
-" validator.vim {{{
-    " checker
-    " let g:validator_error_symbol = '>>'
-    " let g:validator_warning_symbol = '>'
-    " let g:validator_style_error_symbol = '>>'
-    " let g:validator_style_warning_symbol = '>'
-    " let g:validator_auto_open_quickfix = 1
-    function! AirlineInit()
-      let g:validator_error_msg_format = "[● %d/%d errors]"
-      call airline#parts#define_function('validator', 'validator#get_status_string')
-      let g:airline_section_error = airline#section#create(['validator']) "disable syntastic
-    endfunction
-    " augroup validator_airline
-      " autocmd!
-      " autocmd User AirlineAfterInit call AirlineInit()
-    " augroup END
-
-    let g:validator_python_checkers = ['flake8']
-    let g:validator_python_flake8_args = flake8_ignore_args
-
-    let g:validator_javascript_checkers = ['eslint']
-
-    let g:validator_sh_checkers = ['shellcheck']
-
-    " let g:validator_c_checker = ['clang-tidy']
-
-    " let g:validator_go_checkers = ['gometalinter']
-    " let g:validator_go_gometalinter_args = '--disable-all --line-length=88 --aggregate --vendor --enable=gochecknoinits --enable=gofmt --enable=vet --enable=vetshadow --enable=gotype'
-    let g:validator_go_checkers = ['gofmt']
-    " let g:validator_go_golangci-lint = ''
-
-    " let g:validator_filetype_map = {"py.j2": "python"}
-    " 使用littlekey修改版validator.vim
-    " g:validator_ignore 会检查文件类型与文件是否包含关键字
-    let g:validator_ignore = ['java', 'ControlP']
-
-    let g:validator_permament_sign = 1
-" }}}
-
 " ale {{{
     " Only run linters named in ale_linters settings.
     let g:ale_linters_explicit = 1
@@ -340,6 +328,7 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
           \  'c': ['cppcheck', 'clang'],
           \  'cpp': ['cppcheck', 'clang'],
           \  'json': ['jsonlint'],
+          \  'sh': ['shellcheck'],
           \}
     " Only run fixers anemd in ale_fixers settings.
     " npm install -g prettier
@@ -380,11 +369,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
 " }}}
 
 " ################### 自动补全 ###################
-
-" completor.vim {{{
-    " 直接触发自动补全 insert模式下
-    " let g:completor_auto_trigger = 1
-" }}}
 
 " YouCompleteMe {{{
     let g:ycm_python_binary_path = 'python'
@@ -633,11 +617,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     augroup END
 " }}}
 
-" polyglot {{{
-    " 已配置语法支持插件的语言, 不使用polyglot
-    let g:polyglot_disabled = ['python']
-" }}}
-
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
@@ -739,34 +718,6 @@ let flake8_ignore_args = '--ignore=E225,W503,H405,H306,H301,H201,H404,F812,E203 
     nmap <Leader>BB :BB<CR>
     nmap <Leader>BF :BF<CR>
     nmap <leader>BA :ba<cr>
-" }}}
-
-
-" ################### 语言相关 ###################
-
-" pythonsyntax {{{
-    let python_highlight_all = 1
-" }}}
-
-" vimgo {{{
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_build_constraints = 1
-
-    let g:go_fmt_fail_silently = 1
-    let g:go_fmt_command = "gofmt"
-" }}}
-
-" javascript {{{
-    " pangloss/vim-javascript
-    let g:html_indent_inctags = "html,body,head,tbody"
-    let g:html_indent_script1 = "inc"
-    let g:html_indent_style1 = "inc"
-
-    let g:javascript_plugin_flow = 1
-    let g:jsx_ext_required = 0
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------

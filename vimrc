@@ -6,20 +6,12 @@
 let mapleader = ','
 let g:mapleader = ','
 
-" 开启语法高亮
-syntax on
-
 " install bundles
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
   source ~/.config/nvim/vimrc.bundles
 endif
-
-" ensure ftdetect et al work by including this after the bundle stuff
-filetype plugin indent on
-
-" NOTE: 以下配置有详细说明，一些特性不喜欢可以直接注解掉
 
 "==========================================
 " General Settings 基础设置
