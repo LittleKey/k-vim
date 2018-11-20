@@ -439,13 +439,6 @@ map <space> /
 " nnoremap / /\v
 " vnoremap / /\v
 
-" Keep search pattern at the center of the screen.
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-
 " 去掉搜索高亮
 function! ClearHighlight()
   if exists(":QuickhlManualReset")
@@ -464,16 +457,6 @@ nnoremap * #
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd! BufNewFile,BufRead *.py inoremap # X<c-h>#
 
-
-" tab/buffer相关
-
-" 切换前后buffer
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
-" 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
-
 " 关闭buffer和window
 nnoremap <Leader>bd :bd<CR>
 
@@ -484,16 +467,8 @@ nnoremap <Leader>bd :bd<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" y$ -> Y Make Y behave like other capitals
-map Y y$
-
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
-
-" auto jump to end of select
-" vnoremap <silent> y y`]
-" vnoremap <silent> p p`]
-" nnoremap <silent> p p`]
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>

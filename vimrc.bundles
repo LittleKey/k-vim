@@ -112,6 +112,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
 Plug 'mhinz/vim-grepper'
+" vim-searchindex 搜索结果, 显示索引
+Plug 'google/vim-searchindex'
+
 " vim启动页面增强
 Plug 'mhinz/vim-startify'
 
