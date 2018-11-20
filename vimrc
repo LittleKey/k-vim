@@ -450,10 +450,6 @@ function! ClearHighlight()
 endfunction
 noremap <silent><leader>/ :nohls<CR>:call ClearHighlight()<CR>
 
-" switch # *
-nnoremap # *
-nnoremap * #
-
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd! BufNewFile,BufRead *.py inoremap # X<c-h>#
 
