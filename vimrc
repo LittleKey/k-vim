@@ -213,6 +213,7 @@ augroup filetype_indent_group
   autocmd FileType c,h :call TAB(2)                      " c Tabsize
   autocmd FileType cpp,hpp,cc,cxx :call TAB(2)           " cpp Tabsize
   autocmd FileType java :call TAB(2)                     " java Tabsize
+  autocmd FileType rust :call TAB(4)                     " rust Tabsize
 augroup END
 
 " 使用F7切换是否使用空格代替tab(或tab代替空格)
