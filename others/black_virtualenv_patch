@@ -1,5 +1,5 @@
 diff --git a/plugin/black.vim b/plugin/black.vim
-index 0a26aa0..7fedeb3 100644
+index 0a26aa0..ab13eeb 100644
 --- a/plugin/black.vim
 +++ b/plugin/black.vim
 @@ -51,9 +51,17 @@ def _get_pip(venv_path):
@@ -21,3 +21,34 @@ index 0a26aa0..7fedeb3 100644
  
  def _initialize_black_env(upgrade=False):
    pyver = sys.version_info[:2]
+@@ -92,10 +100,15 @@ def _initialize_black_env(upgrade=False):
+   return True
+ 
+ if _initialize_black_env():
+-  import black
++  try:
++    import black
++  except ModuleNotFoundError as err:
++    black = False
+   import time
+ 
+ def Black():
++  if not black:
++    return
+   start = time.time()
+   fast = bool(int(vim.eval("g:black_fast")))
+   line_length = int(vim.eval("g:black_linelength"))
+@@ -116,9 +129,13 @@ def Black():
+     print(f'Reformatted in {time.time() - start:.4f}s.')
+ 
+ def BlackUpgrade():
++  if not black:
++    return
+   _initialize_black_env(upgrade=True)
+ 
+ def BlackVersion():
++  if not black:
++    return
+   print(f'Black, version {black.__version__} on Python {sys.version}.')
+ 
+ endpython3

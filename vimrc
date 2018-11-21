@@ -481,6 +481,9 @@ nnoremap <C-y> 2<C-y>
 nnoremap <leader>q :qa<CR>
 command-bang Q :q<bang>
 
+" remap write command for typo
+command-bang W :w<bang>
+
 " split line 快速分割一行
 nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 
