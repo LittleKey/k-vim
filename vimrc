@@ -45,20 +45,6 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-
-" TODO: remove this, use gundo
-" create undo file
-" if has('persistent_undo')
-  " " How many undos
-  " set undolevels=1000
-  " " number of lines to save for undo
-  " set undoreload=10000
-  " " So is persistent undo ...
-  " "set undofile
-  " set noundofile
-  " " set undodir=/tmp/vimundo/
-" endif
-
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 
 " very lag when move cursor
@@ -520,30 +506,9 @@ endif
 " Theme Settings  主题设置
 "==========================================
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guifont=Monaco:h14
-    if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
-    endif
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
-endif
-
 " theme主题
-if (has("termguicolors"))
- set termguicolors
-endif
 " set background=dark  " noused
-set t_Co=256
-" colorscheme onedark
+set t_Co=256 " colorscheme onedark
 " colorscheme molokai
 " colorscheme Tomorrow-Night
 " colorscheme Tomorrow-Night-Eighties
@@ -564,8 +529,8 @@ hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
-" 解决使用iterm2-tender配色时, 选择模式背景色看不见得问题
-" hi Visual guifg=NONE ctermfg=NONE guibg=#040404 ctermbg=238 gui=NONE cterm=NONE
+" 解决terminal使用tender配色时, 选择模式背景色看不见得问题
+hi Visual ctermfg=NONE ctermbg=16 cterm=NONE
 
 " for error highlight，防止错误整行标红导致看不清
 highlight clear SpellBad

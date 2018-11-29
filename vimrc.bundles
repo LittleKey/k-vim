@@ -319,7 +319,7 @@ call plug#end()
     " npm install jsonlint -g
     let g:ale_linters = {
           \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell'],
-          \  'proto': ['protoc-gen-lint'],
+          \  'proto': ['prototool'],
           \  'python': ['black', 'mypy', 'vulture'],
           \  'ansible': ['ansible-lint'],
           \  'c': ['cppcheck', 'clang'],
@@ -328,7 +328,11 @@ call plug#end()
           \  'sh': ['shellcheck'],
           \  'rust': ['rls'],
           \}
-    let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "ign*" --exclude "*py2.py,*py2_grpc.py"'
+    let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
+    let g:ale_python_mypy_options =
+          \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
+          \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
+          \ '--no-implicit-optional --warn-redundant-casts'
     " Only run fixers anemd in ale_fixers settings.
     " npm install -g prettier
     " let g:ale_fixers_explicit = 1
