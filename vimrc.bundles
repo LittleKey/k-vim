@@ -35,7 +35,7 @@ call plug#begin('~/.vim/bundle')
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
-Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
+" Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -53,7 +53,7 @@ Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
+" Plug 'docunext/closetag.vim', { 'for': ['html', 'xml', 'javascript', 'jsx'] }
 
 " 自动进入粘贴模式
 " Plug 'roxma/vim-paste-easy'
@@ -66,19 +66,19 @@ Plug 'markonm/traces.vim'
 
 " quick edit
 " 快速注释
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 
 " 增强<C-a>/<C-x>可以作用于日期
-Plug 'tpope/vim-speeddating'
+" Plug 'tpope/vim-speeddating'
 
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
 " Plug 'bronson/vim-trailing-whitespace'
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'ntpeters/vim-better-whitespace'
 
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
-Plug 'unblevable/quick-scope'
+" Plug 'unblevable/quick-scope'
 
 " 增强配对能力, 并提供高亮
 Plug 'andymass/vim-matchup'
@@ -111,9 +111,9 @@ Plug 'ctrlpvim/ctrlp.vim'
 " q - Quit CtrlSF window.
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
-Plug 'mhinz/vim-grepper'
+" Plug 'mhinz/vim-grepper'
 " vim-searchindex 搜索结果, 显示索引
-Plug 'google/vim-searchindex'
+" Plug 'google/vim-searchindex'
 
 " vim启动页面增强
 Plug 'mhinz/vim-startify'
@@ -123,7 +123,7 @@ Plug 'mhinz/vim-startify'
 
 " git
 " fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " gitgutter
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
@@ -138,7 +138,7 @@ Plug 'vim-airline/vim-airline', { 'do': 'git apply ../../others/airline_branch_c
 Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
-Plug 'kien/rainbow_parentheses.vim'
+" Plug 'kien/rainbow_parentheses.vim'
 
 " 语法高亮
 " ansible
@@ -177,6 +177,8 @@ Plug 'stephpy/vim-yaml', { 'for': ['yaml'] }
 " rust
 Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 let g:rustfmt_autosave = 1
+
+Plug 'yogorobot/bitproto', { 'rtp': 'vim/' , 'for': ['bitproto'] }
 
 " Plug 'flazz/vim-colorschemes'
 " molokai
@@ -222,7 +224,7 @@ Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 " window resize
 Plug 'simeji/winresizer'
 " buffer operation improve
@@ -232,6 +234,10 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'wellle/targets.vim'
 " vim-sendwich 修改选中文本对象的环绕字符
 Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符], sr[替换环绕字符]
+" vim-abolish转换CamelCase与Snake
+" Plug 'tpope/vim-abolish'
+" Plug 'chaoren/vim-wordmotion'
+
 " wakatime
 " Plug 'wakatime/vim-wakatime'
 " let g:wakatime_ScreenRedraw = 0 " disable redraw screen after sending heartbeats
@@ -258,6 +264,7 @@ if count(g:bundle_groups, 'golang')
 
     let g:go_fmt_fail_silently = 1
     let g:go_fmt_command = "gofmt"
+    let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
 endif
 
 
@@ -381,9 +388,9 @@ call plug#end()
     " vertical-split | new-or-existing-tab
     let g:ycm_goto_buffer_command = 'new-or-existing-tab'
     let g:ycm_complete_in_comments = 0
-    let g:ycm_auto_trigger = 1
+    let g:ycm_auto_trigger = 0
 
-    let g:ycm_global_ycm_extra_conf = '$HOME/dotfiles/k-vim/others/.ycm_extra_conf.py'
+    let g:ycm_global_ycm_extra_conf = '$HOME/.vim/others/.ycm_extra_conf.py'
 " }}}
 
 " vim-quickhl {{{
@@ -456,12 +463,14 @@ call plug#end()
         \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar\.gz|pyc|bundle\.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle|bundle)$',
         \ }
-    let g:ctrlp_working_path_mode=0
-    let g:ctrlp_match_window_bottom=1
-    let g:ctrlp_max_height=15
-    let g:ctrlp_match_window_reversed=0
-    let g:ctrlp_mruf_max=500
-    let g:ctrlp_follow_symlinks=1
+    let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_match_window_bottom = 1
+    let g:ctrlp_max_height = 15
+    let g:ctrlp_match_window_reversed = 0
+    let g:ctrlp_mruf_max = 10
+    let g:ctrlp_follow_symlinks = 1
+    let g:user_command_async = 1
+    let g:match_current_file = 1
     " 如果安装了ag, 使用ag
     if executable('ag')
         " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
@@ -504,11 +513,6 @@ call plug#end()
         \ "next"  : "<C-J>",
         \ "prev"  : "<C-K>",
         \ "pquit" : "q",
-        \ }
-
-    let g:ctrlsf_auto_focus = {
-        \ "at": "done",
-        \ "duration_less_than": 1000
         \ }
 
 " }}}
@@ -585,7 +589,6 @@ call plug#end()
         \ 'ctrlspace',
         \ 'quickfix',
         \ 'branch',
-        \ 'grepper',
         \ 'ycm',
         \ 'ctrlp',
         \ 'ale',
@@ -598,26 +601,26 @@ call plug#end()
     " 不加入这行, 防止黑色与深蓝括号出现, 很难识别
     " \ ['black',       'SeaGreen3'],
     " \ ['Darkblue',    'SeaGreen3'],
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['lightyellow', 'SeaGreen3'],
-        \ ['lightred',    'RoyalBlue3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
+    " let g:rbpt_colorpairs = [
+    "    \ ['brown',       'RoyalBlue3'],
+    "    \ ['darkgreen',   'firebrick3'],
+    "    \ ['darkcyan',    'RoyalBlue3'],
+    "    \ ['darkred',     'SeaGreen3'],
+    "    \ ['lightyellow', 'SeaGreen3'],
+    "    \ ['lightred',    'RoyalBlue3'],
+    "    \ ['darkmagenta', 'DarkOrchid3'],
+    "    \ ['red',         'firebrick3'],
+    "    \ ]
 
-    let g:rbpt_max = 16
-    let g:rbpt_loadcmd_toggle = 0
-    augroup rainbow_parentheses_group
-      au!
-      au VimEnter * RainbowParenthesesToggle
-      au Syntax * RainbowParenthesesLoadRound
-      au Syntax * RainbowParenthesesLoadSquare
-      au Syntax * RainbowParenthesesLoadBraces
-    augroup END
+    " let g:rbpt_max = 16
+    " let g:rbpt_loadcmd_toggle = 0
+    " augroup rainbow_parentheses_group
+    "   au!
+    "   au VimEnter * RainbowParenthesesToggle
+    "   au Syntax * RainbowParenthesesLoadRound
+    "  au Syntax * RainbowParenthesesLoadSquare
+    "  au Syntax * RainbowParenthesesLoadBraces
+    "augroup END
 " }}}
 
 " ################### 快速导航 ###################
