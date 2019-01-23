@@ -52,7 +52,8 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
 " set cursorcolumn
 " 突出显示当前行
 " set cursorline
-set colorcolumn=89
+let g:long_line_length = 88
+execute "set colorcolumn=".(g:long_line_length + 1)
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
@@ -544,3 +545,9 @@ highlight SpellLocal term=underline cterm=underline
 " Speed UP!
 set re=1
 set lazyredraw
+
+" Debug
+augroup long_lines
+  au!
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>'.g:long_line_length.'v.\+', -1)
+augroup END
