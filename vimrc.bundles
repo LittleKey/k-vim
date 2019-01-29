@@ -34,7 +34,7 @@ call plug#begin('~/.vim/bundle')
 " Plug 'vim-jp/vital.vim'
 
 " 异步lint组件
-Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
+" Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
 
 " Group dependencies, vim-snippets depends on ultisnips
@@ -48,7 +48,7 @@ Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
 let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'cpp'] }
+" Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'cpp'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -99,7 +99,7 @@ Plug 'kshenoy/vim-signature'
 " quick locate file or function
 " 文件搜索
 " change to https://github.com/ctrlpvim/ctrlp.vim
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp ctrlpfunky
 " Plug 'tacahiroy/ctrlp-funky'
 " ctrlsf
@@ -126,7 +126,7 @@ Plug 'mhinz/vim-startify'
 " Plug 'tpope/vim-fugitive'
 " gitgutter
 " Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-signify'
+" Plug 'mhinz/vim-signify'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
 " Plug 'junegunn/vim-peekaboo'
@@ -142,9 +142,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 " 语法高亮
 " ansible
-Plug 'pearofducks/ansible-vim', { 'for': ['ansible'], 'do': 'cd ./UltiSnips; ./generate.py' }
+" Plug 'pearofducks/ansible-vim', { 'for': ['ansible'], 'do': 'cd ./UltiSnips; ./generate.py' }
 " c/cpp
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp', 'c'] }
+" Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp', 'c'] }
 " cmake
 " git
 Plug 'tpope/vim-git', { 'for': ['git'] }
@@ -153,32 +153,32 @@ Plug 'tpope/vim-git', { 'for': ['git'] }
 " haskell
 " Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 " html
-Plug 'othree/html5.vim', { 'for': ['html'] }
+" Plug 'othree/html5.vim', { 'for': ['html'] }
 " json
-Plug 'elzr/vim-json', { 'for': ['json'] }
+" Plug 'elzr/vim-json', { 'for': ['json'] }
 " less
 " Plug 'groenewege/vim-less', { 'for': ['less'] }
 " lua
 " Plug 'tbastos/vim-lua', { 'for': ['lua'] }
 " nginx
-Plug 'chr4/nginx.vim', { 'for': ['nginx'] }
+" Plug 'chr4/nginx.vim', { 'for': ['nginx'] }
 " protobuf
-Plug 'uarun/vim-protobuf', { 'for': ['proto'] }
+" Plug 'uarun/vim-protobuf', { 'for': ['proto'] }
 " thrift
 " Plug 'solarnz/thrift.vim', { 'for': ['thrift'] }
 " tmux
-Plug 'ericpruitt/tmux.vim', { 'for': ['tmux'], 'rtp': 'vim/' }
+" Plug 'ericpruitt/tmux.vim', { 'for': ['tmux'], 'rtp': 'vim/' }
 " typescript
 " Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " yaml
-Plug 'stephpy/vim-yaml', { 'for': ['yaml'] }
+" Plug 'stephpy/vim-yaml', { 'for': ['yaml'] }
 " kotlin
 " Plug 'udalov/kotlin-vim', { 'for': ['kotlin'] }
 " rust
-Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
-let g:rustfmt_autosave = 1
+" Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
+" let g:rustfmt_autosave = 1
 
-Plug 'yogorobot/bitproto', { 'rtp': 'vim/' , 'for': ['bitproto'] }
+" Plug 'yogorobot/bitproto', { 'rtp': 'vim/' , 'for': ['bitproto'] }
 
 " Plug 'flazz/vim-colorschemes'
 " molokai
@@ -222,13 +222,13 @@ Plug 'jacoborus/tender.vim'
 " nerdtree nerdtree-git-plugin
 Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 " ctrlspace
-Plug 'vim-ctrlspace/vim-ctrlspace'
+" Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 " Plug 'majutsushi/tagbar'
 " window resize
-Plug 'simeji/winresizer'
+" Plug 'simeji/winresizer'
 " buffer operation improve
-Plug 'qpkorr/vim-bufkill'
+" Plug 'qpkorr/vim-bufkill'
 
 " targets.vim 添加更多的文本对象支持
 Plug 'wellle/targets.vim'
@@ -586,12 +586,8 @@ call plug#end()
     " not include ctrlp
     let g:airline_extensions = [
         \ 'tabline',
-        \ 'ctrlspace',
         \ 'quickfix',
         \ 'branch',
-        \ 'ycm',
-        \ 'ctrlp',
-        \ 'ale',
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
