@@ -34,7 +34,7 @@ call plug#begin('~/.vim/bundle')
 " Plug 'vim-jp/vital.vim'
 
 " 异步lint组件
-" Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
+Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
 
 " Group dependencies, vim-snippets depends on ultisnips
@@ -47,7 +47,7 @@ call plug#begin('~/.vim/bundle')
 " completor for vim8
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
-let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
+" let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
 " Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'go', 'c', 'cpp'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
@@ -66,7 +66,8 @@ Plug 'markonm/traces.vim'
 
 " quick edit
 " 快速注释
-" Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter' WARNING!! make vim very slow in input mode
+" if open too many buffers.(about 50)
 
 " 增强<C-a>/<C-x>可以作用于日期
 " Plug 'tpope/vim-speeddating'
@@ -98,6 +99,9 @@ Plug 'kshenoy/vim-signature'
 
 " quick locate file or function
 " 文件搜索
+" fzf better than ctrlp (more faster and without cache)
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 " change to https://github.com/ctrlpvim/ctrlp.vim
 " Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp ctrlpfunky
@@ -126,7 +130,7 @@ Plug 'mhinz/vim-startify'
 " Plug 'tpope/vim-fugitive'
 " gitgutter
 " Plug 'airblade/vim-gitgutter'
-" Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-signify'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
 " Plug 'junegunn/vim-peekaboo'
@@ -275,7 +279,9 @@ if count(g:bundle_groups, 'python')
     let g:python_highlight_all = 1
     let g:python_highlight_file_headers_as_comments = 1
     let g:python_slow_sync = 1
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
+    " has bug if "{{" was present and not close with "}}"
+    " Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'} 
+    Plug 'hattya/python-indent.vim', {'for': 'python'}  " working fine.
     Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 endif
 
@@ -327,7 +333,7 @@ call plug#end()
     let g:ale_linters = {
           \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell'],
           \  'proto': ['prototool'],
-          \  'python': ['black', 'mypy', 'vulture'],
+          \  'python': ['black', 'vulture'],
           \  'ansible': ['ansible-lint'],
           \  'c': ['cppcheck', 'clang'],
           \  'cpp': ['cppcheck', 'clang'],
@@ -371,11 +377,11 @@ call plug#end()
 " }}}
 
 " black {{{
-    let g:black_virtualenv = '' . $VIRTUAL_ENV
-    augroup black_group
-      autocmd!
-      autocmd BufWritePre *.py silent! Black
-    augroup END
+    "let g:black_virtualenv = '' . $VIRTUAL_ENV
+    "augroup black_group
+    "  autocmd!
+    "  autocmd BufWritePre *.py silent! Black
+    "augroup END
 " }}}
 
 " ################### 自动补全 ###################
@@ -455,10 +461,45 @@ call plug#end()
 
 " ################### 功能相关 ###################
 
+" fzf {{{
+    " extra key bindings
+    let g:fzf_action = {
+          \ 'ctrl-t': 'tab split',
+          \ 'ctrl-x': 'split',
+          \ 'ctrl-v': 'vsplit' }
+    " layout - down / up / left / right
+    let g:fzf_layout = { 'down': '~30%' }
+
+    " Customize fzf colors to match color scheme
+    let g:fzf_colors =
+    \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+    
+    " Enable per-command history.
+    let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+    " [Buffers] Jump to the existing window if possible
+    let g:fzf_buffers_jump = 1
+
+    " keymap
+    nnoremap <c-f> :FZF<CR>
+" }}}
+
 " ctrlp ctrlpfunky{{{
     let g:ctrlp_map = '<leader>p'
     let g:ctrlp_cmd = 'CtrlP'
-    map <leader>f :CtrlPMRU<CR>
+    "map <leader>f :CtrlPMRU<CR>
     let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
         \ 'file': '\v\.(exe|so|dll|zip|tar|tar\.gz|pyc|bundle\.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle|bundle)$',
@@ -476,7 +517,7 @@ call plug#end()
         " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
         " ag is fast enough that CtrlP doesn't need to cache
-        let g:ctrlp_use_caching = 0
+        " let g:ctrlp_use_caching = 0
     endif
 
     " ctrlpfunky
@@ -588,6 +629,7 @@ call plug#end()
         \ 'tabline',
         \ 'quickfix',
         \ 'branch',
+        \ 'ale',
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
