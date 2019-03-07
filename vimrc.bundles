@@ -91,7 +91,7 @@ Plug 'andymass/vim-matchup'
 " m<Space>  del all marks
 " m/        list all marks
 " m.        add new mark just follow previous mark
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
 " Plug 'Yilin-Yang/vim-markbar'
 
 " 多光标选中编辑
@@ -117,8 +117,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
 " Plug 'mhinz/vim-grepper'
-" vim-searchindex 搜索结果, 显示索引
-" Plug 'google/vim-searchindex'
 
 " vim启动页面增强
 Plug 'mhinz/vim-startify'
