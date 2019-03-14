@@ -35,7 +35,7 @@ call plug#begin('~/.vim/bundle')
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
-" Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
+Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -376,11 +376,11 @@ call plug#end()
 " }}}
 
 " black {{{
-    "let g:black_virtualenv = '' . $VIRTUAL_ENV
-    "augroup black_group
-    "  autocmd!
-    "  autocmd BufWritePre *.py silent! Black
-    "augroup END
+    let g:black_virtualenv = '' . $VIRTUAL_ENV
+    augroup black_group
+      autocmd!
+      autocmd BufWritePre *.py silent! Black
+    augroup END
 " }}}
 
 " ################### 自动补全 ###################
