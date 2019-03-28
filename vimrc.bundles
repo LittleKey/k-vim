@@ -42,8 +42,11 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virt
 " completor for vim8
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
-let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
+" let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
+" Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
+" use deoplete instead of ycm.
+Plug 'Shougo/deoplete.nvim'
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -387,6 +390,14 @@ call plug#end()
     let g:ycm_global_ycm_extra_conf = '$HOME/.vim/others/.ycm_extra_conf.py'
 " }}}
 
+" deoplete {{{
+    let g:deoplete#enable_at_startup = 1
+    " golang
+    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+    " python
+" }}}
+
 " vim-quickhl {{{
     nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
     xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
@@ -618,7 +629,7 @@ call plug#end()
         \ 'quickfix',
         \ 'branch',
         \ 'ale',
-        \ 'ycm',
+        \ 'whitespace',
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
