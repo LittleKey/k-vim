@@ -45,8 +45,10 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virt
 " let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
 " Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
 " use deoplete instead of ycm.
-Plug 'Shougo/deoplete.nvim'
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
+Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp'] }
+Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp'] }
+Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp'] }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['python', 'c', 'cpp'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -74,7 +76,7 @@ Plug 'tpope/vim-commentary'
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
 " Plug 'bronson/vim-trailing-whitespace'
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'ntpeters/vim-better-whitespace'
 
 " 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
@@ -94,7 +96,7 @@ Plug 'kshenoy/vim-signature'
 
 " 多光标选中编辑
 " multiplecursors
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 
 " quick locate file or function
 " 文件搜索
@@ -135,7 +137,7 @@ Plug 'vim-airline/vim-airline', { 'do': 'git apply ../../others/airline_branch_c
 Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
-Plug 'kien/rainbow_parentheses.vim'
+" Plug 'kien/rainbow_parentheses.vim'
 
 " 语法高亮
 " ansible
@@ -221,9 +223,9 @@ Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
 " tagbar
 " Plug 'majutsushi/tagbar'
 " window resize
-Plug 'simeji/winresizer'
+" Plug 'simeji/winresizer'
 " buffer operation improve
-Plug 'qpkorr/vim-bufkill'
+" Plug 'qpkorr/vim-bufkill'
 
 " targets.vim 添加更多的文本对象支持
 Plug 'wellle/targets.vim'
@@ -495,41 +497,6 @@ call plug#end()
     nnoremap <c-f> :FZF<CR>
 " }}}
 
-" ctrlp ctrlpfunky{{{
-    let g:ctrlp_map = '<leader>p'
-    let g:ctrlp_cmd = 'CtrlP'
-    "map <leader>f :CtrlPMRU<CR>
-    let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/](node_modules|target|dist|build|__mocks__|__pycache__)|(\.(git|hg|svn|rvm))$',
-        \ 'file': '\v\.(exe|so|dll|zip|tar|tar\.gz|pyc|bundle\.js|jar|aac|png|ttf|otf|jpg|jpeg|jsbundle|bundle)$',
-        \ }
-    let g:ctrlp_working_path_mode = 0
-    let g:ctrlp_match_window_bottom = 1
-    let g:ctrlp_max_height = 15
-    let g:ctrlp_match_window_reversed = 0
-    let g:ctrlp_mruf_max = 10
-    let g:ctrlp_follow_symlinks = 1
-    let g:user_command_async = 1
-    let g:match_current_file = 1
-    " 如果安装了ag, 使用ag
-    if executable('ag')
-        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-        " ag is fast enough that CtrlP doesn't need to cache
-        " let g:ctrlp_use_caching = 0
-    endif
-
-    " ctrlpfunky
-    " ctrlp插件1 - 不用ctag进行函数快速跳转
-    " nnoremap <Leader>fu :CtrlPFunky<Cr>
-    " narrow the list down with a word under cursor
-    " nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-    " let g:ctrlp_funky_syntax_highlight = 1
-
-    " let g:ctrlp_extensions = ['funky']
-" }}}
-
-
 " ctrlsf {{{
     nmap \ <Plug>CtrlSFCwordPath<CR>
     " let g:ctrlsf_position = 'bottom'
@@ -590,11 +557,6 @@ call plug#end()
       autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
       autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
     augroup END
-" }}}
-
-" committia {{{
-  " 如果使用了fugitive插件, 推荐打开此设置
-  " let g:committia_open_only_vim_starting = 1
 " }}}
 
 " ################### 显示增强 ###################
