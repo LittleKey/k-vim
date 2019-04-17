@@ -35,7 +35,7 @@ call plug#begin('~/.vim/bundle')
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
-Plug 'ambv/black', { 'for': ['python'], 'do': 'git apply ../../others/black_virtualenv_patch' }
+Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
 
 " auto complete
 " 代码自动补全
@@ -133,7 +133,7 @@ Plug 'mhinz/vim-signify'
 " view
 " airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline', { 'do': 'git apply ../../others/airline_branch_cached_patch' }
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " rainbow_parentheses
 " 括号显示增强
@@ -326,7 +326,7 @@ call plug#end()
     let g:ale_linters = {
           \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell'],
           \  'proto': ['prototool'],
-          \  'python': ['black', 'vulture'],
+          \  'python': ['black', 'mypy', 'vulture'],
           \  'ansible': ['ansible-lint'],
           \  'c': ['cppcheck', 'clang'],
           \  'cpp': ['cppcheck', 'clang'],
