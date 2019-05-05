@@ -42,13 +42,13 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 " completor for vim8
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
-" let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-" Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
+let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
+Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
 " use deoplete instead of ycm.
-Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp'] }
-Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp'] }
-Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp'] }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['python', 'c', 'cpp'] }
+" Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp'] }
+" Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp'] }
+" Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp'] }
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['python', 'c', 'cpp'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -177,7 +177,7 @@ Plug 'tpope/vim-git', { 'for': ['git'] }
 " Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 " let g:rustfmt_autosave = 1
 
-" Plug 'yogorobot/bitproto', { 'rtp': 'vim/' , 'for': ['bitproto'] }
+Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 
 " Plug 'flazz/vim-colorschemes'
 " molokai

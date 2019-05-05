@@ -542,6 +542,12 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;lu;%lum"
+  let &t_8b = "\<Esc>[48;2%lu;%lu;%lum"
+endif
+
 " Speed UP!
 set re=1
 set lazyredraw
