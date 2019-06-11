@@ -42,8 +42,8 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 " completor for vim8
 " Plug 'maralla/completor.vim', {'do': 'make js'}
 " completor.vim 目前有问题不可使用, 暂用YCM代替
-let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
+" let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
+" Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
 " use deoplete instead of ycm.
 " Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp'] }
 " Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp'] }
@@ -68,7 +68,7 @@ Plug 'markonm/traces.vim'
 " 快速注释
 " Plug 'scrooloose/nerdcommenter' WARNING!! make vim very slow in input mode
 " if open too many buffers.(about 50)
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 
 " 增强<C-a>/<C-x>可以作用于日期
 " Plug 'tpope/vim-speeddating'
