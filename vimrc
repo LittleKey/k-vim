@@ -419,14 +419,6 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
-
-" 搜索相关
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-" 进入搜索Use sane regexes"
-" nnoremap / /\v
-" vnoremap / /\v
-
 " 去掉搜索高亮
 function! ClearHighlight()
   if exists(":QuickhlManualReset")
