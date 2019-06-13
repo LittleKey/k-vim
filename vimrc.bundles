@@ -45,10 +45,11 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 " let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
 " Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
 " use deoplete instead of ycm.
-" Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp'] }
-" Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp'] }
-" Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp'] }
-" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['python', 'c', 'cpp'] }
+Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp', 'go'] }
+Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp', 'go'] }
+Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp', 'go'] }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['go'] }
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -394,10 +395,31 @@ call plug#end()
 
 " deoplete {{{
     let g:deoplete#enable_at_startup = 1
-    " golang
-    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-    " python
+    function! DeopleteOption()
+      call deoplete#custom#option({
+          \ 'auto_complete_delay': 200,
+          \ 'auto_complete': v:true,
+          \ 'smart_case': v:true,
+          \ 'num_processes': 8,
+          \ 'camel_case': v:true,
+          \ 'ignore_case': v:true,
+          \ 'on_insert_enter': v:true,
+          \ 'on_text_changed_i': v:true,
+          \ 'yarp': v:true,
+          \ })
+    endfunc
+
+    function! DeopleteOptionGolang()
+      " golang
+      let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+      let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+    endfunc
+
+    augroup deoplete_option
+      autocmd!
+      autocmd FileType python,go,cpp,c :call DeopleteOption()
+      autocmd FileType go :call DeopleteOptionGolang()
+    augroup END
 " }}}
 
 " vim-quickhl {{{
