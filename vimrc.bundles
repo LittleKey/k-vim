@@ -415,6 +415,7 @@ call plug#end()
           \ 'on_text_changed_i': v:true,
           \ 'yarp': v:true,
           \ 'go': '[^. *\t]\.\w*',
+          \ 'min_pattern_length': 2,
           \ })
     endfunc
 
@@ -425,10 +426,15 @@ call plug#end()
       " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
     endfunc
 
+    function! DeopleteOptionPython()
+      inoremap <silent><expr> <C-c> deoplete#mappings#manual_complete()
+    endfunc
+
     augroup deoplete_option
       autocmd!
       autocmd FileType python,go,cpp,c :call DeopleteOption()
       autocmd FileType go :call DeopleteOptionGolang()
+      autocmd FileType python :call DeopleteOptionPython()
     augroup END
 " }}}
 
