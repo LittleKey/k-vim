@@ -39,16 +39,10 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 
 " auto complete
 " 代码自动补全
-" completor for vim8
-" Plug 'maralla/completor.vim', {'do': 'make js'}
-" completor.vim 目前有问题不可使用, 暂用YCM代替
-" let YCM_COMPILE_COMMAND = './install.py --clang-completer --go-completer --java-completer --system-libclang'
-" Plug 'Valloric/YouCompleteMe', { 'frozen': 1, 'do': YCM_COMPILE_COMMAND, 'for': ['python', 'c', 'cpp'] }
-" use deoplete instead of ycm.
-Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'c', 'cpp', 'go'] }
-Plug 'roxma/nvim-yarp', { 'for': ['python', 'c', 'cpp', 'go'] }
-Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'c', 'cpp', 'go'] }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make', 'for': ['go'] }
+Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'go', 'c', 'cpp'] }
+Plug 'roxma/nvim-yarp', { 'for': ['python', 'go', 'c', 'cpp'] }
+Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'go', 'c', 'cpp'] }
+Plug 'deoplete-plugins/deoplete-go', { 'for': ['go'] }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
@@ -388,24 +382,11 @@ call plug#end()
 
 " ################### 自动补全 ###################
 
-" YouCompleteMe {{{
-    let g:ycm_python_binary_path = 'python'
-    let g:ycm_key_list_select_completion = ['<C-P>', '<C-N>']
-    let g:ycm_key_list_stop_completion = ['<CR>']
-    let g:ycm_key_invoke_completion = '<C-C>'
-    " vertical-split | new-or-existing-tab
-    let g:ycm_goto_buffer_command = 'new-or-existing-tab'
-    let g:ycm_complete_in_comments = 0
-    let g:ycm_auto_trigger = 1
-
-    let g:ycm_global_ycm_extra_conf = '$HOME/.vim/others/.ycm_extra_conf.py'
-" }}}
-
 " deoplete {{{
     let g:deoplete#enable_at_startup = 1
     function! DeopleteOption()
       call deoplete#custom#option({
-          \ 'auto_complete_delay': 200,
+          \ 'auto_complete_delay': 1000,
           \ 'auto_complete': v:true,
           \ 'smart_case': v:true,
           \ 'num_processes': 8,
@@ -414,8 +395,6 @@ call plug#end()
           \ 'on_insert_enter': v:true,
           \ 'on_text_changed_i': v:true,
           \ 'yarp': v:true,
-          \ 'go': '[^. *\t]\.\w*',
-          \ 'min_pattern_length': 2,
           \ })
     endfunc
 
@@ -423,7 +402,7 @@ call plug#end()
       " golang
       let g:deoplete#sources#go = ['vim-go']
       let g:deoplete#sources#go#gocode_binary = '/dev/null' " $GOPATH.'/bin/gocode'
-      " let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+      let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
     endfunc
 
     function! DeopleteOptionPython()
