@@ -319,145 +319,171 @@ call plug#end()
 " ################### 基础 ######################
 
 " ale {{{
-    " Only run linters named in ale_linters settings.
-    let g:ale_linters_explicit = 1
+    if has_key(g:plugs, 'ale')
+      " Only run linters named in ale_linters settings.
+      let g:ale_linters_explicit = 1
 
-    " pip install ansible-lint
-    " brew install cppcheck
-    " npm install jsonlint -g
-    let g:ale_linters = {
-          \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell', 'gopls'],
-          \  'proto': ['prototool'],
-          \  'python': ['black', 'mypy', 'vulture'],
-          \  'ansible': ['ansible-lint'],
-          \  'c': ['cppcheck', 'clang'],
-          \  'cpp': ['cppcheck', 'clang'],
-          \  'json': ['jsonlint'],
-          \  'sh': ['shellcheck'],
-          \  'rust': ['rls'],
-          \}
-    let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
-    let g:ale_python_mypy_options =
-          \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
-          \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
-          \ '--no-implicit-optional --warn-redundant-casts'
-    " Only run fixers anemd in ale_fixers settings.
-    " npm install -g prettier
-    " let g:ale_fixers_explicit = 1
-    " let g:ale_fixers = {
-          " \}
-    " let g:ale_fix_on_save = 1
+      " pip install ansible-lint
+      " brew install cppcheck
+      " npm install jsonlint -g
+      let g:ale_linters = {
+            \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell', 'gopls'],
+            \  'proto': ['prototool'],
+            \  'python': ['black', 'mypy', 'vulture'],
+            \  'ansible': ['ansible-lint'],
+            \  'c': ['cppcheck', 'clang'],
+            \  'cpp': ['cppcheck', 'clang'],
+            \  'json': ['jsonlint'],
+            \  'sh': ['shellcheck'],
+            \  'rust': ['rls'],
+            \}
+      let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
+      let g:ale_python_mypy_options =
+            \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
+            \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
+            \ '--no-implicit-optional --warn-redundant-casts'
+      " Only run fixers anemd in ale_fixers settings.
+      " npm install -g prettier
+      " let g:ale_fixers_explicit = 1
+      " let g:ale_fixers = {
+            " \}
+      " let g:ale_fix_on_save = 1
 
-    let g:ale_sign_column_always = 1
+      let g:ale_sign_column_always = 1
 
-    let g:ale_sign_error = "\uf05e"
-    let g:ale_sign_warning = "\uf071"
+      let g:ale_sign_error = "\uf05e"
+      let g:ale_sign_warning = "\uf071"
 
-    let g:ale_echo_msg_error_str = 'E'
-    let g:ale_echo_msg_warning_str = 'W'
-    let g:ale_echo_msg_format = '[%linter%]% code:% %s [%severity%] '
+      let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+      let g:ale_echo_msg_error_str = 'E'
+      let g:ale_echo_msg_warning_str = 'W'
+      let g:ale_echo_msg_format = '[%linter%]% code:% %s [%severity%] '
 
-    let g:ale_rust_rls_toolchain = 'stable'
+      let g:ale_rust_rls_toolchain = 'stable'
 
-    " let g:ale_lint_on_text_changed = 'normal'
-    " let g:ale_lint_delay = 200 " ms
-    " let g:ale_lint_on_enter = 1
-    " let g:ale_lint_on_save = 1
+      " let g:ale_lint_on_text_changed = 'normal'
+      " let g:ale_lint_delay = 200 " ms
+      " let g:ale_lint_on_enter = 1
+      " let g:ale_lint_on_save = 1
 
-    augroup ale_hightlight_group
-      autocmd!
-      autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
-      autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
-    augroup END
+      let g:ale_set_highlights = 1
+      highlight link ALEErrorSign  error
+      highlight link ALEWarningSign Exception
+
+      augroup ale_hightlight_group
+        autocmd!
+        autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
+        autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
+      augroup END
+    endif
 " }}}
 
 " black {{{
-    let g:black_virtualenv = '' . $VIRTUAL_ENV
-    augroup black_group
-      autocmd!
-      autocmd BufWritePre *.py silent! Black
-    augroup END
+    if has_key(g:plugs, 'black')
+      let g:black_virtualenv = '' . $VIRTUAL_ENV
+      augroup black_group
+        autocmd!
+        autocmd BufWritePre *.py silent! Black
+      augroup END
+    endif
 " }}}
 
 " ################### 自动补全 ###################
 
 " coc {{{
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
-  endfunction
+  if has_key(g:plugs, 'coc')
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1] =~ '\s'
+    endfunction
 
-  augroup coc_option
-    autocmd!
-    " map gd to go to definition
+    augroup coc_option
+      autocmd!
+      " map gd to go to definition
 
-    exec "au FileType " . join(COC_COMPLETE_FILE_TYPES, ",") . " nmap <silent> gd <Plug>(coc-definition)"
-    " map <Tab> && <S-Tab> to manually trigger completion
-    inoremap <silent><expr> <Tab>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<Tab>" :
-          \ coc#refresh()
-    inoremap <silent><expr> <S-Tab>
-          \ pumvisible() ? "\<C-p>" :
-          \ <SID>check_back_space() ? "\<S-Tab>" :
-          \ coc#refresh()
-  augroup END
+      exec "au FileType " . join(COC_COMPLETE_FILE_TYPES, ",") . " nmap <silent> gd <Plug>(coc-definition)"
+      " map <Tab> && <S-Tab> to manually trigger completion
+      inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+      inoremap <silent><expr> <S-Tab>
+            \ pumvisible() ? "\<C-p>" :
+            \ <SID>check_back_space() ? "\<S-Tab>" :
+            \ coc#refresh()
+    augroup END
+  endif
 " }}}
 
 " vim-quickhl {{{
+  if has_key(g:plugs, 'vim-quickhl')
     nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
     xmap <leader>w <Plug>(quickhl-manual-this-whole-word)
+  endif
 " }}}
 
 
 " closetag {{{
+  if has_key(g:plugs, 'closetag.vim')
     let g:closetag_html_style=1
+  endif
 " }}}
 
 " ################### 快速编码 ###################
 
 " nerdcommenter {{{
+  if has_key(g:plugs, 'nerdcommenter')
     let g:NERDSpaceDelims=1
     let g:NERDAltDelims_python = 1
+  endif
 " }}}
 
 " trailingwhitespace {{{
+  if has_key(g:plugs, 'vim-trailing-whitespace') || has_key(g:plugs, 'vim-better-whitespace')
     map <leader><space> :StripWhitespace<cr>
     let g:strip_whitespace_on_save = 1
     let g:strip_whitelines_at_eof=1
+  endif
 " }}}
 
 " targets.vim {{{
+  if has_key(g:plugs, 'targets.vim')
     let g:targets_nl = 'nN'
     " Only seek if next/last targets touch current line
     " let g:targets_seekRanges = 'cr cb cB lc ac Ac lr rr ll lb ar ab lB Ar aB Ab AB rb rB al Al'
     " Only consider targets around cursor
     let g:targets_seekRanges = 'cr cb cB lc ac Ac lr lb ar ab lB Ar aB Ab AB'
+  endif
 " }}}
 
 " ################### 快速移动 ###################
 
 " matchup {{{
-  " async
-  let g:matchup_transmute_enabled = 1
+  if has_key(g:plugs, 'vim-matchup')
+    " async
+    let g:matchup_transmute_enabled = 1
 
-  let g:matchup_matchparen_enabled = 0
-  " let g:matchup_motion_enabled = 0
-  let g:matchup_text_obj_enabled = 0
+    let g:matchup_matchparen_enabled = 0
+    " let g:matchup_motion_enabled = 0
+    let g:matchup_text_obj_enabled = 0
+  endif
 " }}}
 
 " ################### 快速选中 ###################
 
 " multiplecursors {{{
+  if has_key(g:plugs, 'vim-multiple-cursors')
     let g:multi_cursor_use_default_mapping=0
     " Default mapping
     let g:multi_cursor_start_key='<CR>'
     let g:multi_cursor_quit_key='<Esc>'
+  endif
 " }}}
 
 " ################### 功能相关 ###################
 
 " fzf {{{
+  if has_key(g:plugs, 'fzf') && has_key(g:plugs, 'fzf.vim')
     " extra key bindings
     let g:fzf_action = {
           \ 'ctrl-t': 'tab split',
@@ -490,9 +516,11 @@ call plug#end()
 
     " keymap
     nnoremap <c-f> :FZF<CR>
+  endif
 " }}}
 
 " ctrlsf {{{
+  if has_key(g:plugs, 'ctrlsf.vim')
     nmap \ <Plug>CtrlSFCwordPath<CR>
     " let g:ctrlsf_position = 'bottom'
     " let g:ctrlsf_winsize = '30%'
@@ -516,19 +544,24 @@ call plug#end()
         \ "prev"  : "<C-K>",
         \ "pquit" : "q",
         \ }
-
+  endif
 " }}}
 
 
 " vim-grepper {{{
+  if has_key(g:plugs, 'vim-grepper')
     nnoremap <leader>g :Grepper<CR>
+  endif
 " }}}
 
 " fugitive {{{
+  if has_key(g:plugs, 'vim-fugitive')
     nnoremap <leader>gb :Gblame<CR>
+  endif
 " }}}
 
 " signify {{{
+  if has_key(g:plugs, 'vim-signify')
     let g:signify_sign_add               = '+'
     let g:signify_sign_delete            = '-'
     let g:signify_sign_delete_first_line = '‾'
@@ -541,11 +574,13 @@ call plug#end()
       autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
       autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
     augroup END
+  endif
 " }}}
 
 " ################### 显示增强 ###################
 
 " airline {{{
+  if has_key(g:plugs, 'vim-airline')
     " need install powerline font for terminal
     " https://github.com/littlekey/fonts
     " recommend font: Source Code Pro
@@ -556,7 +591,7 @@ call plug#end()
     " 集成tagbar
     let g:airline#extensions#tagbar#enabled = 1
     " 集成ctrlspace
-    let g:airline#extensions#ctrlspace#enabled = 1
+    let g:airline#extensions#ctrlspace#enabled = 0
     " tabline展示buffers
     let g:airline#extensions#tabline#show_splits = 1
     let g:airline#extensions#tabline#show_buffers = 1
@@ -585,37 +620,40 @@ call plug#end()
         \ ]
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
+  endif
 " }}}
 
 " rainbow_parentheses {{{
+  if has_key(g:plugs, "rainbow_parentheses")
     " 不加入这行, 防止黑色与深蓝括号出现, 很难识别
-    " \ ['black',       'SeaGreen3'],
-    " \ ['Darkblue',    'SeaGreen3'],
-    " let g:rbpt_colorpairs = [
-    "    \ ['brown',       'RoyalBlue3'],
-    "    \ ['darkgreen',   'firebrick3'],
-    "    \ ['darkcyan',    'RoyalBlue3'],
-    "    \ ['darkred',     'SeaGreen3'],
-    "    \ ['lightyellow', 'SeaGreen3'],
-    "    \ ['lightred',    'RoyalBlue3'],
-    "    \ ['darkmagenta', 'DarkOrchid3'],
-    "    \ ['red',         'firebrick3'],
-    "    \ ]
-
-    " let g:rbpt_max = 16
-    " let g:rbpt_loadcmd_toggle = 0
-    " augroup rainbow_parentheses_group
-    "   au!
-    "   au VimEnter * RainbowParenthesesToggle
-    "   au Syntax * RainbowParenthesesLoadRound
-    "  au Syntax * RainbowParenthesesLoadSquare
-    "  au Syntax * RainbowParenthesesLoadBraces
-    "augroup END
+    \ ['black',       'SeaGreen3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    let g:rbpt_colorpairs = [
+       \ ['brown',       'RoyalBlue3'],
+       \ ['darkgreen',   'firebrick3'],
+       \ ['darkcyan',    'RoyalBlue3'],
+       \ ['darkred',     'SeaGreen3'],
+       \ ['lightyellow', 'SeaGreen3'],
+       \ ['lightred',    'RoyalBlue3'],
+       \ ['darkmagenta', 'DarkOrchid3'],
+       \ ['red',         'firebrick3'],
+       \ ]
+    let g:rbpt_max = 16
+    let g:rbpt_loadcmd_toggle = 0
+    augroup rainbow_parentheses_group
+      au!
+      au VimEnter * RainbowParenthesesToggle
+      au Syntax * RainbowParenthesesLoadRound
+     au Syntax * RainbowParenthesesLoadSquare
+     au Syntax * RainbowParenthesesLoadBraces
+    augroup END
+  endif
 " }}}
 
 " ################### 快速导航 ###################
 
 " nerdtree nerdtreetabs {{{
+  if has_key(g:plugs, 'nerdtree')
     map <leader>n :NERDTreeToggle<CR>
     let NERDTreeHighlightCursorline=1
     let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$', 'build/', '__pycache__' ]
@@ -624,6 +662,8 @@ call plug#end()
     " s/v 分屏打开文件
     let g:NERDTreeMapOpenSplit = 's'
     let g:NERDTreeMapOpenVSplit = 'v'
+    " fix Nerdtree ^G before folder and file names OSX terminal vim
+    let g:NERDTreeNodeDelimiter = "\u00a0"
 
 
     " nerdtreetabs
@@ -635,28 +675,12 @@ call plug#end()
     " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
     let g:nerdtree_tabs_open_on_console_startup=0
     let g:nerdtree_tabs_open_on_gui_startup=0
+  endif
 " }}}
-
-
-" Vim Workspace Controller
-" ctrlspace {{{
-    let g:airline_exclude_preview = 1
-    hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
-    hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
-    hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
-    hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
-
-    if executable("ag")
-      let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-    endif
-
-    let g:CtrlSpaceIgnoredFiles = '\v(node_modules|\.git)[\/]'
-    " let g:CtrlSpaceDefaultMappingKey = "<C-Space>"
-" }}}
-
 
 " 标签导航
 " tagbar {{{
+  if has_key(g:plugs, 'tagbar')
     nmap <F9> :TagbarToggle<CR>
     let g:tagbar_autofocus = 1
     let g:tagbar_autoshowtag = 1
@@ -705,15 +729,18 @@ call plug#end()
         \ 'ctagsbin'  : 'gotags',
         \ 'ctagsargs' : '-sort -silent'
     \ }
+  endif
 " }}}
 
 " Buffer操作
 " bufkill {{{
+  if has_key(g:plugs, 'vim-bufkill')
     " close buffer
     nmap <Leader>BD :BD<CR>
     nmap <Leader>BB :BB<CR>
     nmap <Leader>BF :BF<CR>
     nmap <leader>BA :ba<cr>
+  endif
 " }}}
 
 "------------------------------------------- end of configs --------------------------------------------
