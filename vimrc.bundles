@@ -16,7 +16,7 @@ set nocompatible
 " inspired by spf13, 自定义需要的插件集合
 if !exists('g:bundle_groups')
     " let g:bundle_groups=['python', 'javascript', 'tmux', 'golang', 'ruby', 'less']
-    let g:bundle_groups=['python', 'tmux', 'golang']
+    let g:bundle_groups = ['python', 'tmux', 'golang']
 endif
 
 " ----------------------------------------------------------------------------
@@ -44,7 +44,18 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 " Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'go', 'c', 'cpp'] }
 " Plug 'deoplete-plugins/deoplete-go', { 'for': ['go'] }
 " Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': ['python', 'go', 'bash', 'json', 'vim'] }
+let COC_COMPLETE_FILE_TYPES = [
+      \ 'python',
+      \ 'go',
+      \ 'bash',
+      \ 'json',
+      \ 'vim',
+      \ 'c',
+      \ 'cpp',
+      \ 'javascript',
+      \ 'rust',
+      \ ]
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -427,7 +438,8 @@ call plug#end()
   augroup coc_option
     autocmd!
     " map gd to go to definition
-    au FileType go,python,c,javascript,rust nmap <silent> gd <Plug>(coc-definition)
+
+    exec "au FileType " . join(COC_COMPLETE_FILE_TYPES, ",") . " nmap <silent> gd <Plug>(coc-definition)"
     " map <Tab> && <S-Tab> to manually trigger completion
     inoremap <silent><expr> <Tab>
           \ pumvisible() ? "\<C-n>" :
