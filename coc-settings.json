@@ -1,5 +1,9 @@
 {
   "coc.preferences.jumpCommand": "split",
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.snippetIndicator": "►",
   "languageserver": {
     "golang": {
       "command": "gopls",
