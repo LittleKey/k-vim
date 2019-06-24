@@ -39,11 +39,6 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 
 " auto complete
 " 代码自动补全
-" Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'go', 'c', 'cpp'] }
-" Plug 'roxma/nvim-yarp', { 'for': ['python', 'go', 'c', 'cpp'] }
-" Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'go', 'c', 'cpp'] }
-" Plug 'deoplete-plugins/deoplete-go', { 'for': ['go'] }
-" Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
 let COC_COMPLETE_FILE_TYPES = [
       \ 'python',
       \ 'go',
@@ -84,10 +79,6 @@ Plug 'markonm/traces.vim'
 " 快速去行尾空格 [, + <Space>]
 " Plug 'bronson/vim-trailing-whitespace'
 " Plug 'ntpeters/vim-better-whitespace'
-
-" 更高效的行内移动, f/F/t/T, 才触发
-" quickscope
-" Plug 'unblevable/quick-scope'
 
 " 增强配对能力, 并提供高亮
 Plug 'andymass/vim-matchup'
@@ -130,8 +121,6 @@ Plug 'mhinz/vim-startify'
 " git
 " fugitive
 " Plug 'tpope/vim-fugitive'
-" gitgutter
-" Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
 
 " 增强 ["\@\<C-r>] (vim寄存器)
@@ -147,8 +136,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'kien/rainbow_parentheses.vim'
 
 " 语法高亮
-" ansible
-" Plug 'pearofducks/ansible-vim', { 'for': ['ansible'], 'do': 'cd ./UltiSnips; ./generate.py' }
 " c/cpp
 " Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp', 'c'] }
 " cmake
@@ -394,41 +381,6 @@ call plug#end()
 
 " ################### 自动补全 ###################
 
-" deoplete {{{
-    let g:deoplete#enable_at_startup = 1
-    function! DeopleteOption()
-      call deoplete#custom#option({
-          \ 'auto_complete_delay': 1000,
-          \ 'auto_complete': v:true,
-          \ 'smart_case': v:true,
-          \ 'num_processes': 8,
-          \ 'camel_case': v:true,
-          \ 'ignore_case': v:true,
-          \ 'on_insert_enter': v:true,
-          \ 'on_text_changed_i': v:true,
-          \ 'yarp': v:true,
-          \ })
-    endfunc
-
-    function! DeopleteOptionGolang()
-      " golang
-      let g:deoplete#sources#go = ['vim-go']
-      let g:deoplete#sources#go#gocode_binary = '/dev/null' " $GOPATH.'/bin/gocode'
-      let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-    endfunc
-
-    function! DeopleteOptionPython()
-      inoremap <silent><expr> <C-c> deoplete#mappings#manual_complete()
-    endfunc
-
-    augroup deoplete_option
-      autocmd!
-      " autocmd FileType python,go,cpp,c :call DeopleteOption()
-      " autocmd FileType go :call DeopleteOptionGolang()
-      " autocmd FileType python :call DeopleteOptionPython()
-    augroup END
-" }}}
-
 " coc {{{
   function! s:check_back_space() abort
     let col = col('.') - 1
@@ -484,15 +436,6 @@ call plug#end()
 " }}}
 
 " ################### 快速移动 ###################
-
-" quickscope {{{
-    let g:qs_highlight_on_keys = ['f', 'F']
-    augroup qs_colors
-      autocmd!
-      autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-      autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
-    augroup END
-" }}}
 
 " matchup {{{
   " async
@@ -583,17 +526,6 @@ call plug#end()
 
 " fugitive {{{
     nnoremap <leader>gb :Gblame<CR>
-" }}}
-
-" gitgutter {{{
-    " let g:gitgutter_map_keys = 0
-    " let g:gitgutter_enabled = 1
-    " let g:gitgutter_highlight_lines = 0
-    " let g:gitgutter_realtime = 1
-    " let g:gitgutter_async = 1
-    " autocmd BufWritePost * GitGutter
-    " let g:gitgutter_terminal_reports_focus=0
-    " nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " signify {{{
@@ -783,13 +715,5 @@ call plug#end()
     nmap <Leader>BF :BF<CR>
     nmap <leader>BA :ba<cr>
 " }}}
-
-" ############################ 语法高亮 #########################
-
-" ansible
-augroup ansible_syntax_group
-  autocmd!
-  au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
-augroup END
 
 "------------------------------------------- end of configs --------------------------------------------
