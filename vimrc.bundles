@@ -39,11 +39,12 @@ Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../o
 
 " auto complete
 " 代码自动补全
-Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'go', 'c', 'cpp'] }
-Plug 'roxma/nvim-yarp', { 'for': ['python', 'go', 'c', 'cpp'] }
-Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'go', 'c', 'cpp'] }
-Plug 'deoplete-plugins/deoplete-go', { 'for': ['go'] }
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+" Plug 'Shougo/deoplete.nvim', { 'for': ['python', 'go', 'c', 'cpp'] }
+" Plug 'roxma/nvim-yarp', { 'for': ['python', 'go', 'c', 'cpp'] }
+" Plug 'roxma/vim-hug-neovim-rpc', { 'for': ['python', 'go', 'c', 'cpp'] }
+" Plug 'deoplete-plugins/deoplete-go', { 'for': ['go'] }
+" Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': ['python', 'go', 'bash', 'json', 'vim'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -411,10 +412,14 @@ call plug#end()
 
     augroup deoplete_option
       autocmd!
-      autocmd FileType python,go,cpp,c :call DeopleteOption()
-      autocmd FileType go :call DeopleteOptionGolang()
-      autocmd FileType python :call DeopleteOptionPython()
+      " autocmd FileType python,go,cpp,c :call DeopleteOption()
+      " autocmd FileType go :call DeopleteOptionGolang()
+      " autocmd FileType python :call DeopleteOptionPython()
     augroup END
+" }}}
+
+" coc {{{
+  au FileType go,python,c,javascript,rust nmap <silent> gd <Plug>(coc-definition)
 " }}}
 
 " vim-quickhl {{{
@@ -601,6 +606,12 @@ call plug#end()
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '
     let g:airline#extensions#ale#warning_symbol = g:ale_sign_warning . ' '
+    " 集成coc
+    let g:airline#extensions#coc#enabled = 1
+    let airline#extensions#coc#error_symbol = 'E:'
+    let airline#extensions#coc#warning_symbol = 'W:'
+    let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+    let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 
     " not include ctrlp
     let g:airline_extensions = [
