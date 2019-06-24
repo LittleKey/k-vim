@@ -391,7 +391,7 @@ call plug#end()
 " ################### 自动补全 ###################
 
 " coc {{{
-  if has_key(g:plugs, 'coc')
+  if has_key(g:plugs, 'coc.nvim')
     function! s:check_back_space() abort
       let col = col('.') - 1
       return !col || getline('.')[col - 1] =~ '\s'
@@ -400,7 +400,6 @@ call plug#end()
     augroup coc_option
       autocmd!
       " map gd to go to definition
-
       exec "au FileType " . join(COC_COMPLETE_FILE_TYPES, ",") . " nmap <silent> gd <Plug>(coc-definition)"
       " map <Tab> && <S-Tab> to manually trigger completion
       inoremap <silent><expr> <Tab>
