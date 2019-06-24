@@ -45,7 +45,7 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+set wildignore=*.swp,*.bak,*.pyc,*.class,.svn,__pycache__
 
 " very lag when move cursor
 " 突出显示当前列
@@ -84,7 +84,7 @@ set tm=500
 set viminfo^=%
 
 " For regular expressions turn magic on
-set magic
+" set magic
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -108,11 +108,6 @@ set scrolloff=7
 
 " set winwidth=79
 
-" 命令行（在状态行下）的高度，默认为1，这里是2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-" Always show the status line - use 2 lines for the status bar
-set laststatus=2
-
 " 显示行号
 set number
 " 取消换行
@@ -132,30 +127,6 @@ set incsearch
 set ignorecase
 " 有一个或以上大写字母时仍大小写敏感
 set smartcase
-
-" 代码折叠
-" set foldenable
-" 折叠方法
-" manual    手工折叠
-" indent    使用缩进表示折叠
-" expr      使用表达式定义折叠
-" syntax    使用语法定义折叠
-" diff      对没有更改的文本进行折叠
-" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-" set foldmethod=indent
-" set foldlevel=99
-" 代码折叠自定义快捷键 <leader>zz
-let g:FoldMethod = 0
-" map <leader>zz :call ToggleFold()<cr>
-fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
-    else
-        exe "normal! zR"
-        let g:FoldMethod = 0
-    endif
-endfun
 
 " 缩进配置
 " Smart indent
@@ -188,21 +159,6 @@ function! TAB(size)
   execute "set softtabstop=".a:size
 endfunc
 
-augroup filetype_indent_group
-  autocmd!
-  autocmd FileType * :call TAB(2)                        " default Tabsize
-  autocmd FileType py,python :call TAB(4)                " python Tabsize
-  autocmd FileType ruby :call TAB(2)                     " ruby Tabsize
-  autocmd FileType vim :call TAB(2)                      " vimrc Tabsize
-  autocmd FileType html :call TAB(2)                     " html Tabsize
-  autocmd FileType javascript,typescript :call TAB(2)    " typescript javascript Tabsize
-  autocmd FileType js,ts,cs,coffee,jsx :call TAB(2)      " typescript javascript coffeescript Tabsize
-  autocmd FileType c,h :call TAB(2)                      " c Tabsize
-  autocmd FileType cpp,hpp,cc,cxx :call TAB(2)           " cpp Tabsize
-  autocmd FileType java :call TAB(2)                     " java Tabsize
-  autocmd FileType rust :call TAB(4)                     " rust Tabsize
-augroup END
-
 " 使用F7切换是否使用空格代替tab(或tab代替空格)
 function! TabToggle()
   if(&expandtab == 1)
@@ -221,7 +177,7 @@ set wildmode=list:longest
 set ttyfast
 
 " 00x增减数字时使用十进制
-set nrformats=
+" set nrformats=
 
 " too lag
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
@@ -265,8 +221,6 @@ set termencoding=utf-8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" 如遇Unicode值大于255的文本，不必等到空格再折行
-set formatoptions+=m
 " 合并两行中文时，不在中间加空格
 set formatoptions+=B
 
@@ -274,11 +228,6 @@ set formatoptions+=B
 "==========================================
 " others 其它设置
 "==========================================
-" vimrc文件修改之后自动加载
-augroup autoload_vimrc_group
-  autocmd!
-  autocmd bufwritepost .vimrc source %
-augroup END
 
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -304,10 +253,6 @@ augroup quickfix_group
   autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
 augroup END
 
-" command-line window
-autocmd! CmdwinEnter * nnoremap <buffer> <CR> <CR>
-
-
 " 上下左右键的行为 会显示其他信息
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -324,12 +269,6 @@ endif
 "==========================================
 
 " 主要按键重定义
-
-" 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -371,18 +310,6 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
 
 " disbale paste mode when leaving insert mode
 au! InsertLeave * set nopaste
-
-" F5 set paste问题已解决, 粘贴代码前不需要按F5了
-" F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
-" Automatically set paste mode in Vim when pasting in insert mode
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
-endfunction
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-
-
 
 " 分屏窗口移动, Smart way to move between windows
 map <C-j> <C-W>j
@@ -446,16 +373,6 @@ vnoremap > >gv
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
 
-" 滚动Speed up scrolling of the viewport slightly
-nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
-
-
-" Jump to start and end of line using the home row keys
-" 增强tab操作, 导致这个会有问题, 考虑换键
-" nmap t o<ESC>k
-" nmap T O<ESC>j
-
 " Quickly close the all window
 nnoremap <leader>q :qa<CR>
 command-bang Q :q<bang>
@@ -472,9 +389,19 @@ nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
 
 augroup indent_settings_group
   autocmd!
-  " 具体编辑文件类型的一般设置，比如不要 tab 等
-  autocmd FileType python :call TAB(4)
-  autocmd FileType ruby,javascript,html,css,xml,go :call TAB(2)
+  autocmd FileType * :call TAB(4)                        " default Tabsize
+  autocmd FileType py,python :call TAB(4)                " python Tabsize
+  autocmd FileType ruby :call TAB(2)                     " ruby Tabsize
+  autocmd FileType vim :call TAB(2)                      " vimrc Tabsize
+  autocmd FileType html :call TAB(2)                     " html Tabsize
+  autocmd FileType javascript,typescript :call TAB(2)    " typescript javascript Tabsize
+  autocmd FileType js,ts,cs,coffee,jsx :call TAB(2)      " typescript javascript coffeescript Tabsize
+  autocmd FileType c,h :call TAB(4)                      " c Tabsize
+  autocmd FileType cpp,hpp,cc,cxx :call TAB(4)           " cpp Tabsize
+  autocmd FileType java :call TAB(2)                     " java Tabsize
+  autocmd FileType rust :call TAB(4)                     " rust Tabsize
+  autocmd FileType go :call TAB(4)                       " golang Tabsize
+
   autocmd FileType python,ruby,javascript,html,css,xml,go set expandtab ai
   autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
   autocmd BufRead,BufNewFile *.part set filetype=html
