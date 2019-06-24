@@ -1,5 +1,17 @@
 k-vim
-=======================
+=====
+
+#### Install
+
+just type:
+
+```sh
+git clone https://github.com/littlekey/k-vim && cd k-vim && sh -x install.sh
+```
+
+#### Usage
+
+main change:
 
 > \<Leader\> 映射为' '空格(space)
 
