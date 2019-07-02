@@ -13,12 +13,6 @@ set nocompatible
 
 " ################### 插件管理 ###################
 
-" inspired by spf13, 自定义需要的插件集合
-if !exists('g:bundle_groups')
-    " let g:bundle_groups=['python', 'javascript', 'tmux', 'golang', 'ruby', 'less']
-    let g:bundle_groups = ['python', 'tmux', 'golang']
-endif
-
 " ----------------------------------------------------------------------------
 " 使用 vim-plug 管理插件
 " vim plugin bundle control, command model
@@ -50,7 +44,7 @@ let COC_COMPLETE_FILE_TYPES = [
       \ 'javascript',
       \ 'rust',
       \ ]
-Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
+" Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -233,84 +227,44 @@ Plug 'machakann/vim-sandwich'  " sa[添加环绕字符], sd[删除环绕字符],
 " Plug 'wakatime/vim-wakatime'
 " let g:wakatime_ScreenRedraw = 0 " disable redraw screen after sending heartbeats
 
+" tmux
+" For tmux navigator Ctrl-hjkl
+Plug 'christoomey/vim-tmux-navigator'
+" Plug 'tmux-plugins/vim-tmux-focus-events'
 
-if count(g:bundle_groups, 'tmux')
-    " tmux
-    " For tmux navigator Ctrl-hjkl
-    Plug 'christoomey/vim-tmux-navigator'
-    " Plug 'tmux-plugins/vim-tmux-focus-events'
-endif
-
-if count(g:bundle_groups, 'golang')
-    " 1. vim a.go
-    " 2. :GoInstallBinaries
-    " vimgo  https://github.com/fatih/vim-go
-    Plug 'fatih/vim-go', { 'tag': 'v1.20', 'frozen': 1, 'do': 'GoUpdateBinaries' }
-
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_structs = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_build_constraints = 1
-
-    let g:go_fmt_fail_silently = 1
-    let g:go_fmt_command = "gofmt"
-    let g:go_def_mode = "gopls" " instead of (fucking slowly) guru
-    let g:go_info_mode = "gopls"
-    let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
-    let g:go_template_autocreate = 0 " diable GoTemplate
-    let g:go_code_completion_enabled = 1
-
-    " lsp: language server protocol
-    " let g:LanguageClient_serverCommands = { 'go': ['gopls'] }
-    " autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-endif
+" 1. vim a.go
+" 2. :GoInstallBinaries
+" vimgo  https://github.com/fatih/vim-go
+Plug 'fatih/vim-go', { 'tag': 'v1.20', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 
 
-if count(g:bundle_groups, 'python')
-    " for python.vim syntax highlight
-    " pythonsyntax
-    Plug 'hdima/python-syntax', {'for': 'python'}
-    let g:python_highlight_all = 1
-    let g:python_highlight_file_headers_as_comments = 1
-    let g:python_slow_sync = 1
-    " has bug if "{{" was present and not close with "}}"
-    " Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
-    Plug 'hattya/python-indent.vim', {'for': 'python'}  " working fine.
-    Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
-endif
+" for python.vim syntax highlight
+" pythonsyntax
+Plug 'hdima/python-syntax', {'for': 'python'}
+let g:python_highlight_all = 1
+let g:python_highlight_file_headers_as_comments = 1
+let g:python_slow_sync = 1
+" has bug if "{{" was present and not close with "}}"
+" Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
+Plug 'hattya/python-indent.vim', {'for': 'python'}  " working fine.
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 
-if count(g:bundle_groups, 'javascript')
-    " javascript
-    " 注意: syntax这个插件要放前面
-    " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
-    " Plug 'othree/es.next.syntax.vim'
-    Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
-    " pangloss/vim-javascript
-    let g:html_indent_inctags = "html,body,head,tbody"
-    let g:html_indent_script1 = "inc"
-    let g:html_indent_style1 = "inc"
+" javascript
+" 注意: syntax这个插件要放前面
+" Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+" Plug 'othree/es.next.syntax.vim'
+Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
+" pangloss/vim-javascript
+" Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
+Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
+" let g:vim_jsx_pretty_colorful_config = 1
+" Plug 'mxw/vim-jsx' " FIXME 如果打开，validator.vim不能正常检查javascript
 
-    let g:javascript_plugin_flow = 1
-    let g:jsx_ext_required = 0
+" TODO: jquery? for, remove or keep
+Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
 
-    let g:used_javascript_libs = 'React,Flux'
-    " Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
-    Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
-    " let g:vim_jsx_pretty_colorful_config = 1
-    " Plug 'mxw/vim-jsx' " FIXME 如果打开，validator.vim不能正常检查javascript
-
-    " TODO: jquery? for, remove or keep
-    Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
-
-    " for tagbar
-    " Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
-endif
-
-if count(g:bundle_groups, 'kotlin')
-  " ##### kotlin syntax #####
-
-endif
+" for tagbar
+" Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -378,6 +332,28 @@ call plug#end()
     endif
 " }}}
 
+" vimgo {{{
+    if has_key(g:plugs, 'vim-go')
+      let g:go_highlight_functions = 1
+      let g:go_highlight_methods = 1
+      let g:go_highlight_structs = 1
+      let g:go_highlight_operators = 1
+      let g:go_highlight_build_constraints = 1
+
+      let g:go_fmt_fail_silently = 1
+      let g:go_fmt_command = "gofmt"
+      let g:go_def_mode = "gopls" " instead of (fucking slowly) guru
+      let g:go_info_mode = "gopls"
+      let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
+      let g:go_template_autocreate = 0 " diable GoTemplate
+      let g:go_code_completion_enabled = 1
+
+      " lsp: language server protocol
+      " let g:LanguageClient_serverCommands = { 'go': ['gopls'] }
+      " autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+    endif
+" }}}
+
 " black {{{
     if has_key(g:plugs, 'black')
       let g:black_virtualenv = '' . $VIRTUAL_ENV
@@ -385,6 +361,19 @@ call plug#end()
         autocmd!
         autocmd BufWritePre *.py silent! Black
       augroup END
+    endif
+" }}}
+
+" javascript {{{
+    if has_key(g:plugs, 'vim-javascript-syntax')
+      let g:html_indent_inctags = "html,body,head,tbody"
+      let g:html_indent_script1 = "inc"
+      let g:html_indent_style1 = "inc"
+
+      let g:javascript_plugin_flow = 1
+      let g:jsx_ext_required = 0
+
+      let g:used_javascript_libs = 'React,Flux'
     endif
 " }}}
 
