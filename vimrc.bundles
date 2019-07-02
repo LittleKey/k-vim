@@ -104,7 +104,7 @@ Plug 'junegunn/fzf.vim'
 " q - Quit CtrlSF window.
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
-" Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
 " vim启动页面增强
 Plug 'mhinz/vim-startify'
