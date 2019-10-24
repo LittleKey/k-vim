@@ -104,7 +104,7 @@ Plug 'junegunn/fzf.vim'
 " q - Quit CtrlSF window.
 Plug 'dyng/ctrlsf.vim'
 " vim-grepper
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+" Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
 " vim启动页面增强
 Plug 'mhinz/vim-startify'
@@ -150,7 +150,7 @@ Plug 'tpope/vim-git', { 'for': ['git'] }
 " nginx
 " Plug 'chr4/nginx.vim', { 'for': ['nginx'] }
 " protobuf
-" Plug 'uarun/vim-protobuf', { 'for': ['proto'] }
+Plug 'uarun/vim-protobuf', { 'for': ['proto'] }
 " thrift
 " Plug 'solarnz/thrift.vim', { 'for': ['thrift'] }
 " tmux
@@ -159,6 +159,8 @@ Plug 'tpope/vim-git', { 'for': ['git'] }
 " Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 " yaml
 " Plug 'stephpy/vim-yaml', { 'for': ['yaml'] }
+" toml
+Plug 'cespare/vim-toml', { 'for': ['toml'] }
 " kotlin
 " Plug 'udalov/kotlin-vim', { 'for': ['kotlin'] }
 " rust
