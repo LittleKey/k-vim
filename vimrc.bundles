@@ -46,9 +46,13 @@ let COC_COMPLETE_FILE_TYPES = [
       \ ]
 " Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
-" spell lexical
 " 单词拼写检查
-Plug 'reedes/vim-lexical'
+
+" spell lexical
+" Plug 'reedes/vim-lexical'
+"
+" spelunker
+Plug 'kamykn/spelunker.vim'
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -341,10 +345,6 @@ call plug#end()
 " lexical {{{
     if has_key(g:plugs, 'vim-lexical')
 
-      nnoremap <leader>g zg
-      nnoremap <leader>b zw
-      nnoremap <leader>u zug zuw
-
       augroup lexical
         autocmd!
         autocmd FileType go,python,text,md call lexical#init({
@@ -353,6 +353,53 @@ call plug#end()
               \ 'dictionary': [ '/usr/share/dict/words' ],
               \ 'spellfile': [ '~/.vim/spell/en.utf-8.add' ],
               \ })
+      augroup END
+    endif
+" }}}
+
+" spelunker {{{
+    if has_key(g:plugs, 'spelunker.vim')
+      set nospell
+      " switch on
+      let g:enable_spelunker_vim = 1
+      " speed up
+      let g:enable_spelunker_vim_on_readonly = 0
+      " improvement of accuracy
+      let g:spelunker_target_min_char_len = 3
+      let g:spelunker_max_suggest_words = 15
+      " optimize performance
+      let g:spelunker_max_hi_word_each_buf = 100
+      " check only in file save and buf win enter. speed up!
+      let g:spelunker_check_type = 1
+      " improvement of accuracy
+      let g:spelunker_highlight_type = 2
+      let g:spelunker_disable_auto_group = 0
+
+      " user dictionary
+      let s:wl = []
+
+      " user name
+      let s:wl += ['littlekey']
+
+      " golang logger name
+      let s:wl += ['infof', 'fatalf', 'warnf', 'errorf']
+
+      let g:spelunker_white_list_for_user = s:wl
+
+      augroup spelunker
+        autocmd!
+
+        autocmd BufWinEnter,BufWritePost *.md,*.go,*.py,*.txt call spelunker#check()
+        " autocmd CursorHold *.md,*.go,*.py,*.txt call spelunker#check_displayed_words()
+      augroup END
+
+      let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
+      let g:spelunker_complex_or_compound_word_group = 'SpelunkerComplexOrCompoundWord'
+
+      augroup spelunker_hightlight_group
+        autocmd!
+        autocmd ColorScheme * highlight SpelunkerSpellBad cterm=underline,bold ctermfg=darkred
+        autocmd ColorScheme * highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=darkmagenta
       augroup END
     endif
 " }}}

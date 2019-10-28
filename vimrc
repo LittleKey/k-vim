@@ -454,6 +454,11 @@ endif
 set re=1
 set lazyredraw
 
+" spell
+nnoremap <leader>g zg
+nnoremap <leader>b zw
+nnoremap <leader>u zug zuw
+
 " Debug
 augroup long_lines
   au!
