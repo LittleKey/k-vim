@@ -379,10 +379,27 @@ call plug#end()
       let s:wl = []
 
       " user name
-      let s:wl += ['littlekey']
+      let s:wl += ['littlekey', 'pelletier']
+
+      " programming noun
+      let s:wl += ['yaml']
 
       " golang logger name
       let s:wl += ['infof', 'fatalf', 'warnf', 'errorf']
+
+      " golang library
+      let s:wl += ['ioutil', 'fmt', 'bufio', 'bzip', 'flate', 'zlib', 'ecdsa', 'hmac', 'pkix', 'gosym']
+      let s:wl += ['expvar', 'suffixarray', 'cmplx', 'fcgi', 'httptest', 'httptrace', 'httputil', 'pprof']
+      let s:wl += ['jsonrpc', 'smtp', 'textproto', 'filepath', 'syscall', 'iotest', 'tabwriter']
+
+      " golang function name
+      let s:wl += ['unmarshal']
+
+      " yogo dictionary
+      let s:wl += ['yogo', 'yogorobot', 'yogoswarm']
+
+      " variable names
+      let s:wl += ['pois', 'conns', 'uid', 'cfg', 'dtype']
 
       let g:spelunker_white_list_for_user = s:wl
 
