@@ -46,6 +46,10 @@ let COC_COMPLETE_FILE_TYPES = [
       \ ]
 " Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
+" spell lexical
+" 单词拼写检查
+Plug 'reedes/vim-lexical'
+
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
 " 自动补全html/xml标签
@@ -330,6 +334,25 @@ call plug#end()
         autocmd!
         autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
+      augroup END
+    endif
+" }}}
+
+" lexical {{{
+    if has_key(g:plugs, 'vim-lexical')
+
+      nnoremap <leader>g zg
+      nnoremap <leader>b zw
+      nnoremap <leader>u zug zuw
+
+      augroup lexical
+        autocmd!
+        autocmd FileType go,python,text,md call lexical#init({
+              \ 'spell': 1,
+              \ 'spelllang': [ 'en_us' ],
+              \ 'dictionary': [ '/usr/share/dict/words' ],
+              \ 'spellfile': [ '~/.vim/spell/en.utf-8.add' ],
+              \ })
       augroup END
     endif
 " }}}
