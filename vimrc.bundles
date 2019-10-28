@@ -52,7 +52,7 @@ let COC_COMPLETE_FILE_TYPES = [
 " Plug 'reedes/vim-lexical'
 "
 " spelunker
-Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'git'] }
+Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml' ] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -381,25 +381,40 @@ call plug#end()
       " user name
       let s:wl += ['littlekey', 'pelletier']
 
+      " abbreviation
+      let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
+
+      " conjuncation
+      let s:wl += ['inplace', 'nostop', 'hardcode']
+
       " programming noun
-      let s:wl += ['yaml']
+      let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto']
 
       " golang logger name
-      let s:wl += ['infof', 'fatalf', 'warnf', 'errorf']
+      let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf']
 
       " golang library
       let s:wl += ['ioutil', 'fmt', 'bufio', 'bzip', 'flate', 'zlib', 'ecdsa', 'hmac', 'pkix', 'gosym']
       let s:wl += ['expvar', 'suffixarray', 'cmplx', 'fcgi', 'httptest', 'httptrace', 'httputil', 'pprof']
-      let s:wl += ['jsonrpc', 'smtp', 'textproto', 'filepath', 'syscall', 'iotest', 'tabwriter']
+      let s:wl += ['jsonrpc', 'smtp', 'textproto', 'filepath', 'syscall', 'iotest', 'tabwriter', 'uuid']
+      let s:wl += ['strconv', 'taskq']
+
+      " golang package name
+      let s:wl += ['uuid', 'gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
 
       " golang function name
-      let s:wl += ['unmarshal']
+      let s:wl += ['unmarshal', 'Itoa']
+      let s:wl += ['goos', 'goarch', 'goarm']
+
+      " golang const name
+      let s:wl += ['RDONLY', 'WRONLY', 'TRUNC']
 
       " yogo dictionary
-      let s:wl += ['yogo', 'yogorobot', 'yogoswarm']
+      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago']
 
       " variable names
-      let s:wl += ['pois', 'conns', 'uid', 'cfg', 'dtype']
+      let s:wl += ['pois', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
+      let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth']
 
       let g:spelunker_white_list_for_user = s:wl
 
