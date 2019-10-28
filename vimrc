@@ -261,7 +261,7 @@ nnoremap j gj
 nnoremap gj j
 
 " replace Ex mode keymap from 'Q' tp 'ex'
-nnoremap ex Q
+nnoremap Ex Q
 nnoremap Q <Esc>
 
 " F1 - F6 设置
