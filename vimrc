@@ -260,6 +260,10 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
+" replace Ex mode keymap from 'Q' tp 'ex'
+nnoremap ex Q
+nnoremap Q <Esc>
+
 " F1 - F6 设置
 
 " F1 废弃这个键,防止调出系统帮助
