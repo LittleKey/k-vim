@@ -52,7 +52,7 @@ let COC_COMPLETE_FILE_TYPES = [
 " Plug 'reedes/vim-lexical'
 "
 " spelunker
-Plug 'kamykn/spelunker.vim'
+Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'git'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
