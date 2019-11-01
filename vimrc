@@ -363,12 +363,28 @@ vnoremap <leader>y "+y
 " Quickly close the all window
 nnoremap <leader>q :qa<CR>
 command-bang Q :q<bang>
+command-bang Qa :qa<bang>
+command-bang QA :qa<bang>
 
 " remap write command for typo
 command-bang W :w<bang>
 
 " split line 快速分割一行
-nnoremap S :keeppatterns substitute/\s*\%#\s*/\r/e <bar> normal! ==<CR>
+nnoremap S :keeppatterns substitute@\s*\%#\s*@\r@e <bar> normal! ==<CR>
+
+" erase trailing space
+function EraseTrailingSpace()
+  let b:save_view = winsaveview()
+  keeppatterns %substitute@\s*$@@eg
+  call winrestview(b:save_view)
+endfunction
+nnoremap <leader>t :call EraseTrailingSpace()<CR>
+
+augroup erase_trailing_space
+  au!
+  au BufWritePre * silent! :call EraseTrailingSpace()
+augroup END
+
 
 "==========================================
 " FileType Settings  文件类型设置

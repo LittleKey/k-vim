@@ -47,12 +47,8 @@ let COC_COMPLETE_FILE_TYPES = [
 " Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
 " 单词拼写检查
-
-" spell lexical
-" Plug 'reedes/vim-lexical'
-"
 " spelunker
-Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml' ] }
+Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -263,15 +259,15 @@ Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 " 注意: syntax这个插件要放前面
 " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
 " Plug 'othree/es.next.syntax.vim'
-Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
+" Plug 'jelera/vim-javascript-syntax', {'for': ['javascript', 'jsx']} | Plug 'pangloss/vim-javascript', {'for': ['javascript', 'jsx']}
 " pangloss/vim-javascript
 " Plug 'maxmellon/vim-jsx-pretty', {'for': ['javascript', 'jsx']}
-Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
+" Plug 'chemzqm/vim-jsx-improve', {'for': ['javascript', 'jsx']} " FIXME 会导致js缩进出问题
 " let g:vim_jsx_pretty_colorful_config = 1
 " Plug 'mxw/vim-jsx' " FIXME 如果打开，validator.vim不能正常检查javascript
 
 " TODO: jquery? for, remove or keep
-Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
+" Plug 'othree/javascript-libraries-syntax.vim', {'for': ['javascript', 'jsx']}
 
 " for tagbar
 " Plug 'ternjs/tern_for_vim', {'do': 'npm install && npm install -g git+https://github.com/ramitos/jsctags.git', 'for': ['javascrip', 'jsx']}
@@ -342,21 +338,6 @@ call plug#end()
     endif
 " }}}
 
-" lexical {{{
-    if has_key(g:plugs, 'vim-lexical')
-
-      augroup lexical
-        autocmd!
-        autocmd FileType go,python,text,md call lexical#init({
-              \ 'spell': 1,
-              \ 'spelllang': [ 'en_us' ],
-              \ 'dictionary': [ '/usr/share/dict/words' ],
-              \ 'spellfile': [ '~/.vim/spell/en.utf-8.add' ],
-              \ })
-      augroup END
-    endif
-" }}}
-
 " spelunker {{{
     if has_key(g:plugs, 'spelunker.vim')
       set nospell
@@ -383,16 +364,20 @@ call plug#end()
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
-      let s:wl += ['src', 'dest', 'reco', 'req']
+      let s:wl += ['src', 'dest', 'reco', 'req', 'ele']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode']
 
       " programming noun
-      let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor']
-      "
+      let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
+      let s:wl += ['ieee', 'crc', 'sof']
+
       " program name
       let s:wl += ['mplayer']
+
+      " protobuf keyword
+      let s:wl += ['oneof']
 
       " golang logger name
       let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf']
@@ -408,14 +393,14 @@ call plug#end()
 
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
-      let s:wl += ['protocolv', 'gogo']
+      let s:wl += ['protocolv', 'gogo', 'meteorsite']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi']
       let s:wl += ['goos', 'goarch', 'goarm']
 
       " golang const name
-      let s:wl += ['RDONLY', 'WRONLY', 'TRUNC']
+      let s:wl += ['rdonly', 'wronly', 'trunc']
 
       " yogo dictionary
       let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago']
@@ -423,13 +408,14 @@ call plug#end()
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth']
+      let s:wl += ['gopoint']
 
       let g:spelunker_white_list_for_user = s:wl
 
       augroup spelunker
         autocmd!
 
-        autocmd BufWinEnter,BufWritePost *.md,*.go,*.py,*.txt call spelunker#check()
+        autocmd BufWinEnter,BufWritePost *.md,*.go,*.py,*.toml,*.json,*.yml call spelunker#check()
         " autocmd CursorHold *.md,*.go,*.py,*.txt call spelunker#check_displayed_words()
       augroup END
 
@@ -704,7 +690,7 @@ call plug#end()
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '
     let g:airline#extensions#ale#warning_symbol = g:ale_sign_warning . ' '
     " 集成coc
-    let g:airline#extensions#coc#enabled = 1
+    let g:airline#extensions#coc#enabled = 0
     let airline#extensions#coc#error_symbol = 'E:'
     let airline#extensions#coc#warning_symbol = 'W:'
     let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
@@ -726,8 +712,6 @@ call plug#end()
 " rainbow_parentheses {{{
   if has_key(g:plugs, "rainbow_parentheses")
     " 不加入这行, 防止黑色与深蓝括号出现, 很难识别
-    \ ['black',       'SeaGreen3'],
-    \ ['Darkblue',    'SeaGreen3'],
     let g:rbpt_colorpairs = [
        \ ['brown',       'RoyalBlue3'],
        \ ['darkgreen',   'firebrick3'],
@@ -737,6 +721,8 @@ call plug#end()
        \ ['lightred',    'RoyalBlue3'],
        \ ['darkmagenta', 'DarkOrchid3'],
        \ ['red',         'firebrick3'],
+       \ ['black',       'SeaGreen3'],
+       \ ['Darkblue',    'SeaGreen3'],
        \ ]
     let g:rbpt_max = 16
     let g:rbpt_loadcmd_toggle = 0
@@ -744,8 +730,8 @@ call plug#end()
       au!
       au VimEnter * RainbowParenthesesToggle
       au Syntax * RainbowParenthesesLoadRound
-     au Syntax * RainbowParenthesesLoadSquare
-     au Syntax * RainbowParenthesesLoadBraces
+      au Syntax * RainbowParenthesesLoadSquare
+      au Syntax * RainbowParenthesesLoadBraces
     augroup END
   endif
 " }}}
