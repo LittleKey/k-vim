@@ -364,17 +364,17 @@ call plug#end()
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
-      let s:wl += ['src', 'dest', 'reco', 'req', 'ele']
+      let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode']
 
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
-      let s:wl += ['ieee', 'crc', 'sof']
+      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc']
 
       " program name
-      let s:wl += ['mplayer']
+      let s:wl += ['mplayer', 'espeak']
 
       " protobuf keyword
       let s:wl += ['oneof']
@@ -393,22 +393,23 @@ call plug#end()
 
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
-      let s:wl += ['protocolv', 'gogo', 'meteorsite']
+      let s:wl += ['protocolv', 'gogo', 'meteorsite', 'grpcrecovery', 'robotcctypes', 'mosstypes']
+      let s:wl += ['errorcode']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi']
       let s:wl += ['goos', 'goarch', 'goarm']
 
       " golang const name
-      let s:wl += ['rdonly', 'wronly', 'trunc']
+      let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm']
 
       " yogo dictionary
       let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago']
 
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
-      let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth']
-      let s:wl += ['gopoint']
+      let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
+      let s:wl += ['gopoint', 'errorcodes']
 
       let g:spelunker_white_list_for_user = s:wl
 

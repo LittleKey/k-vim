@@ -380,10 +380,10 @@ function EraseTrailingSpace()
 endfunction
 nnoremap <leader>t :call EraseTrailingSpace()<CR>
 
-augroup erase_trailing_space
-  au!
-  au BufWritePre * silent! :call EraseTrailingSpace()
-augroup END
+" augroup erase_trailing_space
+"   au!
+"   au BufWritePre * silent! :call EraseTrailingSpace()
+" augroup END
 
 
 "==========================================
