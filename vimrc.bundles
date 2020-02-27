@@ -173,13 +173,13 @@ Plug 'cespare/vim-toml', { 'for': ['toml'] }
 
 Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 
-" Plug 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 " molokai
 " 主题 molokai
 " Plug 'tomasr/molokai'
 " tomorrow
 " 主题 tomorrow
-" Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chriskempson/base16-vim'
 " onedark
 " 主题 onedark
 " Plug 'joshdick/onedark.vim'
@@ -197,7 +197,7 @@ Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 " Plug 'zeis/vim-kolor'
 " vim-lucius
 " 主题 vim-lucius
-" Plug 'jonathanfilip/vim-lucius'
+Plug 'jonathanfilip/vim-lucius'
 " iceberg.vim
 " 主题 iceberg.vim
 " Plug 'cocopon/iceberg.vim'
@@ -209,7 +209,7 @@ Plug 'jacoborus/tender.vim'
 " Plug 'morhetz/gruvbox'
 " space-vim-dark
 " 主题space-vim-dark
-" Plug 'liuchengxu/space-vim-dark'
+Plug 'liuchengxu/space-vim-dark'
 
 " nav
 " nerdtree nerdtree-git-plugin
@@ -241,7 +241,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " 1. vim a.go
 " 2. :GoInstallBinaries
 " vimgo  https://github.com/fatih/vim-go
-Plug 'fatih/vim-go', { 'tag': 'v1.20', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.22', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 
 
 " for python.vim syntax highlight
@@ -321,9 +321,10 @@ call plug#end()
 
       let g:ale_rust_rls_toolchain = 'stable'
 
-      " let g:ale_lint_on_text_changed = 'normal'
+      " let g:ale_lint_on_text_changed = 'normal'  " [never|normal]
       " let g:ale_lint_delay = 200 " ms
       " let g:ale_lint_on_enter = 1
+      " let g:ale_lint_on_insert_leave = 0
       " let g:ale_lint_on_save = 1
 
       let g:ale_set_highlights = 1
@@ -360,24 +361,37 @@ call plug#end()
       let s:wl = []
 
       " user name
-      let s:wl += ['littlekey', 'pelletier']
+      let s:wl += ['littlekey', 'pelletier', 'uber']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
-      let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli']
+      let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
+      let s:wl += ['args', 'kwargs']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode']
 
+      " unfamiliar
+      let s:wl += ['disinfector', 'saltus']
+
+      " const literals
+      let s:wl += ['FF', 'FFF', 'FFFF', 'FFFFF', 'FFFFFF']
+
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
-      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc']
+      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize']
 
       " program name
       let s:wl += ['mplayer', 'espeak']
 
+      " arguments
+      let s:wl += ['softvol']
+
       " protobuf keyword
       let s:wl += ['oneof']
+
+      " golang keyword
+      let s:wl += ['goroutine']
 
       " golang logger name
       let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf']
@@ -386,7 +400,7 @@ call plug#end()
       let s:wl += ['ioutil', 'fmt', 'bufio', 'bzip', 'flate', 'zlib', 'ecdsa', 'hmac', 'pkix', 'gosym']
       let s:wl += ['expvar', 'suffixarray', 'cmplx', 'fcgi', 'httptest', 'httptrace', 'httputil', 'pprof']
       let s:wl += ['jsonrpc', 'smtp', 'textproto', 'filepath', 'syscall', 'iotest', 'tabwriter', 'uuid']
-      let s:wl += ['strconv', 'taskq']
+      let s:wl += ['strconv', 'taskq', 'opentracing']
 
       " python library
       let s:wl += ['sys']
@@ -394,14 +408,14 @@ call plug#end()
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
       let s:wl += ['protocolv', 'gogo', 'meteorsite', 'grpcrecovery', 'robotcctypes', 'mosstypes']
-      let s:wl += ['errorcode']
+      let s:wl += ['errorcode', 'yogosystem']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi']
       let s:wl += ['goos', 'goarch', 'goarm']
 
       " golang const name
-      let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm']
+      let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm', 'omitempty']
 
       " yogo dictionary
       let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago']
@@ -409,15 +423,15 @@ call plug#end()
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
-      let s:wl += ['gopoint', 'errorcodes']
+      let s:wl += ['gopoint', 'errorcodes', 'pid']
 
       let g:spelunker_white_list_for_user = s:wl
 
       augroup spelunker
         autocmd!
 
-        autocmd BufWinEnter,BufWritePost *.md,*.go,*.py,*.toml,*.json,*.yml call spelunker#check()
-        " autocmd CursorHold *.md,*.go,*.py,*.txt call spelunker#check_displayed_words()
+        autocmd BufWinEnter,BufWritePost *.go,*.py,*.toml,*.json,*.yml call spelunker#check()
+        " autocmd CursorHold *.go,*.py,*.txt call spelunker#check_displayed_words()
       augroup END
 
       let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
@@ -433,11 +447,26 @@ call plug#end()
 
 " vimgo {{{
     if has_key(g:plugs, 'vim-go')
-      let g:go_highlight_functions = 1
-      let g:go_highlight_methods = 1
-      let g:go_highlight_structs = 1
+      " highlight options
+      let g:go_highlight_array_whitespace_error = 1
+      let g:go_highlight_chan_whitespace_error = 1
+      let g:go_highlight_extra_types = 1
+      let g:go_highlight_space_tab_error = 1
+      let g:go_highlight_trailing_whitespace_error = 1
       let g:go_highlight_operators = 1
+      let g:go_highlight_methods = 1
+      let g:go_highlight_functions = 1
+      let g:go_highlight_function_parameters = 0
+      let g:go_highlight_function_calls = 0
+      let g:go_highlight_structs = 1
+      let g:go_highlight_types = 1
+      let g:go_highlight_fields = 0
       let g:go_highlight_build_constraints = 1
+      let g:go_highlight_generate_tags = 1
+      let g:go_highlight_string_spellcheck = 0
+      let g:go_highlight_format_strings = 1
+      let g:go_highlight_variable_declarations = 1
+      let g:go_highlight_variable_assignments = 1
 
       let g:go_fmt_fail_silently = 1
       let g:go_fmt_command = "gofmt"

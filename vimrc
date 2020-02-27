@@ -430,8 +430,9 @@ endif
 "==========================================
 
 " theme主题
-" set background=dark  " noused
-set t_Co=256 " colorscheme onedark
+set background=dark
+set t_Co=256
+" colorscheme onedark
 " colorscheme molokai
 " colorscheme Tomorrow-Night
 " colorscheme Tomorrow-Night-Eighties
@@ -468,6 +469,7 @@ highlight SpellLocal term=underline cterm=underline
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;lu;%lum"
   let &t_8b = "\<Esc>[48;2%lu;%lu;%lum"
+  " set termguicolors
 endif
 
 " Speed UP!
