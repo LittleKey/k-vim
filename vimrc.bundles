@@ -473,8 +473,8 @@ call plug#end()
       let g:go_def_mode = "gopls" " instead of (fucking slowly) guru
       let g:go_info_mode = "gopls"
       let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
-      let g:go_template_autocreate = 0 " diable GoTemplate
-      let g:go_code_completion_enabled = 1
+      let g:go_template_autocreate = 0 " disable GoTemplate
+      let g:go_code_completion_enabled = 0 " disable code completed
 
       " lsp: language server protocol
       " let g:LanguageClient_serverCommands = { 'go': ['gopls'] }
