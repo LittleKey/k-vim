@@ -20,6 +20,14 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
+" ######################### basic function ########################
+
+func! s:AddAirlineExtension(name) abort
+  if has_key(g:plugs, 'vim-airline')
+    let g:airline_extensions += [a:name]
+  endif
+endfunc
+
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
 
 " vim-misc 提供一些vimscript的接口(e.g: join, is_mac, ...)
@@ -213,7 +221,7 @@ Plug 'liuchengxu/space-vim-dark'
 
 " nav
 " nerdtree nerdtree-git-plugin
-Plug 'scrooloose/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 " tagbar
 " Plug 'majutsushi/tagbar'
 " window resize
@@ -331,8 +339,10 @@ call plug#end()
       highlight link ALEErrorSign  error
       highlight link ALEWarningSign Exception
 
+
       augroup ale_hightlight_group
         autocmd!
+        autocmd User ale call s:AddAirlineExtension('ale')
         autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
       augroup END
@@ -731,9 +741,9 @@ call plug#end()
         \ 'tabline',
         \ 'quickfix',
         \ 'branch',
-        \ 'ale',
         \ 'whitespace',
         \ ]
+
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
   endif
