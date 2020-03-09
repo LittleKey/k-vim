@@ -135,8 +135,9 @@ Plug 'mhinz/vim-signify'
 " view
 " airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline', { 'do': 'git clean -f && git apply ../../others/patch_ale.diff' }
 Plug 'vim-airline/vim-airline-themes'
+
 " rainbow_parentheses
 " 括号显示增强
 " Plug 'kien/rainbow_parentheses.vim'
@@ -342,7 +343,7 @@ call plug#end()
 
       augroup ale_hightlight_group
         autocmd!
-        autocmd User ale call s:AddAirlineExtension('ale')
+        " autocmd User ale call s:AddAirlineExtension('ale')
         autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
       augroup END
@@ -382,7 +383,7 @@ call plug#end()
       let s:wl += ['inplace', 'nostop', 'hardcode']
 
       " unfamiliar
-      let s:wl += ['disinfector', 'saltus']
+      let s:wl += ['disinfector', 'saltus', 'volatage']
 
       " const literals
       let s:wl += ['FF', 'FFF', 'FFFF', 'FFFFF', 'FFFFFF']
@@ -742,10 +743,14 @@ call plug#end()
         \ 'quickfix',
         \ 'branch',
         \ 'whitespace',
+        \ 'ale',
         \ ]
 
     let g:airline_highlighting_cache = 1
     let g:airline_focuslost_inactive = 1
+
+    " custom config of airline ale plugin
+    let g:airline_always_load_ale = 1
   endif
 " }}}
 

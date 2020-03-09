@@ -179,15 +179,6 @@ set ttyfast
 " 00x增减数字时使用十进制
 " set nrformats=
 
-" 防止tmux下vim的背景色显示异常
-" Refer: http://sunaku.github.io/vim-256color-bce.html
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
-
 "==========================================
 " FileEncode Settings 文件编码,格式
 "==========================================
@@ -466,6 +457,16 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+
+" 防止tmux下vim的背景色显示异常
+" Refer: http://sunaku.github.io/vim-256color-bce.html
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;lu;%lum"
   let &t_8b = "\<Esc>[48;2%lu;%lu;%lum"
@@ -475,11 +476,6 @@ endif
 " Speed UP!
 set re=1
 set lazyredraw
-
-" spell
-nnoremap <leader>g zg
-nnoremap <leader>b zw
-nnoremap <leader>u zug zuw
 
 " Debug
 augroup long_lines
