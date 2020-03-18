@@ -1,0 +1,15 @@
+diff --git a/autoload/spelunker.vim b/autoload/spelunker.vim
+index a87e236..d8d2f09 100644
+--- a/autoload/spelunker.vim
++++ b/autoload/spelunker.vim
+@@ -214,6 +214,10 @@ function s:is_runnable()
+ 		return 0
+ 	endif
+ 
++  if g:enable_spelunker_vim == 0
++    return 0
++  endif
++
+ 	if g:enable_spelunker_vim_on_readonly == 0 && &readonly
+ 		return 0
+ 	endif

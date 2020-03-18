@@ -56,7 +56,7 @@ let COC_COMPLETE_FILE_TYPES = [
 
 " 单词拼写检查
 " spelunker
-Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml'] }
+Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml'], 'do': 'git clean -f && git apply ../../others/patch_spelunker.diff' }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -368,6 +368,25 @@ call plug#end()
       let g:spelunker_highlight_type = 2
       let g:spelunker_disable_auto_group = 0
 
+      " toggle of spelunker. defaults enable
+      let g:enable_spelunker_vim = 1
+
+      func! s:SpelunkerEnable() abort
+        if has_key(g:plugs, 'spelunker.vim')
+          let g:enable_spelunker_vim = 1
+        endif
+      endfunc
+
+      func! s:SpelunkerDisable() abort
+        if has_key(g:plugs, 'spelunker.vim')
+          let g:enable_spelunker_vim = 0
+        endif
+      endfunc
+
+      " add enable/disable command of spelunker. that useful of big file.
+      command SpelunkerEnable call s:SpelunkerEnable()
+      command SpelunkerDisable call s:SpelunkerDisable()
+
       " user dictionary
       let s:wl = []
 
@@ -377,10 +396,10 @@ call plug#end()
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
-      let s:wl += ['args', 'kwargs']
+      let s:wl += ['args', 'kwargs', 'buf']
 
       " conjuncation
-      let s:wl += ['inplace', 'nostop', 'hardcode']
+      let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage']
@@ -393,7 +412,7 @@ call plug#end()
       let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize']
 
       " program name
-      let s:wl += ['mplayer', 'espeak']
+      let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
 
       " arguments
       let s:wl += ['softvol']
@@ -434,7 +453,7 @@ call plug#end()
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
-      let s:wl += ['gopoint', 'errorcodes', 'pid']
+      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt']
 
       let g:spelunker_white_list_for_user = s:wl
 
