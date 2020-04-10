@@ -80,7 +80,7 @@ Plug 'markonm/traces.vim'
 
 " codefmt
 Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
+Plug 'google/vim-codefmt', { 'do': 'git clean -f && git apply ../../others/patch_codefmt.diff' }
 Plug 'google/vim-glaive'
 
 " 增强<C-a>/<C-x>可以作用于日期
@@ -623,7 +623,7 @@ call plug#end()
   augroup autoformat_settings
     autocmd!
     autocmd VimEnter * call s:config_clang_format_style()
-    autocmd FileType proto AutoFormatBuffer clang-format
+    autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
     autocmd FileType go AutoFormatBuffer gofmt
     autocmd FileType python AutoFormatBuffer black
   augroup END
