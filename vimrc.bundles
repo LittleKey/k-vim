@@ -301,7 +301,7 @@ call plug#end()
       " brew install cppcheck
       " npm install jsonlint -g
       let g:ale_linters = {
-            \  'go': ['gofmt', 'govet', 'gochecknoinits', 'goimport', 'gotype', 'misspell', 'gopls'],
+            \  'go': ['gofmt', 'govet', 'gochecknoinits', 'gofumpt', 'goimports', 'gotype', 'misspell', 'gopls'],
             \  'proto': ['prototool'],
             \  'python': ['black', 'mypy', 'vulture'],
             \  'ansible': ['ansible-lint'],
@@ -417,25 +417,25 @@ call plug#end()
       let s:wl = []
 
       " user name
-      let s:wl += ['littlekey', 'pelletier', 'uber']
+      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
-      let s:wl += ['args', 'kwargs', 'buf']
+      let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std']
 
       " conjuncation
-      let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown']
+      let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin']
 
       " unfamiliar
-      let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful']
+      let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
 
       " const literals
-      let s:wl += ['FF', 'FFF', 'FFFF', 'FFFFF', 'FFFFFF']
+      let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
 
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
-      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize']
+      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu']
 
       " program name
       let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
@@ -464,7 +464,7 @@ call plug#end()
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
       let s:wl += ['protocolv', 'gogo', 'meteorsite', 'grpcrecovery', 'robotcctypes', 'mosstypes']
-      let s:wl += ['errorcode', 'yogosystem']
+      let s:wl += ['errorcode', 'yogosystem', 'robotapi']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi']
@@ -485,9 +485,8 @@ call plug#end()
 
       augroup spelunker
         autocmd!
-
-        autocmd BufWritePost *.go,*.py,*.toml,*.json,*.yml call spelunker#check()
-        autocmd BufWinEnter *.go,*.py,*.toml,*.json,*.yml call s:spelunkerAutoCheck()
+        autocmd BufWritePost *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml call spelunker#check()
+        autocmd BufWinEnter *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml call s:spelunkerAutoCheck()
       augroup END
 
       let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
@@ -504,11 +503,11 @@ call plug#end()
 " vimgo {{{
     if has_key(g:plugs, 'vim-go')
       " highlight options
-      let g:go_highlight_array_whitespace_error = 1
-      let g:go_highlight_chan_whitespace_error = 1
+      let g:go_highlight_array_whitespace_error = 0
+      let g:go_highlight_chan_whitespace_error = 0
       let g:go_highlight_extra_types = 1
-      let g:go_highlight_space_tab_error = 1
-      let g:go_highlight_trailing_whitespace_error = 1
+      let g:go_highlight_space_tab_error = 0
+      let g:go_highlight_trailing_whitespace_error = 0
       let g:go_highlight_operators = 1
       let g:go_highlight_methods = 1
       let g:go_highlight_functions = 1
@@ -525,7 +524,7 @@ call plug#end()
       let g:go_highlight_variable_assignments = 1
 
       let g:go_fmt_fail_silently = 1
-      let g:go_fmt_command = "gofmt"
+      let g:go_fmt_command = "gofumpt"
       let g:go_def_mode = "gopls" " instead of (fucking slowly) guru
       let g:go_info_mode = "gopls"
       let g:go_gopls_enabled = 1
@@ -608,25 +607,30 @@ call plug#end()
 " }}}
 
 " codefmt {{{
-  func! s:config_clang_format_style() abort
-    Glaive codefmt clang_format_style='{
-          \   BasedOnStyle: LLVM,
-          \   IndentWidth: 4,
-          \   AlignConsecutiveAssignments: true,
-          \   ColumnLimit: 0,
-          \   AllowShortFunctionsOnASingleLine: false,
-          \   AllowShortBlocksOnASingleLine: false,
-          \   AlignEscapedNewlines: true
-          \ }'
-  endfunc
+  if has_key(g:plugs, 'vim-codefmt')
+    let g:codefmt_silent_auto_format = 1
 
-  augroup autoformat_settings
-    autocmd!
-    autocmd VimEnter * call s:config_clang_format_style()
-    autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
-    autocmd FileType go AutoFormatBuffer gofmt
-    autocmd FileType python AutoFormatBuffer black
-  augroup END
+    func! s:config_clang_format_style() abort
+      Glaive codefmt clang_format_style='{
+            \   BasedOnStyle: LLVM,
+            \   IndentWidth: 4,
+            \   AlignConsecutiveAssignments: true,
+            \   ColumnLimit: 0,
+            \   AllowShortFunctionsOnASingleLine: false,
+            \   AllowShortBlocksOnASingleLine: false,
+            \   AlignEscapedNewlines: true
+            \ }'
+      Glaive codefmt gofmt_executable='gofumpt'
+    endfunc
+
+    augroup autoformat_settings
+      autocmd!
+      autocmd VimEnter * call s:config_clang_format_style()
+      autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
+      autocmd FileType go AutoFormatBuffer gofmt
+      autocmd FileType python AutoFormatBuffer black
+    augroup END
+  endif
 " }}}
 
 " ################### 快速编码 ###################
