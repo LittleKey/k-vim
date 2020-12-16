@@ -411,6 +411,9 @@ if has("autocmd")
       autocmd!
       autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\)')
       autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
+      autocmd Syntax * call matchadd('Error', '\W\zs\(!!!\)')
+      autocmd Syntax * call matchadd('ErrorMsg', '\W\zs\(IMPORTANT\)')
+      autocmd Syntax * call matchadd('Question', '\W\zs\(QUESTION\|HOWTO\)')
     augroup END
   endif
 endif

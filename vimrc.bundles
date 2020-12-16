@@ -37,7 +37,7 @@ endfunc
 
 " 异步lint组件
 Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
-Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
+" Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
 
 " auto complete
 " 代码自动补全
@@ -422,20 +422,23 @@ call plug#end()
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
-      let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std']
+      let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs']
 
       " conjuncation
-      let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin']
+      let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
+      let s:wl += ['nearfield']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
+      let s:wl += ['serializable', 'tvoc', 'concent']
 
       " const literals
       let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
 
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
-      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu']
+      let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu', 'iot']
+      let s:wl += ['uuid', 'modbus', 'rfc']
 
       " program name
       let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
@@ -464,22 +467,25 @@ call plug#end()
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
       let s:wl += ['protocolv', 'gogo', 'meteorsite', 'grpcrecovery', 'robotcctypes', 'mosstypes']
-      let s:wl += ['errorcode', 'yogosystem', 'robotapi']
+      let s:wl += ['errorcode', 'yogosystem', 'robotapi', 'airpb', 'hubdoor', 'netutil', 'meteortype']
+      let s:wl += ['mosstype', 'robotcctype', 'commontype', 'dataframe', 'datacenter', 'appcontainer']
+      let s:wl += ['angopb', 'yogocore', 'telescopepb', 'mediacontrol', 'tlppb', 'tlp', 'appcloudpb']
+      let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
 
       " golang function name
-      let s:wl += ['unmarshal', 'itoa', 'atoi']
+      let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
       let s:wl += ['goos', 'goarch', 'goarm']
 
       " golang const name
       let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm', 'omitempty']
 
       " yogo dictionary
-      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago']
+      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango']
 
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
-      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt']
+      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds']
 
       let g:spelunker_white_list_for_user = s:wl
 
@@ -524,7 +530,7 @@ call plug#end()
       let g:go_highlight_variable_assignments = 1
 
       let g:go_fmt_fail_silently = 1
-      let g:go_fmt_command = "gofumpt"
+      let g:go_fmt_command = "gofmt"
       let g:go_def_mode = "gopls" " instead of (fucking slowly) guru
       let g:go_info_mode = "gopls"
       let g:go_gopls_enabled = 1
@@ -610,7 +616,7 @@ call plug#end()
   if has_key(g:plugs, 'vim-codefmt')
     let g:codefmt_silent_auto_format = 1
 
-    func! s:config_clang_format_style() abort
+    func! s:config_code_format() abort
       Glaive codefmt clang_format_style='{
             \   BasedOnStyle: LLVM,
             \   IndentWidth: 4,
@@ -620,12 +626,12 @@ call plug#end()
             \   AllowShortBlocksOnASingleLine: false,
             \   AlignEscapedNewlines: true
             \ }'
-      Glaive codefmt gofmt_executable='gofumpt'
+      Glaive codefmt gofmt_executable='gofmt'
     endfunc
 
     augroup autoformat_settings
       autocmd!
-      autocmd VimEnter * call s:config_clang_format_style()
+      autocmd VimEnter * call s:config_code_format()
       autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
       autocmd FileType go AutoFormatBuffer gofmt
       autocmd FileType python AutoFormatBuffer black
