@@ -422,7 +422,7 @@ call plug#end()
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
-      let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs']
+      let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
@@ -471,6 +471,7 @@ call plug#end()
       let s:wl += ['mosstype', 'robotcctype', 'commontype', 'dataframe', 'datacenter', 'appcontainer']
       let s:wl += ['angopb', 'yogocore', 'telescopepb', 'mediacontrol', 'tlppb', 'tlp', 'appcloudpb']
       let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
+      let s:wl += ['chogori', 'fileserver']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
@@ -485,7 +486,7 @@ call plug#end()
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
-      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds']
+      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc']
 
       let g:spelunker_white_list_for_user = s:wl
 
