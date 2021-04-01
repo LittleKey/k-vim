@@ -5,7 +5,7 @@
 "------------------------------------------- begin of configs --------------------------------------------
 
 " ################### 包依赖 #####################
-" package dependence:  ctags, ag(he_silver_searcher)
+" package dependence:  ctags, ag(he_silver_searcher), rg(ripgrep)
 " python dependence:   flake8
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
@@ -416,17 +416,21 @@ call plug#end()
       " user dictionary
       let s:wl = []
 
+      " const noun
+      let s:wl += ['eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan']
+
       " user name
-      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn']
+      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
+      let s:wl += ['cidx', 'sms', 'utcnow', 'protos']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
-      let s:wl += ['nearfield']
+      let s:wl += ['nearfield', 'submatch']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
@@ -452,6 +456,9 @@ call plug#end()
       " golang keyword
       let s:wl += ['goroutine']
 
+      " python keyword
+      let s:wl += ['isinstance']
+
       " golang logger name
       let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf', 'logf']
 
@@ -462,7 +469,10 @@ call plug#end()
       let s:wl += ['strconv', 'taskq', 'opentracing']
 
       " python library
-      let s:wl += ['sys']
+      let s:wl += ['sys', 'datetime', 'logzero', 'dataclass']
+
+      " python function name
+      let s:wl += ['timedelta']
 
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
@@ -471,7 +481,7 @@ call plug#end()
       let s:wl += ['mosstype', 'robotcctype', 'commontype', 'dataframe', 'datacenter', 'appcontainer']
       let s:wl += ['angopb', 'yogocore', 'telescopepb', 'mediacontrol', 'tlppb', 'tlp', 'appcloudpb']
       let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
-      let s:wl += ['chogori', 'fileserver']
+      let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
@@ -740,7 +750,8 @@ call plug#end()
     let g:ctrlsf_default_vim_mode = 'compact'
     let g:ctrlsf_ignore_dir = ['node_modules', '__mocks__', 'target', 'dist', 'build', '__pycache__', '.git', 'assets']
     let g:ctrlsf_extra_backend_args = {
-          \ 'ag': '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc"'
+          \ 'rg': '-g "!*.jsbundle" -g "!*.bundle.js" -g "!*.bundle" -g "!*.pyc"',
+          \ 'ag': '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc"',
           \ }
     " Note: cannot use <CR> or <C-m> for open
     " Use : <sapce> or <tab>
