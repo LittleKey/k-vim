@@ -426,7 +426,7 @@ call plug#end()
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
-      let s:wl += ['cidx', 'sms', 'utcnow', 'protos']
+      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
@@ -494,7 +494,7 @@ call plug#end()
       let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango']
 
       " variable names
-      let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos']
+      let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
       let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc']
 
