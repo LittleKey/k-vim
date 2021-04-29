@@ -301,7 +301,7 @@ call plug#end()
       " brew install cppcheck
       " npm install jsonlint -g
       let g:ale_linters = {
-            \  'go': ['gofmt', 'govet', 'gochecknoinits', 'gofumpt', 'goimports', 'gotype', 'misspell', 'gopls'],
+            \  'go': ['gopls', 'gofmt', 'govet', 'gochecknoinits', 'gofumpt', 'goimports', 'gotype', 'misspell'],
             \  'proto': ['prototool'],
             \  'python': ['black', 'mypy', 'vulture'],
             \  'ansible': ['ansible-lint'],
