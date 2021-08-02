@@ -297,11 +297,14 @@ call plug#end()
       " Only run linters named in ale_linters settings.
       let g:ale_linters_explicit = 1
 
+      " lint 参数
+      let g:ale_warn_about_trailing_whitespace = 1
+
       " pip install ansible-lint
       " brew install cppcheck
       " npm install jsonlint -g
       let g:ale_linters = {
-            \  'go': ['gopls', 'gofmt', 'govet', 'gochecknoinits', 'gofumpt', 'goimports', 'gotype', 'misspell'],
+            \  'go': ['gopls', 'gofmt', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell'],
             \  'proto': ['prototool'],
             \  'python': ['black', 'mypy', 'vulture'],
             \  'ansible': ['ansible-lint'],
@@ -417,24 +420,24 @@ call plug#end()
       let s:wl = []
 
       " const noun
-      let s:wl += ['eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan']
+      let s:wl += ['eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan', 'waic']
 
       " user name
-      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr']
+      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr', 'felixge']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
-      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble']
+      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
-      let s:wl += ['nearfield', 'submatch']
+      let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
-      let s:wl += ['serializable', 'tvoc', 'concent']
+      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable']
 
       " const literals
       let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
@@ -442,7 +445,7 @@ call plug#end()
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
       let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu', 'iot']
-      let s:wl += ['uuid', 'modbus', 'rfc']
+      let s:wl += ['uuid', 'modbus', 'rfc', 'eof', 'syncer', 'rfid', 'ntp', 'adjtime']
 
       " program name
       let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
@@ -461,6 +464,7 @@ call plug#end()
 
       " golang logger name
       let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf', 'logf']
+      let s:wl += ['debugw', 'infow', 'fatalw', 'warnw', 'errorw', 'panicf']
 
       " golang library
       let s:wl += ['ioutil', 'fmt', 'bufio', 'bzip', 'flate', 'zlib', 'ecdsa', 'hmac', 'pkix', 'gosym']
@@ -481,7 +485,8 @@ call plug#end()
       let s:wl += ['mosstype', 'robotcctype', 'commontype', 'dataframe', 'datacenter', 'appcontainer']
       let s:wl += ['angopb', 'yogocore', 'telescopepb', 'mediacontrol', 'tlppb', 'tlp', 'appcloudpb']
       let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
-      let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb']
+      let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
+      let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
@@ -490,8 +495,11 @@ call plug#end()
       " golang const name
       let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm', 'omitempty']
 
+      " golang lib variable name
+      let s:wl += ['timespec', 'nsec']
+
       " yogo dictionary
-      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango']
+      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango', 'dokodemo']
 
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
@@ -555,6 +563,7 @@ call plug#end()
       let g:go_gopls_matcher = 0 " ^1.23
       let g:go_template_autocreate = 0
       let g:go_fmt_autosave = 0
+      let g:go_imports_autosave = 0
       let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
       let g:go_template_autocreate = 0 " disable GoTemplate
       let g:go_code_completion_enabled = 0 " disable code completed
@@ -648,7 +657,7 @@ call plug#end()
     augroup autoformat_settings
       autocmd!
       autocmd VimEnter * call s:config_code_format()
-      autocmd FileType c,cpp,proto AutoFormatBuffer clang-format
+      autocmd FileType c,cpp,proto,bitproto AutoFormatBuffer clang-format
       autocmd FileType go AutoFormatBuffer gofmt
       autocmd FileType python AutoFormatBuffer black
     augroup END
