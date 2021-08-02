@@ -304,7 +304,7 @@ call plug#end()
       " brew install cppcheck
       " npm install jsonlint -g
       let g:ale_linters = {
-            \  'go': ['gopls', 'gofmt', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell'],
+            \  'go': ['gopls', 'gofmt', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
             \  'proto': ['prototool'],
             \  'python': ['black', 'mypy', 'vulture'],
             \  'ansible': ['ansible-lint'],
@@ -319,6 +319,9 @@ call plug#end()
             \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
             \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
             \ '--no-implicit-optional --warn-redundant-casts'
+      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015'
+      let g:ale_go_staticcheck_lint_package = 1
+
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
       " let g:ale_fixers_explicit = 1
