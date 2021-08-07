@@ -490,6 +490,7 @@ call plug#end()
       let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
       let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
+      let s:wl += ['taskwrapper']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']

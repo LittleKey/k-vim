@@ -351,14 +351,15 @@ vnoremap > >gv
 " 复制选中区到系统剪切板中
 vnoremap <leader>y "+y
 
-" Quickly close the all window
-nnoremap <leader>q :qa<CR>
+" remap write command for quit typo
 command-bang Q :q<bang>
 command-bang Qa :qa<bang>
 command-bang QA :qa<bang>
 
-" remap write command for typo
+" remap write command for write typo
 command-bang W :w<bang>
+command-bang Wa :wa<bang>
+command-bang WA :wa<bang>
 
 " split line 快速分割一行
 nnoremap S :keeppatterns substitute@\s*\%#\s*@\r@e <bar> normal! ==<CR>
