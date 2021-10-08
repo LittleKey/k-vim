@@ -17,6 +17,8 @@ endif
 " General Settings 基础设置
 "==========================================
 
+" 设置最大模式匹配使用内存 (KB)
+set maxmempattern=4096
 
 " history存储容量
 set history=2000

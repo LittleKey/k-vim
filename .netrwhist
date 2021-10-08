@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
-let g:netrw_dirhist_5='/Users/yogo/yogo/macross/statemachine'
-let g:netrw_dirhist_4='/Users/yogo/yogo/macross/station4'
-let g:netrw_dirhist_3='/Users/yogo/yogo/macross/message'
-let g:netrw_dirhist_2='/Users/yogo/.gvm/gos/go1.14.4/src/runtime'
-let g:netrw_dirhist_1='/Users/yogo/yogo/meteor-robot/detector'

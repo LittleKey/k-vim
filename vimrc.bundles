@@ -303,10 +303,11 @@ call plug#end()
       " pip install ansible-lint
       " brew install cppcheck
       " npm install jsonlint -g
+      " low linter: gofmt
       let g:ale_linters = {
-            \  'go': ['gopls', 'gofmt', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
+            \  'go': ['gopls', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
             \  'proto': ['prototool'],
-            \  'python': ['black', 'mypy', 'vulture'],
+            \  'python': ['flake8', 'mypy'],
             \  'ansible': ['ansible-lint'],
             \  'c': ['cppcheck', 'clang'],
             \  'cpp': ['cppcheck', 'clang'],
@@ -319,7 +320,7 @@ call plug#end()
             \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
             \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
             \ '--no-implicit-optional --warn-redundant-casts'
-      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015'
+      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019'
       let g:ale_go_staticcheck_lint_package = 1
 
       " Only run fixers anemd in ale_fixers settings.
@@ -341,11 +342,11 @@ call plug#end()
 
       let g:ale_rust_rls_toolchain = 'stable'
 
-      " let g:ale_lint_on_text_changed = 'normal'  " [never|normal]
-      " let g:ale_lint_delay = 200 " ms
-      " let g:ale_lint_on_enter = 1
-      " let g:ale_lint_on_insert_leave = 0
-      " let g:ale_lint_on_save = 1
+      let g:ale_lint_on_text_changed = 'normal'  " [never|normal]
+      let g:ale_lint_delay = 200 " ms
+      let g:ale_lint_on_enter = 1
+      let g:ale_lint_on_insert_leave = 1
+      let g:ale_lint_on_save = 1
 
       let g:ale_set_highlights = 1
       highlight link ALEErrorSign  error
@@ -428,6 +429,9 @@ call plug#end()
       " user name
       let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr', 'felixge']
 
+      " company name
+      let s:wl += ['chipu']
+
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
@@ -436,11 +440,11 @@ call plug#end()
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
-      let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime']
+      let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime', 'qrcode']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
-      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable']
+      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable', 'goodses']
 
       " const literals
       let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
@@ -490,7 +494,7 @@ call plug#end()
       let s:wl += ['frontend', 'motorctl', 'motorcontroller', 'apprecorder', 'mrecorder', 'robotccsdk']
       let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
-      let s:wl += ['taskwrapper']
+      let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
@@ -508,7 +512,8 @@ call plug#end()
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
-      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc']
+      let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc', 'xyz']
+      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder']
 
       let g:spelunker_white_list_for_user = s:wl
 
