@@ -80,7 +80,7 @@ Plug 'markonm/traces.vim'
 
 " codefmt
 Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt', { 'do': 'git clean -f && git apply ../../others/patch_codefmt.diff' }
+Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff' }
 Plug 'google/vim-glaive'
 
 " 增强<C-a>/<C-x>可以作用于日期
@@ -140,7 +140,7 @@ Plug 'mhinz/vim-signify'
 " view
 " airline
 " 状态栏增强展示
-Plug 'vim-airline/vim-airline', { 'do': 'git clean -f && git apply ../../others/patch_ale.diff' }
+Plug 'vim-airline/vim-airline', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_ale.diff' }
 Plug 'vim-airline/vim-airline-themes'
 
 " rainbow_parentheses
@@ -436,7 +436,7 @@ call plug#end()
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
-      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ']
+      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ', 'srv', 'msec']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
@@ -444,7 +444,7 @@ call plug#end()
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
-      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable', 'goodses']
+      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable', 'goodses', 'dialer', 'freezed']
 
       " const literals
       let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
@@ -495,6 +495,7 @@ call plug#end()
       let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
       let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
+      let s:wl += ['lockercc', 'depotcc', 'taskexecutor']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader']
@@ -513,7 +514,7 @@ call plug#end()
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
       let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc', 'xyz']
-      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder']
+      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder', 'urls']
 
       let g:spelunker_white_list_for_user = s:wl
 
