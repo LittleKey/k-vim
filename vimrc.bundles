@@ -48,16 +48,12 @@ Plug 'davidhalter/jedi-vim', { 'for': ['python'] }
 " 代码自动补全
 let COC_COMPLETE_FILE_TYPES = [
       \ 'python',
-      \ 'go',
-      \ 'bash',
-      \ 'json',
-      \ 'vim',
       \ 'c',
       \ 'cpp',
       \ 'javascript',
       \ 'rust',
       \ ]
-" Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
+"Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
 " 显示补全文档信息
 " Plug 'Shougo/echodoc.vim', { 'for': ['go', 'python', 'c', 'cpp', 'rust'] }
@@ -315,7 +311,7 @@ call plug#end()
       let g:ale_linters = {
             \  'go': ['gopls', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
             \  'proto': ['prototool'],
-            \  'python': ['flake8', 'mypy'],
+            \  'python': ['pyright', 'flake8', 'mypy'],
             \  'ansible': ['ansible-lint'],
             \  'c': ['cppcheck', 'clang'],
             \  'cpp': ['cppcheck', 'clang'],
@@ -620,6 +616,7 @@ call plug#end()
 " jedi {{{
   if has_key(g:plugs, 'jedi-vim')
     let g:jedi#usages_command = 0  " disabled quickfix default keyboard map conflict with nerdtree: <leader>n
+    let g:jedi#completions_enabled = 0 " using coc to instead of jedi default complete for asynchronously
 
     augroup redefined_goto_directive_for_python
       autocmd!
