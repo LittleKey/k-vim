@@ -363,6 +363,10 @@ command-bang W :w<bang>
 command-bang Wa :wa<bang>
 command-bang WA :wa<bang>
 
+" remap write-and-quit command for typo
+cnoreabbrev <expr> X (getcmdtype() is# ':' && getcmdline() is# 'X') ? 'x' : 'X'
+"cnoremap <expr> X (getcmdtype() is# ':' && empty(getcmdline())) ? 'x' : 'X'
+
 " split line 快速分割一行
 nnoremap S :keeppatterns substitute@\s*\%#\s*@\r@e <bar> normal! ==<CR>
 
@@ -408,11 +412,11 @@ augroup END
 
 " 设置可以高亮的关键字
 if has("autocmd")
-  " Highlight TODO, FIXME, NOTE, etc.
+  " Highlight TODO, FIXME, NOTE, TIPS, etc.
   if v:version > 701
     augroup highlight_keyword_group
       autocmd!
-      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\)')
+      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\|TIPS\)')
       autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
       autocmd Syntax * call matchadd('Error', '\W\zs\(!!!\)')
       autocmd Syntax * call matchadd('ErrorMsg', '\W\zs\(IMPORTANT\)')

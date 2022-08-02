@@ -262,7 +262,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " 1. vim a.go
 " 2. :GoInstallBinaries
 " vimgo  https://github.com/fatih/vim-go
-Plug 'fatih/vim-go', { 'tag': 'v1.25', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.26', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 
 
 " for python.vim syntax highlight
@@ -312,7 +312,7 @@ call plug#end()
       " npm install jsonlint -g
       " low linter: gofmt
       let g:ale_linters = {
-            \  'go': ['gopls', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
+            \  'go': ['gopls', 'revive', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
             \  'proto': ['prototool'],
             \  'python': ['pyright', 'flake8', 'mypy'],
             \  'ansible': ['ansible-lint'],
@@ -329,6 +329,7 @@ call plug#end()
             \ '--no-implicit-optional --warn-redundant-casts'
       let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019'
       let g:ale_go_staticcheck_lint_package = 1
+      let g:ale_go_revive_options = '-config=./revive.toml'
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -443,7 +444,8 @@ call plug#end()
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
-      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ', 'srv', 'msec', 'sema', 'sids']
+      let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ', 'srv', 'msec', 'sema', 'sids', 'fsm', 'attrs']
+      let s:wl += ['disp', 'cfgs', 'insp', 'uids']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
@@ -459,7 +461,7 @@ call plug#end()
       " programming noun
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
       let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu', 'iot']
-      let s:wl += ['uuid', 'modbus', 'rfc', 'eof', 'syncer', 'rfid', 'ntp', 'adjtime', 'aop']
+      let s:wl += ['uuid', 'modbus', 'rfc', 'eof', 'syncer', 'rfid', 'ntp', 'adjtime', 'aop', 'ddd']
 
       " program name
       let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
@@ -477,7 +479,7 @@ call plug#end()
       let s:wl += ['isinstance']
 
       " golang logger name
-      let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf', 'logf']
+      let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf', 'logf', 'tracef']
       let s:wl += ['debugw', 'infow', 'fatalw', 'warnw', 'errorw', 'panicf']
 
       " golang library
@@ -502,17 +504,20 @@ call plug#end()
       let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
       let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
-      let s:wl += ['lockercc', 'depotcc', 'taskexecutor']
+      let s:wl += ['lockercc', 'depotcc', 'taskexecutor', 'datasource', 'datafusion', 'angocc']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader', 'gosched', 'cond']
-      let s:wl += ['goos', 'goarch', 'goarm', 'finalizer']
+      let s:wl += ['goos', 'goarch', 'goarm', 'finalizer', 'multistream']
 
       " golang const name
       let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm', 'omitempty']
 
       " golang lib variable name
       let s:wl += ['timespec', 'nsec']
+
+      " repo name
+      let s:wl += ['meteorbox']
 
       " yogo dictionary
       let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango', 'dokodemo']
@@ -577,7 +582,7 @@ call plug#end()
       let g:go_mod_fmt_autosave = 1
       let g:go_gopls_deep_completion = 0
       let g:go_gopls_fuzzy_matching = 0  " ==1.22
-      let g:go_gopls_matcher = 0 " ^1.23
+      let g:go_gopls_matcher = v:null " ^1.23 [`v:null`, `fuzzy`, `caseSensitive`]
       let g:go_template_autocreate = 0
       let g:go_fmt_autosave = 0
       let g:go_imports_autosave = 0
@@ -851,17 +856,13 @@ call plug#end()
     " recommend font: Source Code Pro
     " (https://github.com/littlekey/fonts/tree/master/SourceCodePro)
     let g:airline_powerline_fonts = 1
+    let g:airline#extensions#fzf#enabled = 1
     " 是否打开tabline
-    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 0
     " 集成tagbar
-    let g:airline#extensions#tagbar#enabled = 1
+    let g:airline#extensions#tagbar#enabled = 0
     " 集成ctrlspace
     let g:airline#extensions#ctrlspace#enabled = 0
-    " tabline展示buffers
-    let g:airline#extensions#tabline#show_splits = 1
-    let g:airline#extensions#tabline#show_buffers = 1
-    let g:airline#extensions#tabline#show_tabs = 0
-    let g:airline#extensions#tabline#buffer_idx_mode = 1
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
     " 集成ale
@@ -877,7 +878,7 @@ call plug#end()
 
     " not include ctrlp
     let g:airline_extensions = [
-        \ 'tabline',
+        \ 'fzf',
         \ 'quickfix',
         \ 'branch',
         \ 'whitespace',
