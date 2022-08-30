@@ -194,6 +194,8 @@ Plug 'cespare/vim-toml', { 'for': ['toml'] }
 
 Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 
+Plug 'yogoswarm/dsl', { 'rtp': 'editors/vim/' , 'for': ['bt'] }
+
 Plug 'flazz/vim-colorschemes'
 " molokai
 " 主题 molokai
@@ -312,7 +314,7 @@ call plug#end()
       " npm install jsonlint -g
       " low linter: gofmt
       let g:ale_linters = {
-            \  'go': ['gopls', 'revive', 'govet', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck'],
+            \  'go': ['revive', 'gopls', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck', 'govet'],
             \  'proto': ['prototool'],
             \  'python': ['pyright', 'flake8', 'mypy'],
             \  'ansible': ['ansible-lint'],
@@ -330,6 +332,7 @@ call plug#end()
       let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019'
       let g:ale_go_staticcheck_lint_package = 1
       let g:ale_go_revive_options = '-config=./revive.toml'
+      " let g:ale_go_govet_options = ''
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -432,24 +435,26 @@ call plug#end()
       let s:wl = []
 
       " const noun
-      let s:wl += ['eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan', 'waic']
+      let s:wl += ['waic']
 
       " user name
       let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr', 'felixge']
 
       " company name
-      let s:wl += ['chipu']
+      let s:wl += ['chipu', 'bytedance', 'eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
       let s:wl += ['src', 'dest', 'reco', 'req', 'ele', 'sigs', 'sig', 'ack', 'cli', 'zacc', 'laddr', 'raddr', 'uvc']
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
       let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ', 'srv', 'msec', 'sema', 'sids', 'fsm', 'attrs']
-      let s:wl += ['disp', 'cfgs', 'insp', 'uids']
+      let s:wl += ['disp', 'cfgs', 'insp', 'uids', 'stmt', 'stmts', 'cls', 'mcls', 'lineno', 'docstring', 'mmcls', 'cwd']
+      let s:wl += ['mro', 'mem']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
-      let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime', 'qrcode']
+      let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime', 'qrcode', 'cacheline']
+      let s:wl += ['pretouch']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
@@ -462,9 +467,10 @@ call plug#end()
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
       let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu', 'iot']
       let s:wl += ['uuid', 'modbus', 'rfc', 'eof', 'syncer', 'rfid', 'ntp', 'adjtime', 'aop', 'ddd']
+      let s:wl += ['pypi', 'deserializer', 'deserializable']
 
       " program name
-      let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings']
+      let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings', 'ipython']
 
       " arguments
       let s:wl += ['softvol']
@@ -476,7 +482,7 @@ call plug#end()
       let s:wl += ['goroutine']
 
       " python keyword
-      let s:wl += ['isinstance']
+      let s:wl += ['isinstance', 'metaclass']
 
       " golang logger name
       let s:wl += ['debugf', 'infof', 'fatalf', 'warnf', 'errorf', 'logf', 'tracef']
@@ -489,10 +495,15 @@ call plug#end()
       let s:wl += ['strconv', 'taskq', 'opentracing']
 
       " python library
-      let s:wl += ['sys', 'datetime', 'logzero', 'dataclass']
+      let s:wl += ['sys', 'datetime', 'logzero', 'dataclass', 'functools', 'contextlib', 'dataclasses']
+      let s:wl += ['pathlib']
 
       " python function name
-      let s:wl += ['timedelta']
+      let s:wl += ['timedelta', 'classmethod', 'staticmethod', 'findall', 'lstrip', 'rstrip', 'ljust', 'rjust']
+      let s:wl += ['startswith', 'endswith', 'contextmanager', 'getattr', 'setattr', 'radd', 'mul', 'rmul']
+      let s:wl += ['rsub', 'floordiv', 'rfloordiv', 'rinvert', 'ror', 'rxor', 'lshift', 'rlshift', 'rshift']
+      let s:wl += ['rrshift', 'hasattr', 'abstractmethod', 'getitem', 'setitem', 'delitem', 'dirname']
+      let s:wl += ['joinpath', 'abstractproperty']
 
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
@@ -504,7 +515,8 @@ call plug#end()
       let s:wl += ['chogori', 'fileserver', 'goleveldb', 'leveldb', 'macross', 'fgprof', 'zapcore']
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
       let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
-      let s:wl += ['lockercc', 'depotcc', 'taskexecutor', 'datasource', 'datafusion', 'angocc']
+      let s:wl += ['lockercc', 'depotcc', 'taskexecutor', 'datasource', 'datafusion', 'angocc', 'boxproxy']
+      let s:wl += ['itertools']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader', 'gosched', 'cond']
@@ -526,7 +538,7 @@ call plug#end()
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
       let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc', 'xyz']
-      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder', 'urls']
+      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder', 'urls', 'outdir']
 
       let g:spelunker_white_list_for_user = s:wl
 
