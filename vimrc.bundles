@@ -60,7 +60,7 @@ let COC_COMPLETE_FILE_TYPES = [
 
 " 单词拼写检查
 " spelunker
-Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml'] }
+Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml', 'bitproto', 'bt'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -194,7 +194,7 @@ Plug 'cespare/vim-toml', { 'for': ['toml'] }
 
 Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 
-Plug 'yogoswarm/dsl', { 'rtp': 'editors/vim/' , 'for': ['bt'] }
+Plug 'yogoswarm/behaviortree/dsl', { 'rtp': 'editors/vim/' , 'for': ['bt'] }
 
 Plug 'flazz/vim-colorschemes'
 " molokai
@@ -503,7 +503,7 @@ call plug#end()
       let s:wl += ['startswith', 'endswith', 'contextmanager', 'getattr', 'setattr', 'radd', 'mul', 'rmul']
       let s:wl += ['rsub', 'floordiv', 'rfloordiv', 'rinvert', 'ror', 'rxor', 'lshift', 'rlshift', 'rshift']
       let s:wl += ['rrshift', 'hasattr', 'abstractmethod', 'getitem', 'setitem', 'delitem', 'dirname']
-      let s:wl += ['joinpath', 'abstractproperty']
+      let s:wl += ['joinpath', 'abstractproperty', 'argv']
 
       " golang package name
       let s:wl += ['gwapi', 'statemachine', 'behaviortree', 'taskmanager', 'hsm', 'abc']
@@ -544,8 +544,8 @@ call plug#end()
 
       augroup spelunker
         autocmd!
-        autocmd BufWritePost *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml call spelunker#check()
-        autocmd BufWinEnter *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml call s:spelunkerAutoCheck()
+        autocmd BufWritePost *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml,*.bt,*.bitproto call spelunker#check()
+        autocmd BufWinEnter *.go,*.py,*.proto,*.yml,*.c,*.cpp,*.h,*.json,*.rs,*.toml,*.bt,*.bitproto call s:spelunkerAutoCheck()
       augroup END
 
       let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
@@ -810,8 +810,8 @@ call plug#end()
     let g:ctrlsf_default_vim_mode = 'compact'
     let g:ctrlsf_ignore_dir = ['node_modules', '__mocks__', 'target', 'dist', 'build', '__pycache__', '.git', 'assets']
     let g:ctrlsf_extra_backend_args = {
-          \ 'rg': '-g "!*.jsbundle" -g "!*.bundle.js" -g "!*.bundle" -g "!*.pyc"',
-          \ 'ag': '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc"',
+          \ 'rg': '-g "!*.jsbundle" -g "!*.bundle.js" -g "!*.bundle" -g "!*.pyc" -g "!*.bt.json"',
+          \ 'ag': '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc" --ignore "*.bt.json"',
           \ }
     " Note: cannot use <CR> or <C-m> for open
     " Use : <sapce> or <tab>
