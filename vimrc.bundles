@@ -697,7 +697,7 @@ call plug#end()
             \   AllowShortBlocksOnASingleLine: false,
             \   AlignEscapedNewlines: true
             \ }'
-      Glaive codefmt gofmt_executable='gofmt'
+      Glaive codefmt gofmt_executable='gofumpt'
     endfunc
 
     augroup autoformat_settings
