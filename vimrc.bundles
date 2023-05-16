@@ -60,7 +60,7 @@ let COC_COMPLETE_FILE_TYPES = [
 
 " 单词拼写检查
 " spelunker
-Plug 'kamykn/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml', 'bitproto', 'bt'] }
+Plug 'littlekey/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml', 'bitproto', 'bt'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -84,7 +84,7 @@ Plug 'markonm/traces.vim'
 
 " codefmt
 Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff' }
+Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff && git apply ../../others/patch_codefmt_gofmt_args.diff' }
 Plug 'google/vim-glaive'
 
 " 增强<C-a>/<C-x>可以作用于日期
@@ -316,20 +316,20 @@ call plug#end()
       let g:ale_linters = {
             \  'go': ['revive', 'gopls', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck', 'govet'],
             \  'proto': ['prototool'],
-            \  'python': ['pyright', 'flake8', 'mypy'],
+            \  'python': ['ruff', 'pyright', 'flake8', 'mypy'],
             \  'ansible': ['ansible-lint'],
             \  'c': ['cppcheck', 'clang'],
             \  'cpp': ['cppcheck', 'clang'],
             \  'json': ['jsonlint'],
             \  'sh': ['shellcheck'],
-            \  'rust': ['rls'],
+            \  'rust': ['rls', 'analyzer'],
             \}
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
       let g:ale_python_mypy_options =
             \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
             \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
             \ '--no-implicit-optional --warn-redundant-casts'
-      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019'
+      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019,-ST1012'
       let g:ale_go_staticcheck_lint_package = 1
       let g:ale_go_revive_options = '-config=./revive.toml'
       " let g:ale_go_govet_options = ''
@@ -438,10 +438,13 @@ call plug#end()
       let s:wl += ['waic']
 
       " user name
-      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr', 'felixge']
+      let s:wl += ['littlekey', 'pelletier', 'uber', 'skelterjohn', 'syndtr', 'felixge', 'samber']
 
       " company name
       let s:wl += ['chipu', 'bytedance', 'eleme', 'aiyo', 'aliyun', 'wechat', 'submail', 'meituan']
+
+      " domain
+      let s:wl += ['entgo', 'modernc', 'gitlab']
 
       " abbreviation
       let s:wl += ['hasn', 'cfg', 'conns', 'addr', 'baudrate', 'gw', 'ctx', 'shouldn', 'calu', 'idx']
@@ -449,16 +452,16 @@ call plug#end()
       let s:wl += ['args', 'kwargs', 'buf', 'rect', 'coord', 'chsm', 'std', 'rsm', 'errcode', 'recv', 'objs', 'pkgs']
       let s:wl += ['cidx', 'sms', 'utcnow', 'protos', 'ble', 'msgs', 'typ', 'srv', 'msec', 'sema', 'sids', 'fsm', 'attrs']
       let s:wl += ['disp', 'cfgs', 'insp', 'uids', 'stmt', 'stmts', 'cls', 'mcls', 'lineno', 'docstring', 'mmcls', 'cwd']
-      let s:wl += ['mro', 'mem']
+      let s:wl += ['mro', 'mem', 'lru', 'aggr', 'milli']
 
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
       let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime', 'qrcode', 'cacheline']
-      let s:wl += ['pretouch']
+      let s:wl += ['pretouch', 'wlan', 'healthcheckable', 'lifecycle', 'mixin']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
-      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable', 'goodses', 'dialer', 'freezed']
+      let s:wl += ['serializable', 'tvoc', 'concent', 'prolongable', 'goodses', 'dialer', 'freezed', 'uploader', 'uploaders']
 
       " const literals
       let s:wl += ['ff', 'fff', 'ffff', 'fffff', 'ffffff', 'fffffff', 'ffffffff']
@@ -470,10 +473,10 @@ call plug#end()
       let s:wl += ['pypi', 'deserializer', 'deserializable']
 
       " program name
-      let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings', 'ipython']
+      let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings', 'ipython', 'ifconfig']
 
       " arguments
-      let s:wl += ['softvol']
+      let s:wl += ['softvol', 'pragma']
 
       " protobuf keyword
       let s:wl += ['oneof']
@@ -492,7 +495,7 @@ call plug#end()
       let s:wl += ['ioutil', 'fmt', 'bufio', 'bzip', 'flate', 'zlib', 'ecdsa', 'hmac', 'pkix', 'gosym']
       let s:wl += ['expvar', 'suffixarray', 'cmplx', 'fcgi', 'httptest', 'httptrace', 'httputil', 'pprof']
       let s:wl += ['jsonrpc', 'smtp', 'textproto', 'filepath', 'syscall', 'iotest', 'tabwriter', 'uuid']
-      let s:wl += ['strconv', 'taskq', 'opentracing']
+      let s:wl += ['strconv', 'taskq', 'opentracing', 'sqlite']
 
       " python library
       let s:wl += ['sys', 'datetime', 'logzero', 'dataclass', 'functools', 'contextlib', 'dataclasses']
@@ -516,11 +519,15 @@ call plug#end()
       let s:wl += ['macrossapi', 'robotinteraction', 'ygpacket', 'packageport', 'smrobot', 'smwaic']
       let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
       let s:wl += ['lockercc', 'depotcc', 'taskexecutor', 'datasource', 'datafusion', 'angocc', 'boxproxy']
-      let s:wl += ['itertools']
+      let s:wl += ['itertools', 'ent', 'pkglocation', 'taskcreatedpkg', 'entsql', 'rbcfgfx', 'tstorage']
+      let s:wl += ['gosivy', 'fxutil']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader', 'gosched', 'cond']
-      let s:wl += ['goos', 'goarch', 'goarm', 'finalizer', 'multistream']
+      let s:wl += ['goos', 'goarch', 'goarm', 'finalizer', 'multistream', 'healthcheck']
+
+      " golang interface name
+      let s:wl += ['shutdownable', 'cloneable']
 
       " golang const name
       let s:wl += ['rdonly', 'wronly', 'trunc', 'sigint', 'sigterm', 'omitempty']
@@ -532,15 +539,26 @@ call plug#end()
       let s:wl += ['meteorbox']
 
       " yogo dictionary
-      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango', 'dokodemo']
+      let s:wl += ['yogo', 'yogorobot', 'yogoswarm', 'kago', 'ango', 'dokodemo', 'clingo']
 
       " variable names
       let s:wl += ['pois', 'gid', 'sid', 'uid', 'dtype', 'robotcc', 'buildby', 'buildtime', 'sos', 'blecc']
       let s:wl += ['apis', 'lastlog', 'suppresslog', 'curlog', 'ipx', 'ipy', 'rpx', 'rpy', 'lth', 'wth', 'ith']
       let s:wl += ['gopoint', 'errorcodes', 'pid', 'ret', 'rlt', 'tid', 'bid', 'cmds', 'nearfields', 'loc', 'xyz']
-      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder', 'urls', 'outdir']
+      let s:wl += ['lbox', 'rbox', 'bbs', 'cmder', 'urls', 'outdir', 'cmts']
+
+      " table names
+      let s:wl += ['questodometeor', 'attributegroup']
+
+      " user prefix dictionary
+      let s:prefix_wl = []
+
+      " user suffix dictionary
+      let s:suffix_wl = ['fx', 'pb']
 
       let g:spelunker_white_list_for_user = s:wl
+      let g:spelunker_prefix_white_list_for_user = s:prefix_wl
+      let g:spelunker_suffix_white_list_for_user = s:suffix_wl
 
       augroup spelunker
         autocmd!
@@ -697,7 +715,8 @@ call plug#end()
             \   AllowShortBlocksOnASingleLine: false,
             \   AlignEscapedNewlines: true
             \ }'
-      Glaive codefmt gofmt_executable='gofumpt'
+      Glaive codefmt gofmt_executable='golines'
+      Glaive codefmt gofmt_args='--base-formatter=gofumpt'
     endfunc
 
     augroup autoformat_settings

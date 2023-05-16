@@ -416,7 +416,7 @@ if has("autocmd")
   if v:version > 701
     augroup highlight_keyword_group
       autocmd!
-      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\|TIPS\)')
+      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\|TIPS\|DEPRECATED\|REFACTOR\)')
       autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
       autocmd Syntax * call matchadd('Error', '\W\zs\(!!!\)')
       autocmd Syntax * call matchadd('ErrorMsg', '\W\zs\(IMPORTANT\)')

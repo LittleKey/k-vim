@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
-let g:netrw_dirhist_4='/Users/yogo/yogo/meteor-robot/behavior/trees/json'
-let g:netrw_dirhist_3='/Users/yogo/yogo/meteor-robot/behavior/assets/v4.5.39-66-gfe9dd91b'
-let g:netrw_dirhist_2='/Users/yogo/yogo/meteor-robot/behavior/trees/json'
-let g:netrw_dirhist_1='/Users/yogo/yogo/behaviortree/dsl/editors/vim'
