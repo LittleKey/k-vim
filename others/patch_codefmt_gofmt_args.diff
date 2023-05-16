@@ -1,5 +1,5 @@
 diff --git a/autoload/codefmt/gofmt.vim b/autoload/codefmt/gofmt.vim
-index da4aad6..23ae78f 100644
+index da4aad6..d585c7b 100644
 --- a/autoload/codefmt/gofmt.vim
 +++ b/autoload/codefmt/gofmt.vim
 @@ -35,10 +35,16 @@ function! codefmt#gofmt#GetFormatter() abort
@@ -15,7 +15,7 @@ index da4aad6..23ae78f 100644
 +
 +    let l:args = s:plugin.Flag('gofmt_args')
 +    if !empty(l:args)
-+      let l:cmd += [ l:args ]
++      let l:cmd += split(l:args)
 +    endif
 +
      try

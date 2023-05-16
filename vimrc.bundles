@@ -716,7 +716,7 @@ call plug#end()
             \   AlignEscapedNewlines: true
             \ }'
       Glaive codefmt gofmt_executable='golines'
-      Glaive codefmt gofmt_args='--base-formatter=gofumpt'
+      Glaive codefmt gofmt_args='--base-formatter=gofumpt --no-chain-split-dots -m 128'
     endfunc
 
     augroup autoformat_settings
