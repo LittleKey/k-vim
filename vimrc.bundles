@@ -194,7 +194,7 @@ Plug 'cespare/vim-toml', { 'for': ['toml'] }
 
 Plug 'yogorobot/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'] }
 
-Plug 'yogoswarm/behaviortree/dsl', { 'rtp': 'editors/vim/' , 'for': ['bt'] }
+Plug 'yogoswarm/behaviortree/dsl', { 'rtp': 'editors/vim/' , 'for': ['bt'], 'frozen': 1 }
 
 Plug 'flazz/vim-colorschemes'
 " molokai
@@ -457,7 +457,7 @@ call plug#end()
       " conjuncation
       let s:wl += ['inplace', 'nostop', 'hardcode', 'unmute', 'teardown', 'oldnew', 'stdout', 'stdin', 'inplaces', 'inplaced']
       let s:wl += ['nearfield', 'submatch', 'deepcopy', 'realtime', 'cputime', 'boottime', 'gettime', 'qrcode', 'cacheline']
-      let s:wl += ['pretouch', 'wlan', 'healthcheckable', 'lifecycle', 'mixin']
+      let s:wl += ['pretouch', 'wlan', 'healthcheckable', 'lifecycle', 'mixin', 'upsert']
 
       " unfamiliar
       let s:wl += ['disinfector', 'saltus', 'volatage', 'timestamp', 'resultful', 'marsaxlokk', 'configs', 'replacer']
@@ -470,7 +470,7 @@ call plug#end()
       let s:wl += ['yaml', 'grpc', 'websocket', 'hostname', 'proto', 'sdk', 'accessor', 'protobuf']
       let s:wl += ['ieee', 'crc', 'sof', 'mux', 'rpc', 'imu', 'false', 'deserialize', 'cpu', 'iot']
       let s:wl += ['uuid', 'modbus', 'rfc', 'eof', 'syncer', 'rfid', 'ntp', 'adjtime', 'aop', 'ddd']
-      let s:wl += ['pypi', 'deserializer', 'deserializable']
+      let s:wl += ['pypi', 'deserializer', 'deserializable', 'deque']
 
       " program name
       let s:wl += ['mplayer', 'espeak', 'amixer', 'gsettings', 'ipython', 'ifconfig']
@@ -520,7 +520,7 @@ call plug#end()
       let s:wl += ['taskwrapper', 'yogoiot', 'dokom', 'shelfchipu', 'yogostation', 'vendorchipu', 'chipupacket']
       let s:wl += ['lockercc', 'depotcc', 'taskexecutor', 'datasource', 'datafusion', 'angocc', 'boxproxy']
       let s:wl += ['itertools', 'ent', 'pkglocation', 'taskcreatedpkg', 'entsql', 'rbcfgfx', 'tstorage']
-      let s:wl += ['gosivy', 'fxutil']
+      let s:wl += ['gosivy', 'fxutil', 'nrf']
 
       " golang function name
       let s:wl += ['unmarshal', 'itoa', 'atoi', 'upgrader', 'gosched', 'cond']
@@ -715,8 +715,8 @@ call plug#end()
             \   AllowShortBlocksOnASingleLine: false,
             \   AlignEscapedNewlines: true
             \ }'
-      Glaive codefmt gofmt_executable='golines'
-      Glaive codefmt gofmt_args='--base-formatter=gofumpt --no-chain-split-dots -m 128 --no-reformat-tags'
+      Glaive codefmt gofmt_executable='gofumpt'
+      " FIXME args for golines " Glaive codefmt gofmt_args='--base-formatter=gofumpt --no-chain-split-dots -m 100 --no-reformat-tags'
     endfunc
 
     augroup autoformat_settings
