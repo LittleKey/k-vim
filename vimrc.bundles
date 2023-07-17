@@ -36,7 +36,7 @@ endfunc
 " Plug 'vim-jp/vital.vim'
 
 " 异步lint组件
-Plug 'w0rp/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust' ] }
+Plug 'dense-analysis/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'markdown' ] }
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
 
 " python auto complete
@@ -60,7 +60,7 @@ let COC_COMPLETE_FILE_TYPES = [
 
 " 单词拼写检查
 " spelunker
-Plug 'littlekey/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml', 'bitproto', 'bt'] }
+" Plug 'littlekey/spelunker.vim', { 'for': ['go', 'python', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'toml', 'yaml', 'bitproto', 'bt'] }
 
 " 自动配对补全符号`e.g: (,[,{,',"`
 " Plug 'jiangmiao/auto-pairs'
@@ -323,7 +323,15 @@ call plug#end()
             \  'json': ['jsonlint'],
             \  'sh': ['shellcheck'],
             \  'rust': ['rls', 'analyzer'],
+            \  'markdown': [],
             \}
+
+      " apply linter to above declaration all.
+      for k in keys(g:ale_linters)
+        let g:ale_linters[k] += ['cspell']
+      endfor
+      let g:ale_cspell_options = '--show-suggestions --config /Users/yogo/.vim/spell/cspell.json'
+
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
       let g:ale_python_mypy_options =
             \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
@@ -367,6 +375,7 @@ call plug#end()
       augroup ale_hightlight_group
         autocmd!
         " autocmd User ale call s:AddAirlineExtension('ale')
+        autocmd ColorScheme * highlight ALEWarning cterm=bold,underline ctermbg=red  ctermfg=none
         autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
       augroup END
