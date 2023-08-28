@@ -75,10 +75,13 @@
         "taskwrapper", "yogoiot", "dokom", "shelfchipu", "yogostation", "vendorchipu", "chipupacket",
         "lockercc", "depotcc", "taskexecutor", "datasource", "datafusion", "angocc", "boxproxy",
         "itertools", "ent", "pkglocation", "taskcreatedpkg", "entsql", "rbcfgfx", "tstorage",
-        "gosivy", "fxutil", "nrf", "flocfx",
+        "gosivy", "fxutil", "nrf", "flocfx", "airsayfx", "repositoryfx", "nrfpb", "rbent",
+        "rbschema", "zaccdirectionevent", "chargesayfx", "nrfview", "planningfx", "robotccpb",
+        "meteorpb", "parkingccpb", "mobius",
 
         "unmarshal", "itoa", "atoi", "upgrader", "gosched", "cond",
         "goos", "goarch", "goarm", "finalizer", "multistream", "healthcheck",
+        "fprintf", "randn",
 
         "shutdownable", "cloneable",
 

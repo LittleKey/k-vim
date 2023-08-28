@@ -375,7 +375,7 @@ call plug#end()
       augroup ale_hightlight_group
         autocmd!
         " autocmd User ale call s:AddAirlineExtension('ale')
-        autocmd ColorScheme * highlight ALEWarning cterm=bold,underline ctermbg=red  ctermfg=none
+        autocmd ColorScheme * highlight ALEWarning cterm=bold,underline ctermbg=none ctermfg=none
         autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
       augroup END
