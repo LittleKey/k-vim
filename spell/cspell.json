@@ -10,21 +10,21 @@
 
     "dictionaries": [
         "abbr-words",
-        "company-words.dict",
-        "conj-words.dict",
-        "go-const-words.dict",
-        "go-func-words.dict",
-        "go-lib-words.dict",
-        "golang-lib-words.dict",
-        "logger-words.dict",
-        "pkg-name-words.dict",
-        "program-name-words.dict",
-        "programming-words.dict",
-        "py-func-words.dict",
-        "unfamiliar-words.dict",
-        "username-words.dict",
-        "var-words.dict",
-        "yogo-words.dict"
+        "company-words",
+        "conj-words",
+        "go-const-words",
+        "go-func-words",
+        "go-lib-words",
+        "golang-lib-words",
+        "logger-words",
+        "pkg-name-words",
+        "program-name-words",
+        "programming-words",
+        "py-func-words",
+        "unfamiliar-words",
+        "username-words",
+        "var-words",
+        "yogo-words"
     ],
     "dictionaryDefinitions": [
         {
