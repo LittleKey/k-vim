@@ -331,7 +331,7 @@ call plug#end()
       for k in keys(g:ale_linters)
         let g:ale_linters[k] += ['cspell']
       endfor
-      let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json'
+      let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore'
 
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
       let g:ale_python_mypy_options =

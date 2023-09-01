@@ -1,0 +1,6 @@
+rdonly
+wronly
+trunc
+sigint
+sigterm
+omitempty

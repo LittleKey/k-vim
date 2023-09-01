@@ -1,0 +1,14 @@
+debugf
+infof
+fatalf
+warnf
+errorf
+logf
+tracef,
+debugw
+infow
+fatalw
+warnw
+errorw
+panicf
+sprintf
