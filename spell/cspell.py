@@ -32,7 +32,9 @@ class Config:
 
     @property
     def flag_words(self) -> typing.List[str]:
+        # spell-checker:disable
         return ["hte"]
+        # spell-checker:enable
 
     @property
     def dir(self) -> str:
