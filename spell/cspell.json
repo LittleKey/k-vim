@@ -17,12 +17,14 @@
 
         "entgo", "modernc", "gitlab",
 
+        "confs",
+
         "hasn", "cfg", "conns", "addr", "baudrate", "gw", "ctx", "shouldn", "calu", "idx",
         "src", "dest", "reco", "req", "ele", "sigs", "sig", "ack", "cli", "zacc", "laddr", "raddr", "uvc",
         "args", "kwargs", "buf", "rect", "coord", "chsm", "std", "rsm", "errcode", "recv", "objs", "pkgs",
         "cidx", "sms", "utcnow", "protos", "ble", "msgs", "typ", "srv", "msec", "sema", "sids", "fsm", "attrs",
         "disp", "cfgs", "insp", "uids", "stmt", "stmts", "cls", "mcls", "lineno", "docstring", "mmcls", "cwd",
-        "mro", "mem", "lru", "aggr", "milli", "recog",
+        "mro", "mem", "lru", "aggr", "milli", "recog", "sched",
 
         "inplace", "nostop", "hardcode", "unmute", "teardown", "oldnew", "stdout", "stdin", "inplaces", "inplaced",
         "nearfield", "submatch", "deepcopy", "realtime", "cputime", "boottime", "gettime", "qrcode", "cacheline",
