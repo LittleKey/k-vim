@@ -280,6 +280,9 @@ let g:python_slow_sync = 1
 Plug 'hattya/python-indent.vim', {'for': 'python'}  " working fine.
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 
+" for d2.vim syntax highlight
+Plug 'terrastruct/d2-vim', {'for': 'd2'}
+
 " javascript
 " 注意: syntax这个插件要放前面
 " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
@@ -302,6 +305,7 @@ call plug#end()
 
 
 " ################### 基础 ######################
+let g:go_build_tags = ['mage', 'meteorrobot', 'macross', 'meteorbox']
 
 " ale {{{
     if has_key(g:plugs, 'ale')
@@ -342,6 +346,7 @@ call plug#end()
       let g:ale_go_staticcheck_lint_package = 1
       let g:ale_go_revive_options = '-config=./revive.toml'
       " let g:ale_go_govet_options = ''
+      let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ' ')
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -629,6 +634,7 @@ call plug#end()
       let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
       let g:go_template_autocreate = 0 " disable GoTemplate
       let g:go_code_completion_enabled = 0 " disable code completed
+      let g:go_build_tags = join(go_build_tags, ' ')
 
       " lsp: language server protocol
       " let g:LanguageClient_serverCommands = { 'go': ['gopls'] }
