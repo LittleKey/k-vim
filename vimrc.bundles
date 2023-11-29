@@ -268,6 +268,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " vimgo  https://github.com/fatih/vim-go
 Plug 'fatih/vim-go', { 'tag': 'v1.26', 'frozen': 1, 'do': 'GoUpdateBinaries' }
 
+" for starlark syntax highlight
+Plug 'cappyzawa/starlark.vim', {'for': 'starlark'}
 
 " for python.vim syntax highlight
 " pythonsyntax
@@ -305,7 +307,7 @@ call plug#end()
 
 
 " ################### 基础 ######################
-let g:go_build_tags = ['mage', 'meteorrobot', 'macross', 'meteorbox']
+let g:go_build_tags = ['mage', 'meteor_robot']
 
 " ale {{{
     if has_key(g:plugs, 'ale')
@@ -320,7 +322,7 @@ let g:go_build_tags = ['mage', 'meteorrobot', 'macross', 'meteorbox']
       " npm install jsonlint -g
       " low linter: gofmt
       let g:ale_linters = {
-            \  'go': ['revive', 'gopls', 'gofumpt', 'goimports', 'gotype', 'misspell', 'staticcheck', 'govet'],
+            \  'go': ['gopls', 'gotype', 'golangci-lint'],
             \  'proto': ['buf'],
             \  'python': ['ruff', 'pyright', 'flake8', 'mypy'],
             \  'c': ['clang'],
@@ -337,16 +339,16 @@ let g:go_build_tags = ['mage', 'meteorrobot', 'macross', 'meteorbox']
       endfor
       let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore'
 
+      " py
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
       let g:ale_python_mypy_options =
             \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
             \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
             \ '--no-implicit-optional --warn-redundant-casts'
-      let g:ale_go_staticcheck_options = '-checks=all,-ST1000,-ST1020,-S1008,-ST1003,-SA1029,-ST1001,-ST1021,-SA9003,-ST1015,-SA1019,-ST1012'
-      let g:ale_go_staticcheck_lint_package = 1
-      let g:ale_go_revive_options = '-config=./revive.toml'
-      " let g:ale_go_govet_options = ''
-      let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ' ')
+      " go
+      let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ',')
+      let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
+      let g:ale_go_golangci_lint_package = 1
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -634,7 +636,7 @@ let g:go_build_tags = ['mage', 'meteorrobot', 'macross', 'meteorbox']
       let g:go_doc_keywordprg_enabled = 0 " disable GoDoc
       let g:go_template_autocreate = 0 " disable GoTemplate
       let g:go_code_completion_enabled = 0 " disable code completed
-      let g:go_build_tags = join(go_build_tags, ' ')
+      let g:go_build_tags = join(go_build_tags, ',')
 
       " lsp: language server protocol
       " let g:LanguageClient_serverCommands = { 'go': ['gopls'] }

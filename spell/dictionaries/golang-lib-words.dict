@@ -28,3 +28,6 @@ strconv
 taskq
 opentracing
 sqlite
+structs
+rlocker
+rlock
