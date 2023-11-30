@@ -7,6 +7,13 @@ linters:
     enable:
         - revive
         - misspell
+        - prealloc
+        - govet
+        - errcheck
+        - gosimple
+        - ineffassign
+        - staticcheck
+        - unused
 
 linters-settings:
     staticcheck:
@@ -67,3 +74,7 @@ linters-settings:
             - name: time-equal
             - name: unconditional-recursion
             - name: waitgroup-by-value
+
+    govet:
+        enable:
+            - fieldalignment
