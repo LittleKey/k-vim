@@ -322,7 +322,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       " npm install jsonlint -g
       " low linter: gofmt
       let g:ale_linters = {
-            \  'go': ['gopls', 'gotype', 'golangci-lint'],
+            \  'go': ['gopls', 'golangci-lint'],
             \  'proto': ['buf'],
             \  'python': ['ruff', 'pyright', 'flake8', 'mypy'],
             \  'c': ['clang'],
