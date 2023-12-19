@@ -58,6 +58,7 @@ let COC_COMPLETE_FILE_TYPES = [
 
 " github copilot for complete
 Plug 'github/copilot.vim'
+Plug 'gptlang/CopilotChat.nvim', { 'do': 'pip install -r requirements.txt' }
 
 " 显示补全文档信息
 " Plug 'Shougo/echodoc.vim', { 'for': ['go', 'python', 'c', 'cpp', 'rust'] }
@@ -715,6 +716,13 @@ let g:go_build_tags = ['mage', 'meteor_robot']
   if has_key(g:plugs, 'copilot.vim')
     imap <silent><script><expr> <C-E> copilot#Accept("\<CR>")
     let g:copilot_no_tab_map = v:true
+  endif
+" }}}
+
+" CopilotChat.nvim {{{
+  if has_key(g:plugs, 'CopilotChat.nvim')
+    " 添加命令别名CC
+    command! -nargs=+ CC :CopilotChat(<f-args>)
   endif
 " }}}
 
