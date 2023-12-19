@@ -76,5 +76,5 @@ linters-settings:
             - name: waitgroup-by-value
 
     govet:
-        enable:
+        disable:
             - fieldalignment

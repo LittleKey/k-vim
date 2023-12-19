@@ -31,3 +31,4 @@ sqlite
 structs
 rlocker
 rlock
+golangci

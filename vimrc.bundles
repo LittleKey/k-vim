@@ -56,6 +56,9 @@ let COC_COMPLETE_FILE_TYPES = [
       \ ]
 "Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
+" github copilot for complete
+Plug 'github/copilot.vim'
+
 " 显示补全文档信息
 " Plug 'Shougo/echodoc.vim', { 'for': ['go', 'python', 'c', 'cpp', 'rust'] }
 
@@ -330,7 +333,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
             \  'json': ['jsonlint'],
             \  'sh': ['shellcheck'],
             \  'rust': ['analyzer'],
-            \  'markdown': [],
+            \  'markdown': ['vale'],
             \}
 
       " apply linter to above declaration all.
@@ -349,6 +352,9 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ',')
       let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
       let g:ale_go_golangci_lint_package = 1
+
+      " markdown
+      let g:ale_markdown_vale_options = '--config ~/.vim/config/.vale.ini'
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -702,6 +708,11 @@ let g:go_build_tags = ['mage', 'meteor_robot']
             \ <SID>check_back_space() ? "\<S-Tab>" :
             \ coc#refresh()
     augroup END
+  endif
+" }}}
+
+" copilot {{{
+  if has_key(g:plugs, 'copilot.vim')
   endif
 " }}}
 

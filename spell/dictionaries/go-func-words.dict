@@ -12,3 +12,4 @@ multistream
 healthcheck
 fprintf
 randn
+fprint
