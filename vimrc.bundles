@@ -713,6 +713,8 @@ let g:go_build_tags = ['mage', 'meteor_robot']
 
 " copilot {{{
   if has_key(g:plugs, 'copilot.vim')
+    imap <silent><script><expr> <C-E> copilot#Accept("\<CR>")
+    let g:copilot_no_tab_map = v:true
   endif
 " }}}
 
