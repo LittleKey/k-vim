@@ -4,3 +4,14 @@ trunc
 sigint
 sigterm
 omitempty
+gonosumdb
+godebug
+gowork
+gcflags
+gcflag
+gomaxprocs
+gobin
+buildvcs
+goapp
+gomod
+gomodcache

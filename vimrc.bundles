@@ -195,8 +195,7 @@ Plug 'cespare/vim-toml', { 'for': ['toml'] }
 " kotlin
 " Plug 'udalov/kotlin-vim', { 'for': ['kotlin'] }
 " rust
-" Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
-" let g:rustfmt_autosave = 1
+Plug 'rust-lang/rust.vim', { 'for': ['rust'] }
 
 Plug 'yogoswarm/bitproto', { 'rtp': 'editors/vim/' , 'for': ['bitproto'], 'frozen': 1 }
 
@@ -333,7 +332,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
             \  'cpp': ['clang'],
             \  'json': ['jsonlint'],
             \  'sh': ['shellcheck'],
-            \  'rust': ['analyzer'],
+            \  'rust': ['analyzer', 'cargo', 'rls'],
             \  'markdown': ['vale'],
             \}
 
@@ -395,6 +394,18 @@ let g:go_build_tags = ['mage', 'meteor_robot']
         autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
       augroup END
     endif
+" }}}
+
+" rust.vim {{{
+  if has_key(g:plugs, 'rust.vim')
+    "let g:rustfmt_autosave = 1
+    let g:rust_clip_command = 'pbcopy'
+
+    augroup goto_directive_for_rust
+      autocmd!
+      autocmd FileType rust nnoremap gd :ALEGoToDefinition()<CR>
+    augroup END
+  endif
 " }}}
 
 " spelunker {{{
@@ -764,6 +775,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       autocmd FileType c,cpp,proto,bitproto AutoFormatBuffer clang-format
       autocmd FileType go AutoFormatBuffer gofmt
       autocmd FileType python AutoFormatBuffer black
+      autocmd FileType rust AutoFormatBuffer rustfmt
     augroup END
   endif
 " }}}

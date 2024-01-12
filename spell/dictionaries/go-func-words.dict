@@ -13,3 +13,4 @@ healthcheck
 fprintf
 randn
 fprint
+getenv
