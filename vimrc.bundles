@@ -37,8 +37,11 @@ endfunc
 " Plug 'vim-jp/vital.vim'
 
 " 异步lint组件
-Plug 'dense-analysis/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'markdown' ] }
+Plug 'dense-analysis/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'markdown', 'bt', 'bitproto' ] }
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
+
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
 
 " python auto complete
 " python自动补全, 用于状态跳转
@@ -340,7 +343,24 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       for k in keys(g:ale_linters)
         let g:ale_linters[k] += ['cspell']
       endfor
-      let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore'
+
+      func! s:define_cspell_linter(ft) abort
+        if !has_key(g:ale_linters, a:ft)
+          let g:ale_linters[a:ft] = ['cspell']
+          call ale#handlers#cspell#DefineLinter(a:ft)
+        endif
+      endfunc
+
+      augroup ale_linter_cspell_extend_group
+        autocmd!
+
+        autocmd FileType bt call s:define_cspell_linter(&filetype)
+        autocmd FileType yaml call s:define_cspell_linter(&filetype)
+        autocmd FileType toml call s:define_cspell_linter(&filetype)
+        autocmd FileType json call s:define_cspell_linter(&filetype)
+        autocmd FileType text call s:define_cspell_linter(&filetype)
+      augroup END
+      let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore --no-color'
 
       " py
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
