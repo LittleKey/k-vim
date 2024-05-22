@@ -40,8 +40,8 @@ endfunc
 Plug 'dense-analysis/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'markdown', 'bt', 'bitproto' ] }
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
 
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
+Plug 'nvim-tree/nvim-web-devicons', { 'for': ['python', 'go', 'c', 'cpp', 'rust' ] }
+Plug 'folke/trouble.nvim', { 'for': ['python', 'go', 'c', 'cpp', 'rust' ] }
 
 " python auto complete
 " python自动补全, 用于状态跳转
@@ -60,8 +60,10 @@ let COC_COMPLETE_FILE_TYPES = [
 "Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': COC_COMPLETE_FILE_TYPES }
 
 " github copilot for complete
-Plug 'github/copilot.vim'
-Plug 'gptlang/CopilotChat.nvim', { 'do': 'pip install -r requirements.txt' }
+" Plug 'github/copilot.vim'
+" Plug 'gptlang/CopilotChat.nvim', { 'do': 'pip install -r requirements.txt' }
+
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
 " 显示补全文档信息
 " Plug 'Shougo/echodoc.vim', { 'for': ['go', 'python', 'c', 'cpp', 'rust'] }
@@ -757,6 +759,16 @@ let g:go_build_tags = ['mage', 'meteor_robot']
   endif
 " }}}
 
+" codeium.vim {{{
+  if has_key(g:plugs, 'codeium.vim')
+    imap <script><silent><nowait><expr> <C-E> codeium#Accept()
+    imap <C-R>  <Cmd>call codeium#Clear()<CR>
+    imap <C-N>  <Cmd>call codeium#CycleCompletions(1)<CR>
+    imap <C-P>  <Cmd>call codeium#CycleCompletions(-1)<CR>
+    imap <C-C>  <Cmd>call codeium#Complete()<CR>
+  endif
+" }}}
+
 " vim-quickhl {{{
   if has_key(g:plugs, 'vim-quickhl')
     nmap <leader>w <Plug>(quickhl-manual-this-whole-word)
@@ -977,6 +989,8 @@ let g:go_build_tags = ['mage', 'meteor_robot']
     let airline#extensions#coc#warning_symbol = 'W:'
     let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
     let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+    " 集成codeium
+    let g:airline#extensions#codeium#enabled = 1
 
     " not include ctrlp
     let g:airline_extensions = [
@@ -985,6 +999,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
         \ 'branch',
         \ 'whitespace',
         \ 'ale',
+        \ 'codeium',
         \ ]
 
     let g:airline_highlighting_cache = 1
