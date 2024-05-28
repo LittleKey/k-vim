@@ -37,7 +37,7 @@ endfunc
 " Plug 'vim-jp/vital.vim'
 
 " 异步lint组件
-Plug 'dense-analysis/ale', { 'for': ['python', 'go', 'proto', 'ansible', 'c', 'cpp', 'json', 'rust', 'markdown', 'bt', 'bitproto' ] }
+Plug 'dense-analysis/ale'
 " Plug 'ambv/black', { 'for': ['python'], 'do': 'git clean -f && git apply ../../others/black_virtualenv_patch' }
 
 Plug 'nvim-tree/nvim-web-devicons', { 'for': ['python', 'go', 'c', 'cpp', 'rust' ] }
