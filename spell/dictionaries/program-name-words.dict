@@ -4,3 +4,5 @@ amixer
 gsettings
 ipython
 ifconfig
+wabt
+tinygo

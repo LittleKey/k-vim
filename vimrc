@@ -445,6 +445,7 @@ set t_Co=256
 " colorscheme lucius
 " colorscheme iceberg
 colorscheme tender
+" colorscheme rosepine_dawn
 " colorscheme gruvbox
 " colorscheme Apprentice
 " colorscheme space-vim-dark

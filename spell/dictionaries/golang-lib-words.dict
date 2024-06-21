@@ -32,3 +32,4 @@ structs
 rlocker
 rlock
 golangci
+easyjson

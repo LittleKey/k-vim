@@ -243,6 +243,8 @@ Plug 'jacoborus/tender.vim'
 " space-vim-dark
 " 主题space-vim-dark
 Plug 'liuchengxu/space-vim-dark'
+" 主题rose-pine
+Plug 'rose-pine/vim'
 
 " nav
 " nerdtree nerdtree-git-plugin
@@ -339,6 +341,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
             \  'sh': ['shellcheck'],
             \  'rust': ['analyzer', 'cargo', 'rls'],
             \  'markdown': ['vale'],
+            \  'javascript': ['jshint', 'eslint', 'standard'],
             \}
 
       " apply linter to above declaration all.
@@ -377,6 +380,9 @@ let g:go_build_tags = ['mage', 'meteor_robot']
 
       " markdown
       let g:ale_markdown_vale_options = '--config ~/.vim/config/.vale.ini'
+
+      " javascript
+      let g:ale_jshint_config_loc = '/Users/littlekey/.vim/config/.jshintrc'
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
@@ -808,6 +814,8 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       autocmd FileType go AutoFormatBuffer gofmt
       autocmd FileType python AutoFormatBuffer black
       autocmd FileType rust AutoFormatBuffer rustfmt
+      autocmd FileType javascript AutoFormatBuffer prettier
+      autocmd FileType html AutoFormatBuffer prettier
     augroup END
   endif
 " }}}
@@ -979,6 +987,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
     let g:airline#extensions#ctrlspace#enabled = 0
     " 设置airline主题为tender
     let g:airline_theme = 'tender'
+    "let g:airline_theme = 'rosepine'
     " 集成ale
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '
