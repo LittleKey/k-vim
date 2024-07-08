@@ -6,7 +6,7 @@
 
 " ################### 包依赖 #####################
 " package dependence: ctags, ag(he_silver_searcher), rg(ripgrep)
-" python dependence: jedi black pyright flake8 mypy
+" python dependence: jedi black pyright flake8 mypy pynvim ruff
 " tools dependence: fzf cspell
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
@@ -334,7 +334,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       let g:ale_linters = {
             \  'go': ['gopls', 'golangci-lint'],
             \  'proto': ['buf'],
-            \  'python': ['ruff', 'pyright', 'flake8', 'mypy'],
+            \  'python': ['ruff', 'pyright', 'flake8'],
             \  'c': ['clang'],
             \  'cpp': ['clang'],
             \  'json': ['jsonlint'],
@@ -369,10 +369,10 @@ let g:go_build_tags = ['mage', 'meteor_robot']
 
       " py
       let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
-      let g:ale_python_mypy_options =
-            \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
-            \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
-            \ '--no-implicit-optional --warn-redundant-casts'
+      " let g:ale_python_mypy_options =
+      "       \ '--ignore-missing-imports --follow-imports skip --disallow-untyped-defs'.' '.
+      "      \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
+      "      \ '--no-implicit-optional --warn-redundant-casts'
       " go
       let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ',')
       let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
@@ -767,6 +767,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
 
 " codeium.vim {{{
   if has_key(g:plugs, 'codeium.vim')
+    let g:codeium_disable_bindings = 1
     imap <script><silent><nowait><expr> <C-E> codeium#Accept()
     imap <C-R>  <Cmd>call codeium#Clear()<CR>
     imap <C-N>  <Cmd>call codeium#CycleCompletions(1)<CR>

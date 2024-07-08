@@ -493,3 +493,5 @@ augroup long_lines
   au!
   "au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>'.g:long_line_length.'v.\+', -1)
 augroup END
+
+set shortmess=off

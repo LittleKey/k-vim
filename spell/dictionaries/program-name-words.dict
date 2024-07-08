@@ -6,3 +6,4 @@ ipython
 ifconfig
 wabt
 tinygo
+esbuild
