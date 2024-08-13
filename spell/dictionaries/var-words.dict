@@ -39,3 +39,6 @@ outdir
 cmts
 leveldbtsrepository
 inappwebview
+goexec
+tinygoroot
+goroot

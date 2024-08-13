@@ -33,3 +33,4 @@ rlocker
 rlock
 golangci
 easyjson
+memfs

@@ -36,3 +36,4 @@ tfcard
 tmpfs
 devtmpfs
 jsonify
+mqtt

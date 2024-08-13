@@ -374,7 +374,9 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       "      \ '--disallow-untyped-decorators --strict-optional --warn-unused-ignores'.' '.
       "      \ '--no-implicit-optional --warn-redundant-casts'
       " go
-      let g:ale_go_gopls_options = '-tags '.join(go_build_tags, ',')
+      let g:ale_go_gopls_init_options = {
+            \ 'build.buildFlags': ["-tags=meteor_robot,mage"],
+            \ }
       let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
       let g:ale_go_golangci_lint_package = 1
 
