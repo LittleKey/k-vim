@@ -375,7 +375,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       "      \ '--no-implicit-optional --warn-redundant-casts'
       " go
       let g:ale_go_gopls_init_options = {
-            \ 'build.buildFlags': ["-tags=meteor_robot,mage"],
+            \ 'build.buildFlags': ["-tags=meteor_robot,mage,wireinject"],
             \ }
       let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
       let g:ale_go_golangci_lint_package = 1
@@ -678,6 +678,9 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       let g:go_gopls_deep_completion = 0
       let g:go_gopls_fuzzy_matching = 0  " ==1.22
       let g:go_gopls_matcher = v:null " ^1.23 [`v:null`, `fuzzy`, `caseSensitive`]
+      " let g:go_gopls_settings = {
+      "     \ 'build.buildFlags': ["-tags=meteor_robot,mage,wireinject"],
+      "     \ }
       let g:go_template_autocreate = 0
       let g:go_fmt_autosave = 0
       let g:go_imports_autosave = 0
