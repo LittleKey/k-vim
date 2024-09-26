@@ -109,3 +109,7 @@ xflow
 goja
 xtwin
 fastuuid
+pgxpool
+pgconn
+sqlc
+pgtype

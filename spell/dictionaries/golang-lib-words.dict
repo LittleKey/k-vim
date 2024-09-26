@@ -34,3 +34,4 @@ rlock
 golangci
 easyjson
 memfs
+timestamptz

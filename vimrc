@@ -402,8 +402,9 @@ augroup indent_settings_group
   autocmd FileType java :call TAB(2)                     " java Tabsize
   autocmd FileType rust :call TAB(4)                     " rust Tabsize
   autocmd FileType go :call TAB(4)                       " golang Tabsize
+  autocmd FileType yaml,toml :call TAB(2)                " yaml toml Tabsize
 
-  autocmd FileType python,ruby,javascript,html,css,xml,go set expandtab ai
+  autocmd FileType python,ruby,javascript,html,css,xml,go,yaml,toml set expandtab ai
   autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
   autocmd BufRead,BufNewFile *.part set filetype=html
   autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript expandtab ai
