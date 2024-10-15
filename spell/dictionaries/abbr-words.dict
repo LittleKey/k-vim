@@ -70,3 +70,5 @@ struct
 dsts
 srcs
 pkey
+pgtx
+kvdb

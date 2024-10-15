@@ -113,3 +113,5 @@ pgxpool
 pgconn
 sqlc
 pgtype
+pqtype
+dexie
