@@ -7,3 +7,5 @@ ifconfig
 wabt
 tinygo
 esbuild
+rclone
+wizer

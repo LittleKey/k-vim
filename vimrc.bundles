@@ -96,6 +96,7 @@ Plug 'markonm/traces.vim'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff && git apply ../../others/patch_codefmt_gofmt_args.diff' }
 Plug 'google/vim-glaive'
+"Plug 'vim-autoformat/vim-autoformat'
 
 " 增强<C-a>/<C-x>可以作用于日期
 " Plug 'tpope/vim-speeddating'
@@ -824,6 +825,16 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       autocmd FileType html AutoFormatBuffer prettier
     augroup END
   endif
+" }}}
+
+" vim-autoformat {{{
+if has_key(g:plugs, 'vim-autoformat')
+  let g:autoformat_verbosemode = 1
+  augroup autoformat_settings
+    au!
+    au BufWrite * :Autoformat
+  augroup END
+endif
 " }}}
 
 " ################### 快速编码 ###################
