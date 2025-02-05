@@ -125,9 +125,7 @@ Plug 'kshenoy/vim-signature'
 " quick locate file or function
 " 文件搜索
 " fzf better than ctrlp (more faster and without cache)
-" Plug '/usr/local/opt/fzf'
-Plug '/opt/homebrew/opt/fzf' " for m1-mbp
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " ctrlsf
 " 类似sublimetext的搜索
 " In CtrlSF window:
@@ -891,7 +889,7 @@ endif
 " ################### 功能相关 ###################
 
 " fzf {{{
-  if has_key(g:plugs, 'fzf') && has_key(g:plugs, 'fzf.vim')
+  if has_key(g:plugs, 'fzf') && has_key(g:plugs, 'fzf')
     " extra key bindings
     let g:fzf_action = {
           \ 'ctrl-t': 'tab split',
