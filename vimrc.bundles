@@ -294,6 +294,9 @@ Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
 " for d2.vim syntax highlight
 Plug 'terrastruct/d2-vim', {'for': 'd2'}
 
+" switch input method
+Plug 'LittleKey/smartim'
+
 " javascript
 " 注意: syntax这个插件要放前面
 " Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
@@ -1151,6 +1154,13 @@ endif
     nmap <Leader>BB :BB<CR>
     nmap <Leader>BF :BF<CR>
     nmap <leader>BA :ba<cr>
+  endif
+" }}}
+
+" smartim {{{
+  if has_key(g:plugs, 'smartim')
+    let g:smartim_imselect_path = 'macism'
+    let g:smartim_default = 'com.apple.keylayout.ABC'
   endif
 " }}}
 
