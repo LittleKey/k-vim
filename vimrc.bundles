@@ -243,7 +243,9 @@ Plug 'jacoborus/tender.vim'
 " 主题space-vim-dark
 Plug 'liuchengxu/space-vim-dark'
 " 主题rose-pine
-Plug 'rose-pine/vim'
+Plug 'littlekey/rose-pine.vim', { 'as': 'rose-pine' }
+" 主题nord
+Plug 'nordtheme/vim', { 'as': 'nord' }
 
 " nav
 " nerdtree nerdtree-git-plugin
@@ -1004,8 +1006,8 @@ endif
     " 集成ctrlspace
     let g:airline#extensions#ctrlspace#enabled = 0
     " 设置airline主题为tender
-    let g:airline_theme = 'tender'
-    "let g:airline_theme = 'rosepine'
+    "let g:airline_theme = 'nord'
+    let g:airline_theme = 'rosepine_dawn'
     " 集成ale
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '

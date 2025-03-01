@@ -432,7 +432,7 @@ endif
 "==========================================
 
 " theme主题
-set background=dark
+set background=light
 set t_Co=256
 " colorscheme onedark
 " colorscheme molokai
@@ -445,8 +445,9 @@ set t_Co=256
 " colorscheme kolor
 " colorscheme lucius
 " colorscheme iceberg
-colorscheme tender
-" colorscheme rosepine_dawn
+" colorscheme tender
+colorscheme rosepine_dawn
+" colorscheme nord
 " colorscheme gruvbox
 " colorscheme Apprentice
 " colorscheme space-vim-dark
