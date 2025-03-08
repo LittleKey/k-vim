@@ -13,6 +13,9 @@ elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
   source ~/.config/nvim/vimrc.bundles
 endif
 
+let g:python_host_prog = '~/.local/share/mise/installs/python/3.8.18/bin/python'
+let g:python3_host_prog = '~/.local/share/mise/installs/python/3.8.18/bin/python'
+
 "==========================================
 " General Settings 基础设置
 "==========================================

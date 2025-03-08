@@ -344,7 +344,8 @@ let g:go_build_tags = ['mage', 'meteor_robot']
             \  'json': ['jsonlint'],
             \  'sh': ['shellcheck'],
             \  'rust': ['analyzer', 'cargo', 'rls'],
-            \  'markdown': ['vale'],
+            \  'mardown': ['cspell'],
+            \  'jinja': ['cspell'],
             \  'javascript': ['jshint', 'eslint', 'standard'],
             \}
 
@@ -368,6 +369,8 @@ let g:go_build_tags = ['mage', 'meteor_robot']
         autocmd FileType toml call s:define_cspell_linter(&filetype)
         autocmd FileType json call s:define_cspell_linter(&filetype)
         autocmd FileType text call s:define_cspell_linter(&filetype)
+        autocmd FileType jinja call s:define_cspell_linter(&filetype)
+        autocmd FileType markdown call s:define_cspell_linter(&filetype)
       augroup END
       let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore --no-color'
 
