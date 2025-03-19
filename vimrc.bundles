@@ -246,6 +246,8 @@ Plug 'liuchengxu/space-vim-dark'
 Plug 'littlekey/rose-pine.vim', { 'as': 'rose-pine' }
 " 主题nord
 Plug 'nordtheme/vim', { 'as': 'nord' }
+" 主题catppuccin
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 " nav
 " nerdtree nerdtree-git-plugin
@@ -1010,7 +1012,8 @@ endif
     let g:airline#extensions#ctrlspace#enabled = 0
     " 设置airline主题为tender
     "let g:airline_theme = 'nord'
-    let g:airline_theme = 'rosepine_dawn'
+    " let g:airline_theme = 'rosepine_dawn'
+    let g:airline_theme = 'catppuccin_latte'
     " 集成ale
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '

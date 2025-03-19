@@ -449,11 +449,12 @@ set t_Co=256
 " colorscheme lucius
 " colorscheme iceberg
 " colorscheme tender
-colorscheme rosepine_dawn
+" colorscheme rosepine_dawn
 " colorscheme nord
 " colorscheme gruvbox
 " colorscheme Apprentice
 " colorscheme space-vim-dark
+colorscheme catppuccin_latte
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
