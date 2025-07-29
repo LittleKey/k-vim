@@ -65,6 +65,8 @@ let COC_COMPLETE_FILE_TYPES = [
 
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
+" Plug 'augmentcode/augment.vim'
+
 " 显示补全文档信息
 " Plug 'Shougo/echodoc.vim', { 'for': ['go', 'python', 'c', 'cpp', 'rust'] }
 
@@ -1014,6 +1016,7 @@ endif
     "let g:airline_theme = 'nord'
     " let g:airline_theme = 'rosepine_dawn'
     let g:airline_theme = 'catppuccin_latte'
+    " let g:airline_theme = 'catppuccin_mocha'
     " 集成ale
     let g:airline#extensions#ale#enabled = 1
     let g:airline#extensions#ale#error_symbol = g:ale_sign_error . ' '

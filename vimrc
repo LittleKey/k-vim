@@ -455,6 +455,7 @@ set t_Co=256
 " colorscheme Apprentice
 " colorscheme space-vim-dark
 colorscheme catppuccin_latte
+" colorscheme catppuccin_mocha
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
