@@ -282,6 +282,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " 2. :GoInstallBinaries
 " vimgo  https://github.com/fatih/vim-go
 Plug 'fatih/vim-go', { 'tag': 'v1.28', 'frozen': 1, 'do': 'GoUpdateBinaries' }
+" golang syntax highlighting
+Plug 'charlespascoe/vim-go-syntax', { 'for': ['go'] }
 
 " for starlark syntax highlight
 Plug 'cappyzawa/starlark.vim', {'for': 'starlark'}
@@ -295,7 +297,7 @@ let g:python_slow_sync = 1
 " has bug if "{{" was present and not close with "}}"
 " Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 Plug 'hattya/python-indent.vim', {'for': 'python'}  " working fine.
-Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'python'}
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['python', 'jinja']}
 
 " for d2.vim syntax highlight
 Plug 'terrastruct/d2-vim', {'for': 'd2'}
