@@ -95,9 +95,9 @@ Plug 'markonm/traces.vim'
 " Plug 'tpope/vim-commentary'
 
 " codefmt
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff && git apply ../../others/patch_codefmt_gofmt_args.diff' }
-Plug 'google/vim-glaive'
+" Plug 'google/vim-maktaba'
+" Plug 'google/vim-codefmt', { 'do': 'git clean -f && git checkout -- . && git apply ../../others/patch_codefmt.diff && git apply ../../others/patch_codefmt_gofmt_args.diff' }
+" Plug 'google/vim-glaive'
 "Plug 'vim-autoformat/vim-autoformat'
 
 " 增强<C-a>/<C-x>可以作用于日期
@@ -401,10 +401,15 @@ let g:go_build_tags = ['mage', 'meteor_robot']
 
       " Only run fixers anemd in ale_fixers settings.
       " npm install -g prettier
-      " let g:ale_fixers_explicit = 1
-      " let g:ale_fixers = {
-            " \}
-      " let g:ale_fix_on_save = 1
+      let g:ale_fixers_explicit = 1
+      let g:ale_fixers = {
+        \   'python': ['ruff', 'ruff_format'],
+        \   'proto': ['clang-format'],
+        \   'go': ['gofmt'],
+        \   'rust': ['rustfmt'],
+        \   'javascript': ['prettier'],
+        \}
+      let g:ale_fix_on_save = 1
 
       let g:ale_sign_column_always = 1
 
@@ -737,6 +742,28 @@ let g:go_build_tags = ['mage', 'meteor_robot']
   if has_key(g:plugs, 'jedi-vim')
     let g:jedi#usages_command = 0  " disabled quickfix default keyboard map conflict with nerdtree: <leader>n
     let g:jedi#completions_enabled = 0 " using coc to instead of jedi default complete for asynchronously
+    " 将下面的路径替换成你在第一步里查到的实际路径
+
+    " ============================================================================
+    " Python 3 Host 配置 (自动检测 Virtualenv)
+    " ============================================================================
+
+    " 1. 检测是否激活了虚拟环境 (通过环境变量 $VIRTUAL_ENV 判断)
+    if !empty($VIRTUAL_ENV)
+        " 如果在 virtualenv 中，强制指向该环境下的 python
+        let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+
+    " 2. 如果没激活虚拟环境，尝试使用系统路径 (相当于 which python3)
+    elseif executable('python3')
+        let g:python3_host_prog = exepath('python3')
+
+    " 3. 如果找不到 python3，可以使用一个硬编码的保底路径 (可选)
+    else
+       let g:python3_host_prog = '/usr/bin/python3'
+    endif
+
+    " 打印调试信 (可选，配置好后可注释掉)
+    " echom 'Current Python3 Host: ' . g:python3_host_prog
 
     augroup redefined_goto_directive_for_python
       autocmd!
@@ -831,7 +858,7 @@ let g:go_build_tags = ['mage', 'meteor_robot']
       autocmd VimEnter * call s:config_code_format()
       autocmd FileType c,cpp,proto,bitproto AutoFormatBuffer clang-format
       autocmd FileType go AutoFormatBuffer gofmt
-      autocmd FileType python AutoFormatBuffer black
+      autocmd FileType python AutoFormatBuffer ruff
       autocmd FileType rust AutoFormatBuffer rustfmt
       autocmd FileType javascript AutoFormatBuffer prettier
       autocmd FileType html AutoFormatBuffer prettier

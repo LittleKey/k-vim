@@ -34,3 +34,8 @@ joinpath
 abstractproperty
 argv
 getcwd
+aiocache
+hget
+hset
+xadd
+dapr
