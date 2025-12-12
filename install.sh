@@ -1,85 +1,71 @@
 #!/bin/bash
 
-# refer  spf13-vim bootstrap.sh`
-BASEDIR=$(dirname $0)
-cd $BASEDIR || exit
-CURRENT_DIR=`pwd`
+# 遇到错误立即停止
+set -e
 
-# parse arguments
-function show_help
-{
-    echo "install.sh [option]
-    --for-vim       Install configuration files for vim, default option
-    --for-neovim    Install configuration files for neovim
-    --for-all       Install configuration files for vim & neovim
-    --help          Show help messages
-For example:
-    install.sh --for-vim
-    install.sh --help"
-}
-FOR_VIM=true
-FOR_NEOVIM=false
-if [ "$1" != "" ]; then
-    case $1 in
-        --for-vim)
-            FOR_VIM=true
-            FOR_NEOVIM=false
-            shift
-            ;;
-        --for-neovim)
-            FOR_NEOVIM=true
-            FOR_VIM=false
-            shift
-            ;;
-        --for-all)
-            FOR_VIM=true
-            FOR_NEOVIM=true
-            shift
-            ;;
-        *)
-            show_help
-            exit
-            ;;
-    esac
+# 获取当前脚本所在目录的绝对路径
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TARGET_DIR="$HOME/.config/nvim"
+BACKUP_DATE=$(date +%Y%m%d_%H%M%S)
+
+echo "================================================="
+echo "   Neovim Configuration Installer (Lazy.nvim)    "
+echo "================================================="
+echo "Source: $BASEDIR"
+echo "Target: $TARGET_DIR"
+echo "================================================="
+
+# 0. 检查必要依赖
+if ! command -v nvim &> /dev/null; then
+    echo "Error: Neovim (nvim) is not installed."
+    exit 1
 fi
 
-lnif() {
-    if [ -e "$1" ]; then
-        ln -sf "$1" "$2"
+if ! command -v git &> /dev/null; then
+    echo "Error: Git is not installed (required for Lazy.nvim)."
+    exit 1
+fi
+
+# 1. 备份现有配置
+echo "[Step 1] Checking existing configuration..."
+
+# 确保 .config 目录存在
+mkdir -p "$HOME/.config"
+
+if [ -L "$TARGET_DIR" ]; then
+    # 如果已经是软链接
+    CURRENT_LINK=$(readlink "$TARGET_DIR")
+    if [ "$CURRENT_LINK" == "$BASEDIR" ]; then
+        echo "  -> Symlink already points to the correct directory. Skipping backup."
+    else
+        echo "  -> Symlink exists but points to $CURRENT_LINK."
+        echo "  -> Unlinking..."
+        unlink "$TARGET_DIR"
     fi
-}
-
-
-echo "Step1: backing up current vim config"
-today=`date +%Y%m%d`
-if $FOR_VIM; then
-    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
-    for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -L $i ] && unlink $i ; done
-fi
-if $FOR_NEOVIM; then
-    for i in $HOME/.config/nvim $HOME/.config/nvim/init.vim; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
-    for i in $HOME/.config/nvim/init.vim $HOME/.config/nvim; do [ -L $i ] && unlink $i ; done
+elif [ -d "$TARGET_DIR" ]; then
+    # 如果是真实目录，则备份
+    echo "  -> Detected existing directory. Backing up to $TARGET_DIR.$BACKUP_DATE"
+    mv "$TARGET_DIR" "$TARGET_DIR.$BACKUP_DATE"
 fi
 
-echo "Step2: setting up symlinks"
-if $FOR_VIM; then
-    lnif $CURRENT_DIR/vimrc $HOME/.vimrc
-    lnif $CURRENT_DIR/vimrc.bundles $HOME/.vimrc.bundles
-    lnif "$CURRENT_DIR/" "$HOME/.vim"
-fi
-if $FOR_NEOVIM; then
-    lnif "$CURRENT_DIR/" "$HOME/.config/nvim"
-    lnif $CURRENT_DIR/vimrc $CURRENT_DIR/init.vim
-fi
-
-echo "Step3: update/install plugins using Vim-plug"
-system_shell=$SHELL
-export SHELL="/bin/sh"
-if $FOR_VIM; then
-    vim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
+# 2. 创建软链接
+echo "[Step 2] Creating symlink..."
+if [ ! -e "$TARGET_DIR" ]; then
+    ln -s "$BASEDIR" "$TARGET_DIR"
+    echo "  -> Linked $BASEDIR to $TARGET_DIR"
 else
-    nvim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
+    echo "  -> Target already exists (verified in Step 1)."
 fi
-export SHELL=$system_shell
 
-echo "Install Done!"
+# 3. 初始化 Lazy.nvim 插件
+echo "[Step 3] Bootstrapping Lazy.nvim and plugins..."
+echo "  -> Running Neovim in headless mode to sync plugins..."
+
+# 使用 headless 模式触发 Lazy 的安装和更新
+# "+Lazy! sync" 会安装所有缺失的插件并更新现有插件
+# "+qa" 会在完成后退出
+nvim --headless "+Lazy! sync" +qa
+
+echo "================================================="
+echo "   Installation Completed Successfully!          "
+echo "================================================="

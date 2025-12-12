@@ -8,3 +8,4 @@ init.vim
 *.orig
 sessions
 black/
+.cspellcache

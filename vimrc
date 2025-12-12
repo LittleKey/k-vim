@@ -6,17 +6,9 @@
 let mapleader = ' '
 let g:mapleader = ' '
 
-" install bundles
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
-  source ~/.config/nvim/vimrc.bundles
-endif
-
-" loading lua config
-if filereadable(expand("~/.config/nvim/vimrc.lua")) " neovim
-  source ~/.config/nvim/vimrc.lua
-endif
+set nocompatible
+lua require('copy-to-sys')
+lua require('plugins')
 
 "==========================================
 " General Settings 基础设置
@@ -296,13 +288,6 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
 " disbale paste mode when leaving insert mode
 au! InsertLeave * set nopaste
 
-" 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
@@ -381,7 +366,30 @@ function EraseTrailingSpace()
   keeppatterns %substitute@\s*$@@eg
   call winrestview(b:save_view)
 endfunction
-nnoremap <leader>t :call EraseTrailingSpace()<CR>
+nnoremap <silent> <leader>s :call EraseTrailingSpace()<CR>
+
+augroup StripWhitespaceGroup
+  autocmd!
+  " 保存前触发
+  autocmd BufWritePre * call s:RunEraseTrailingSpace()
+augroup END
+
+function! s:RunEraseTrailingSpace()
+  " 1. 排除 markdown 和 diff
+  if &ft =~ 'markdown\|diff'
+    return
+  endif
+
+  " 2. 排除大文件 (>100KB) 避免性能问题
+  if getfsize(expand("%")) > 102400
+    return
+  endif
+
+  " 3. 调用你的核心函数
+  if exists('*EraseTrailingSpace')
+    call EraseTrailingSpace()
+  endif
+endfunction
 
 " augroup erase_trailing_space
 "   au!
@@ -459,6 +467,12 @@ set t_Co=256
 colorscheme catppuccin_latte
 " colorscheme catppuccin_mocha
 
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;lu;%lum"
+  let &t_8b = "\<Esc>[48;2%lu;%lu;%lum"
+  " set termguicolors
+endif
+
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
@@ -485,12 +499,6 @@ if &term =~ '256color'
   " render properly when inside 256-color tmux and GNU screen.
   " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
   set t_ut=
-endif
-
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;lu;%lum"
-  let &t_8b = "\<Esc>[48;2%lu;%lu;%lum"
-  " set termguicolors
 endif
 
 " Speed UP!

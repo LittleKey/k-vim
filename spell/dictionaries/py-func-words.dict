@@ -39,3 +39,6 @@ hget
 hset
 xadd
 dapr
+gosau
+rpush
+rpop
