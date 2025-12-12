@@ -10,6 +10,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath,
   })
 end
+vim.opt.termguicolors = true
 vim.opt.rtp:prepend(lazypath)
 
 -- 插件配置表
@@ -317,26 +318,31 @@ require("lazy").setup({
   -- 侧边栏与导航
   -- ==========================================
 
-  -- NERDTree
   {
-    "preservim/nerdtree",
-    dependencies = {
-        "Xuyuanp/nerdtree-git-plugin",
-        "ryanoasis/vim-devicons",
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+        { "<leader>n", ":NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
     },
-    cmd = "NERDTreeToggle",
-    keys = { { "<leader>n", ":NERDTreeToggle<CR>" } },
-    init = function()
-      vim.g.NERDTreeHighlightCursorline = 1
-      vim.g.NERDTreeIgnore = { [[\\.pyc$]], [[\\.pyo$]], [[\\.obj$]], [[\\.o$]], [[\\.so$]], [[\\.egg$]], [[^\\.git$]], [[^\\.svn$]], [[^\\.hg$]], [[build/]], [[__pycache__]] }
-      vim.g.NERDTreeMapOpenSplit = 's'
-      vim.g.NERDTreeMapOpenVSplit = 'v'
-      vim.g.nerdtree_tabs_synchronize_view = 1
-      vim.g.nerdtree_tabs_synchronize_focus = 1
-      vim.g.NERDTreeNodeDelimiter = "\194\160"
-      vim.g.nerdtree_tabs_open_on_console_startup = 0
-      vim.g.nerdtree_tabs_open_on_gui_startup = 0
-    end
+    config = function()
+        require("nvim-tree").setup({
+            sort = {
+                sorter = "case_sensitive",
+            },
+            view = {
+                width = 30,
+            },
+            renderer = {
+                group_empty = true,
+            },
+            filters = {
+                dotfiles = true,
+            },
+            -- 自动同步 tmux 窗口需要额外配置，或者使用 nvim-tree 的 api
+        })
+    end,
   },
 
   -- ==========================================
