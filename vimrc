@@ -7,6 +7,7 @@ let mapleader = ' '
 let g:mapleader = ' '
 
 set nocompatible
+lua require('basic')
 lua require('copy-to-sys')
 lua require('plugins')
 
