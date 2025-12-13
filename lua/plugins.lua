@@ -259,22 +259,31 @@ require("lazy").setup({
   -- Git 与 版本控制
   -- ==========================================
   {
-    "mhinz/vim-signify",
-    init = function()
-      vim.g.signify_sign_add = '+'
-      vim.g.signify_sign_delete = '-'
-      vim.g.signify_sign_delete_first_line = '‾'
-      vim.g.signify_sign_change = '~'
-      vim.g.signify_sign_changedelete = vim.g.signify_sign_change
-      -- 颜色高亮
-      vim.cmd([[
-        augroup signify_colors
-          autocmd!
-          autocmd ColorScheme * hi SignifySignAdd cterm=bold ctermbg=none  ctermfg=119
-          autocmd ColorScheme * hi SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
-          autocmd ColorScheme * hi SignifySignChange cterm=bold ctermbg=none  ctermfg=227
-        augroup END
-      ]])
+    "lewis6991/gitsigns.nvim",
+    -- 【修正】使用标准的读取文件事件，而不是自定义事件
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+        require('gitsigns').setup({
+            -- 开启行内 blame (可选，显示这行代码是谁写的)
+            current_line_blame = true,
+            current_line_blame_opts = { delay = 500 },
+
+            -- 确保符号列一直显示，防止屏幕跳动
+            signcolumn = true,
+
+            -- 自定义图标 (可选，让界面更像你截图右边的风格)
+            signs = {
+                add          = { text = '┃' },
+                change       = { text = '┃' },
+                delete       = { text = '_' },
+                topdelete    = { text = '‾' },
+                changedelete = { text = '~' },
+                untracked    = { text = '┆' },
+            },
+        })
+
+        -- 快捷键
+        vim.keymap.set('n', '<leader>gb', ':Gitsigns blame_line<CR>', { desc = "Git Blame Line" })
     end
   },
 
@@ -289,7 +298,6 @@ require("lazy").setup({
   "liuchengxu/space-vim-dark",
   { "littlekey/rose-pine.vim", name = "rose-pine" },
   { "nordtheme/vim", name = "nord" },
-
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -375,26 +383,6 @@ require("lazy").setup({
             -- 自动同步 tmux 窗口需要额外配置，或者使用 nvim-tree 的 api
         })
     end,
-  },
-
-  -- ==========================================
-  -- 语言支持 (Syntax & Utils)
-  -- ==========================================
-  { "tpope/vim-git", ft = "git" },
-  { "uarun/vim-protobuf", ft = "proto" },
-  { "cespare/vim-toml", ft = "toml" },
-  {
-      "rust-lang/rust.vim",
-      ft = "rust",
-      init = function()
-          vim.g.rust_clip_command = 'pbcopy'
-          vim.cmd([[
-            augroup goto_directive_for_rust
-            autocmd!
-            autocmd FileType rust nnoremap gd :ALEGoToDefinition()<CR>
-            augroup END
-          ]])
-      end
   },
 
   -- 特殊路径/本地插件 (注意: 如果这些是本地文件，需要改用 dir="...")
