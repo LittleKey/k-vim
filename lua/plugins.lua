@@ -10,7 +10,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath,
   })
 end
-vim.opt.termguicolors = true
 vim.opt.rtp:prepend(lazypath)
 
 -- 插件配置表
