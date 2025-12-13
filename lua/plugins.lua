@@ -411,25 +411,17 @@ require("lazy").setup({
   -- Go Lang
   {
     "fatih/vim-go",
-    tag = "v1.28",
-    build = ":GoUpdateBinaries",
+    ft = "go",
+    branch = "master",
     init = function()
-      vim.g.go_highlight_array_whitespace_error = 0
-      vim.g.go_highlight_chan_whitespace_error = 0
       vim.g.go_highlight_extra_types = 1
-      vim.g.go_highlight_space_tab_error = 0
-      vim.g.go_highlight_trailing_whitespace_error = 0
       vim.g.go_highlight_operators = 1
       vim.g.go_highlight_methods = 1
       vim.g.go_highlight_functions = 1
-      vim.g.go_highlight_function_parameters = 0
-      vim.g.go_highlight_function_calls = 0
       vim.g.go_highlight_structs = 1
       vim.g.go_highlight_types = 1
-      vim.g.go_highlight_fields = 0
       vim.g.go_highlight_build_constraints = 1
       vim.g.go_highlight_generate_tags = 1
-      vim.g.go_highlight_string_spellcheck = 0
       vim.g.go_highlight_format_strings = 1
       vim.g.go_highlight_variable_declarations = 1
       vim.g.go_highlight_variable_assignments = 1
@@ -443,7 +435,8 @@ require("lazy").setup({
       vim.g.go_referrers_mode = "gopls"
       vim.g.go_gopls_enabled = 1
       vim.g.go_mod_fmt_autosave = 1
-      vim.g.go_gopls_deep_completion = 0
+      vim.g.go_build_tags = 'mage,meteor_robot'
+
       vim.g.go_gopls_fuzzy_matching = 0
       vim.g.go_gopls_matcher = nil
       vim.g.go_fmt_autosave = 0
@@ -451,26 +444,15 @@ require("lazy").setup({
       vim.g.go_doc_keywordprg_enabled = 0 -- disable GoDoc
       vim.g.go_template_autocreate = 0 -- disable GoTemplate
       vim.g.go_code_completion_enabled = 0 -- disable, use coc
-      vim.g.go_build_tags = 'mage,meteor_robot'
+      vim.g.go_gopls_deep_completion = 0
+      vim.g.go_highlight_string_spellcheck = 0
+      vim.g.go_highlight_array_whitespace_error = 0
+      vim.g.go_highlight_chan_whitespace_error = 0
+      vim.g.go_highlight_space_tab_error = 0
+      vim.g.go_highlight_trailing_whitespace_error = 0
+      vim.g.go_highlight_function_parameters = 0
+      vim.g.go_highlight_function_calls = 0
+      vim.g.go_highlight_fields = 0
     end
   },
-  { "charlespascoe/vim-go-syntax", ft = "go" },
-
-  -- Python Syntax
-  {
-    "hdima/python-syntax",
-    ft = "python",
-    init = function()
-      vim.g.python_highlight_all = 1
-      vim.g.python_highlight_file_headers_as_comments = 1
-      vim.g.python_slow_sync = 1
-    end
-  },
-  { "hattya/python-indent.vim", ft = "python" },
-  { "Glench/Vim-Jinja2-Syntax", ft = { "python", "jinja" } },
-
-  -- Other Syntax
-  { "cappyzawa/starlark.vim", ft = "starlark" },
-  { "terrastruct/d2-vim", ft = "d2" },
-
 })
