@@ -460,7 +460,7 @@ set t_Co=256
 " colorscheme gruvbox
 " colorscheme Apprentice
 " colorscheme space-vim-dark
-colorscheme catppuccin_latte
+colorscheme catppuccin-latte
 " colorscheme catppuccin_mocha
 
 if exists('+termguicolors')

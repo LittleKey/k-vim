@@ -289,29 +289,61 @@ require("lazy").setup({
   "liuchengxu/space-vim-dark",
   { "littlekey/rose-pine.vim", name = "rose-pine" },
   { "nordtheme/vim", name = "nord" },
-  { "catppuccin/vim", name = "catppuccin" },
 
-  -- Airline (状态栏)
   {
-    "vim-airline/vim-airline",
-    dependencies = { "vim-airline/vim-airline-themes" },
-    init = function()
-      vim.g.airline_powerline_fonts = 1
-      vim.g['airline#extensions#fzf#enabled'] = 1
-      vim.g['airline#extensions#tabline#enabled'] = 0
-      vim.g['airline#extensions#tagbar#enabled'] = 0
-      vim.g['airline#extensions#ctrlspace#enabled'] = 0
-      vim.g['airline#extensions#ale#enabled'] = 1
-      -- vim.g['airline#extensions#ale#error_symbol'] = vim.g.ale_sign_error .. ' '
-      -- vim.g['airline#extensions#ale#warning_symbol'] = vim.g.ale_sign_warning .. ' '
-      vim.g['airline#extensions#codeium#enabled'] = 1
-      vim.g.airline_theme = 'catppuccin_latte'
-      vim.g.airline_highlighting_cache = 1
-      vim.g.airline_focuslost_inactive = 1
-      -- 自定义配置, 官方airline不支持 vim.g.airline_always_load_ale = 1
-      -- 其他配置
-      vim.g.airline_extensions = {'fzf', 'quickfix', 'branch', 'whitespace', 'ale', 'codeium'}
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000, -- 确保最先加载
+    config = function()
+      require("catppuccin").setup({
+        flavour = "latte",
+        background = {
+            light = "latte",
+            dark = "mocha",
+        },
+        integrations = {
+            cmp = true,
+            gitsigns = true,
+            nvimtree = true,
+            treesitter = true,
+            notify = false,
+            mini = false,
+            -- 这里让 catppuccin 自动适配 lualine
+            -- 虽然 lualine 内部也会找 theme, 但这里开启集成更稳
+        }
+      })
+      -- 加载配色
+      vim.cmd.colorscheme "catppuccin-latte"
     end
+  },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        "catppuccin/nvim",
+    },
+    config = function()
+      require("lualine").setup({
+        options = {
+          -- 现在这里可以正确识别了
+          theme = "catppuccin",
+          -- 如果你不喜欢它的默认分隔符，可以换回类似 airline 的三角形
+          component_separators = { left = '', right = ''},
+          section_separators = { left = '', right = ''},
+          globalstatus = true, -- 建议开启：只在底部显示一个全局状态栏，而不是每个窗口一个
+        },
+        sections = {
+          lualine_a = {'mode'},
+          lualine_b = {'branch', 'diff', 'diagnostics'},
+          lualine_c = {'filename'},
+          -- 在这里添加你想要的信息，比如文件编码、文件类型等
+          lualine_x = {'encoding', 'fileformat', 'filetype'},
+          lualine_y = {'progress'},
+          lualine_z = {'location'}
+        },
+      })
+    end,
   },
 
   -- ==========================================
