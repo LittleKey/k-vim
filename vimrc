@@ -394,22 +394,6 @@ augroup indent_settings_group
   autocmd BufRead,BufNewFile *.vue :call TAB(2)
 augroup END
 
-" 设置可以高亮的关键字
-if has("autocmd")
-  " Highlight TODO, FIXME, NOTE, TIPS, etc.
-  if v:version > 701
-    augroup highlight_keyword_group
-      autocmd!
-      autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|OPTIMIZE\|HACK\|TIPS\|DEPRECATED\|REFACTOR\)')
-      autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
-      autocmd Syntax * call matchadd('Error', '\W\zs\(!!!\)')
-      autocmd Syntax * call matchadd('ErrorMsg', '\W\zs\(IMPORTANT\|TO BE CONTINUE\|TOBECONTINUE\)')
-      autocmd Syntax * call matchadd('Question', '\W\zs\(QUESTION\|HOWTO\)')
-    augroup END
-  endif
-endif
-
-
 "==========================================
 " Theme Settings  主题设置
 "==========================================
@@ -443,25 +427,6 @@ if exists('+termguicolors')
   " set termguicolors
 endif
 
-" 设置标记一列的背景颜色和数字一行颜色一致
-hi! link SignColumn   LineNr
-hi! link ShowMarksHLl DiffAdd
-hi! link ShowMarksHLu DiffChange
-
-" 解决terminal使用tender配色时, 选择模式背景色看不见得问题
-hi Visual ctermfg=NONE ctermbg=16 cterm=NONE
-
-" for error highlight，防止错误整行标红导致看不清
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
-
-
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 if &term =~ '256color'
@@ -474,11 +439,5 @@ endif
 " Speed UP!
 set re=1
 set lazyredraw
-
-" Debug
-augroup long_lines
-  au!
-  "au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>'.g:long_line_length.'v.\+', -1)
-augroup END
 
 set shortmess=off
