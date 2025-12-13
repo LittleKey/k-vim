@@ -88,6 +88,7 @@ require("lazy").setup({
   },
 
   -- 2. LSP Config: 核心配置
+  -- 2. LSP Config: 核心配置
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -96,69 +97,75 @@ require("lazy").setup({
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local mason_lspconfig = require("mason-lspconfig")
-
-      -- 设置响应时间 (默认是 4000ms，太慢了，改成 300ms 以便快速显示错误详情)
+      -- 1. 全局配置
       vim.opt.updatetime = 300
 
-      -- 准备 Capabilities (使用默认的即可)
+      -- 2. 准备 Capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      -- 使用 Handlers 自动配置所有服务器
-      mason_lspconfig.setup({
-        ensure_installed = {
-          "gopls", "pyright", "rust_analyzer", "ts_ls",
-          "lua_ls", "bashls", "jsonls", "tsp_server",
+      -- 3. 定义服务器配置表 (Data Driven)
+      -- 将所有特定服务器的 settings 放在这里，而不是散落在 handlers 里
+      local servers = {
+        -- Go
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = { unusedparams = true },
+              staticcheck = true,
+            },
+          },
         },
+
+        -- Python
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                -- typeCheckingMode = "off",
+              },
+            },
+          },
+        },
+
+        -- Lua
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = { globals = { "vim" } },
+            },
+          },
+        },
+
+        -- 其他没有任何特殊配置的服务器，留空即可
+        rust_analyzer = {},
+        ts_ls = {},     -- 注意: tsserver 已更名为 ts_ls
+        bashls = {},
+        jsonls = {},
+      }
+
+      -- 4. Mason-LSPConfig 自动配置
+      require("mason-lspconfig").setup({
+        -- 自动从上面的 servers 表中获取键名作为安装列表
+        ensure_installed = vim.tbl_keys(servers),
         automatic_installation = true,
 
+        -- 5. 使用 Handlers 统一处理启动逻辑
         handlers = {
-          -- 默认 Handler
           function(server_name)
-            lspconfig[server_name].setup({
-              capabilities = capabilities,
-            })
-          end,
+            -- 获取 servers 表中的自定义配置，如果为空则默认为空表
+            local server_config = servers[server_name] or {}
 
-          -- Go
-          ["gopls"] = function()
-            lspconfig.gopls.setup({
-              capabilities = capabilities,
-              settings = {
-                gopls = {
-                  gofumpt = true,
-                  analyses = { unusedparams = true },
-                  staticcheck = true,
-                },
-              },
-            })
-          end,
+            -- 强制注入 capabilities
+            server_config.capabilities = vim.tbl_deep_extend(
+              "force",
+              capabilities,
+              server_config.capabilities or {}
+            )
 
-          -- Python
-          ["pyright"] = function()
-            lspconfig.pyright.setup({
-              capabilities = capabilities,
-              settings = {
-                python = {
-                  analysis = {
-                    -- typeCheckingMode = "off",
-                  }
-                }
-              }
-            })
-          end,
-
-          -- Lua
-          ["lua_ls"] = function()
-            lspconfig.lua_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                Lua = {
-                  diagnostics = { globals = { "vim" } },
-                },
-              },
-            })
+            -- 启动 LSP
+            -- 注意: 在 Mason 场景下，这里调用 setup 是必须的，
+            -- 它负责将 Mason 下载的二进制路径注入到 cmd 中。
+            require("lspconfig")[server_name].setup(server_config)
           end,
         }
       })
