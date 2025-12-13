@@ -220,38 +220,161 @@ require("lazy").setup({
   },
   "machakann/vim-sandwich",
 
+  -- 快速编辑
+  {
+    "numToStr/Comment.nvim",
+    lazy = false,
+    config = function()
+        require('Comment').setup()
+    end
+  },
+
   -- ==========================================
   -- 搜索与导航 (FZF, CtrlSF)
   -- ==========================================
+  -- ==========================================
+  -- 模糊查找与全局替换 (Telescope + Spectre)
+  -- ==========================================
   {
-    "junegunn/fzf",
-    build = "./install --all",
-    init = function()
-       vim.g.fzf_action = { ['ctrl-t'] = 'tab split', ['ctrl-x'] = 'split', ['ctrl-v'] = 'vsplit' }
-       vim.g.fzf_layout = { down = '~30%' }
-       vim.g.fzf_buffers_jump = 1
-       vim.g.fzf_history_dir = '~/.local/share/fzf-history'
-       vim.api.nvim_set_keymap('n', '<c-f>', ':FZF<CR>', { noremap = true })
-       -- FZF 颜色配置 (建议保留 Vimscript)
-       vim.cmd([[
-            let g:fzf_colors = { 'fg': ['fg', 'Normal'], 'bg': ['bg', 'Normal'], 'hl': ['fg', 'Comment'], 'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'], 'bg+': ['bg', 'CursorLine', 'CursorColumn'], 'hl+': ['fg', 'Statement'], 'info': ['fg', 'PreProc'], 'border': ['fg', 'Ignore'], 'prompt': ['fg', 'Conditional'], 'pointer': ['fg', 'Exception'], 'marker': ['fg', 'Keyword'], 'spinner': ['fg', 'Label'], 'header': ['fg', 'Comment'] }
-            nnoremap <c-f> :FZF<CR>
-       ]])
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      -- 安装 fzf-native 扩展，提供极速的 C 语言排序算法
+      -- 注意：这需要你的电脑上有 make 和 gcc/clang
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make"
+      },
+      -- 全局替换插件 (替代 CtrlSF 的替换功能)
+      "nvim-pack/nvim-spectre",
+    },
+    cmd = "Telescope",
+    -- 定义常用的快捷键
+    keys = {
+      -- === 文件搜索 (替代 FZF) ===
+      { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { "<C-f>", "<cmd>Telescope find_files<cr>", desc = "Find Files (Alias)" }, -- 兼容你原来的习惯
+      { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+      { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+
+      -- === 文本搜索 (替代 CtrlSF 的搜索功能) ===
+      -- 实时 grep (输入什么搜什么)
+      { "<leader>f", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      -- 搜索光标下的单词 (相当于 CtrlSF 的默认行为)
+      { "\\", "<cmd>Telescope grep_string<cr>", desc = "Grep Word Under Cursor" },
+
+      -- === 辅助功能 ===
+      { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Git Status" },
+      { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },
+      { "<leader>s", "<cmd>Telescope resume<cr>", desc = "Resume Last Search" }, -- 恢复上一次搜索窗口
+
+      -- === 全局替换 (替代 CtrlSF 的替换功能) ===
+      -- 开启替换窗口
+      { "<C-g>", '<cmd>lua require("spectre").toggle()<CR>', desc = "Global Replace (Spectre)" },
+      -- 搜索当前光标下的单词并准备替换
+      { "<leader>\\", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', desc = "Replace Word Under Cursor" },
+    },
+    config = function()
+      local telescope = require("telescope")
+      local actions = require("telescope.actions")
+
+      telescope.setup({
+        defaults = {
+          -- 默认布局配置
+          layout_strategy = "horizontal",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.55,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
+          },
+
+          -- 忽略文件模式 (grep和find_files都会生效)
+          file_ignore_patterns = {
+            "node_modules",
+            "%.git/",
+            "%.DS_Store",
+            "target/",
+            "build/",
+            "dist/",
+            "__pycache__"
+          },
+
+          -- 路径显示方式: "tail" (文件名), "absolute", "smart", "truncate"
+          path_display = { "truncate" },
+
+          -- 默认按键映射 (在弹窗中)
+          mappings = {
+            i = {
+              -- 插入模式下
+              ["<C-n>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.cycle_history_prev,
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<C-c>"] = actions.close,
+              ["<Esc>"] = actions.close,
+              -- 预览滚动
+              ["<C-u>"] = actions.preview_scrolling_up,
+              ["<C-d>"] = actions.preview_scrolling_down,
+            },
+            n = {
+              -- 普通模式下
+              ["q"] = actions.close,
+              ["<Esc>"] = actions.close,
+            },
+          },
+        },
+        pickers = {
+          -- 针对特定选取器的配置
+          find_files = {
+            -- find_files 默认包含隐藏文件, 但排除 .git
+            hidden = true,
+          },
+        },
+        extensions = {
+          -- fzf 扩展配置
+          fzf = {
+            fuzzy = true,                    -- 开启模糊匹配
+            override_generic_sorter = true,  -- 覆盖默认排序器
+            override_file_sorter = true,     -- 覆盖文件排序器
+            case_mode = "smart_case",        -- 智能大小写 (ignore_case, respect_case, smart_case)
+          },
+        },
+      })
+
+      -- 加载扩展
+      telescope.load_extension("fzf")
     end
   },
+
   {
-    "dyng/ctrlsf.vim",
-    init = function()
-      vim.keymap.set('n', '\\', '<Plug>CtrlSFCwordPath<CR>')
-      vim.g.ctrlsf_auto_close = 0
-      vim.g.ctrlsf_confirm_save = 0
-      vim.g.ctrlsf_default_vim_mode = 'compact'
-      vim.g.ctrlsf_ignore_dir = {'node_modules', '__mocks__', 'target', 'dist', 'build', '__pycache__', '.git', 'assets'}
-      vim.g.ctrlsf_extra_backend_args = {
-          rg = '-g "!*.jsbundle" -g "!*.bundle.js" -g "!*.bundle" -g "!*.pyc" -g "!*.bt.json"',
-          ag = '--ignore "*.jsbundle" --ignore "*.bundle.js" --ignore "*.bundle" --ignore "*.pyc" --ignore "*.bt.json"',
-      }
-      vim.g.ctrlsf_mapping = { open = "<Space>", openb = "O", tab = "<C-t>", tabb = "<C-T>", prevw = "p", quit = "q", next = "<C-J>", prev = "<C-K>", pquit = "q" }
+    'stevearc/aerial.nvim',
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons"
+    },
+    keys = {
+        { "<leader>a", "<cmd>AerialToggle<cr>", desc = "Toggle Aerial" },
+    },
+    config = function()
+        require('aerial').setup({
+        -- 优先使用 LSP，其次 Treesitter，最后 Markdown
+        backends = { "lsp", "treesitter", "markdown", "man" },
+        on_attach = function(bufnr)
+            -- 跳转快捷键
+            vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+            vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+        end
+        })
     end
   },
 
@@ -290,7 +413,17 @@ require("lazy").setup({
   -- ==========================================
   -- 界面与主题
   -- ==========================================
-  "mhinz/vim-startify",
+  -- "mhinz/vim-startify",
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+        require('dashboard').setup {
+            -- config
+        }
+    end,
+    dependencies = { {'nvim-tree/nvim-web-devicons'}}
+  },
   "flazz/vim-colorschemes",
   "chriskempson/base16-vim",
   "jonathanfilip/vim-lucius",
