@@ -62,123 +62,196 @@ require("lazy").setup({
     end
   },
 
-  -- 异步 Lint 组件 (ALE)
-  {
-    "dense-analysis/ale",
-    build = "python3 spell/cspell.json && mv cspell.json ./spell/",
-    init = function()
-      -- 你的 ALE 配置 (保留 Vimscript 以确保逻辑完全一致)
-      vim.cmd([[
-        let g:ale_linters_explicit = 1
-        let g:ale_warn_about_trailing_whitespace = 1
-        let g:ale_linters = {
-              \  'go': ['gopls', 'golangci-lint'],
-              \  'proto': ['buf'],
-              \  'python': ['ruff', 'pyright', 'flake8'],
-              \  'c': ['clang'],
-              \  'cpp': ['clang'],
-              \  'json': ['jsonlint'],
-              \  'sh': ['shellcheck'],
-              \  'rust': ['analyzer', 'cargo', 'rls'],
-              \  'mardown': ['cspell'],
-              \  'jinja': ['cspell'],
-              \  'javascript': ['jshint', 'eslint', 'standard'],
-              \}
 
-        " 自动添加 cspell
-        for k in keys(g:ale_linters)
-          let g:ale_linters[k] += ['cspell']
-        endfor
-
-        func! s:define_cspell_linter(ft) abort
-          if !has_key(g:ale_linters, a:ft)
-            let g:ale_linters[a:ft] = ['cspell']
-            call ale#handlers#cspell#DefineLinter(a:ft)
-          endif
-        endfunc
-
-        augroup ale_linter_cspell_extend_group
-          autocmd!
-          autocmd FileType bt,yaml,toml,json,text,jinja,markdown call s:define_cspell_linter(&filetype)
-        augroup END
-
-        let g:ale_cspell_options = '--show-suggestions --config ~/.vim/spell/cspell.json --cache --cache-strategy metadata --no-gitignore --no-color'
-        let g:ale_python_vulture_options = '--min-confidence 80 --ignore-names "_ign*" --exclude "*py2.py,*py2_grpc.py"'
-        let g:ale_go_gopls_init_options = { 'build.buildFlags': ["-tags=meteor_robot,mage,wireinject"] }
-        let g:ale_go_golangci_lint_options = '-c="~/.vim/config/golangci.yaml"'
-        let g:ale_go_golangci_lint_package = 1
-        let g:ale_markdown_vale_options = '--config ~/.vim/config/.vale.ini'
-        let g:ale_jshint_config_loc = '/Users/littlekey/.vim/config/.jshintrc'
-
-        let g:ale_fixers_explicit = 1
-        let g:ale_fixers = {
-          \   'python': ['ruff', 'ruff_format'],
-          \   'go': ['gofmt'],
-          \   'rust': ['rustfmt'],
-          \   'javascript': ['prettier'],
-          \}
-        let g:ale_fix_on_save = 1
-        let g:ale_sign_column_always = 1
-        let g:ale_sign_error = "\uf05e"
-        let g:ale_sign_warning = "\uf071"
-        let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-        let g:ale_echo_msg_error_str = 'E'
-        let g:ale_echo_msg_warning_str = 'W'
-        let g:ale_echo_msg_format = '[%linter%]% code:% %s [%severity%] '
-        let g:ale_rust_rls_toolchain = 'stable'
-        let g:ale_lint_on_text_changed = 'normal'
-        let g:ale_lint_delay = 200
-        let g:ale_lint_on_enter = 1
-        let g:ale_lint_on_insert_leave = 1
-        let g:ale_lint_on_save = 1
-        let g:ale_set_highlights = 1
-        highlight link ALEErrorSign  error
-        highlight link ALEWarningSign Exception
-
-        augroup ale_hightlight_group
-          autocmd!
-          autocmd ColorScheme * highlight ALEWarning cterm=bold,underline ctermbg=none ctermfg=none
-          autocmd ColorScheme * highlight ALEErrorSign cterm=bold ctermbg=none  ctermfg=red
-          autocmd ColorScheme * highlight ALEWarningSign cterm=bold ctermbg=none  ctermfg=darkmagenta
-        augroup END
-      ]])
-    end
-  },
-
-  -- Icons & UI
-  { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "folke/trouble.nvim", ft = { 'python', 'go', 'c', 'cpp', 'rust' } },
 
   -- ==========================================
-  -- 自动补全 (Jedi / Codeium)
+  -- LSP 完整生态 (无 cmp 版)
   -- ==========================================
 
-  -- Python Jedi
+  -- 1. Mason: 管理器
   {
-    "davidhalter/jedi-vim",
-    ft = "python",
-    init = function()
-      -- Jedi 配置放在 init 中，因为有些变量需要在加载前设置
-      vim.g['jedi#usages_command'] = 0
-      vim.g['jedi#completions_enabled'] = 0
-      -- Python Host 逻辑
-      if vim.env.VIRTUAL_ENV and vim.env.VIRTUAL_ENV ~= "" then
-        vim.g.python3_host_prog = vim.env.VIRTUAL_ENV .. '/bin/python'
-      elseif vim.fn.executable('python3') == 1 then
-        vim.g.python3_host_prog = vim.fn.exepath('python3')
-      else
-        vim.g.python3_host_prog = '/usr/bin/python3'
-      end
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason Installer" } },
+    build = ":MasonUpdate",
+    config = function()
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
+      })
     end,
-    init = function()
-      vim.cmd([[
-        augroup redefined_goto_directive_for_python
-          autocmd!
-          autocmd FileType python nnoremap gd :call g:jedi#goto()<CR>
-        augroup END
-      ]])
+  },
+
+  -- 2. LSP Config: 核心配置
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      local mason_lspconfig = require("mason-lspconfig")
+
+      -- 设置响应时间 (默认是 4000ms，太慢了，改成 300ms 以便快速显示错误详情)
+      vim.opt.updatetime = 300
+
+      -- 准备 Capabilities (使用默认的即可)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      -- 使用 Handlers 自动配置所有服务器
+      mason_lspconfig.setup({
+        ensure_installed = {
+          "gopls", "pyright", "rust_analyzer", "ts_ls",
+          "lua_ls", "bashls", "jsonls", "tsp_server",
+        },
+        automatic_installation = true,
+
+        handlers = {
+          -- 默认 Handler
+          function(server_name)
+            lspconfig[server_name].setup({
+              capabilities = capabilities,
+            })
+          end,
+
+          -- Go
+          ["gopls"] = function()
+            lspconfig.gopls.setup({
+              capabilities = capabilities,
+              settings = {
+                gopls = {
+                  gofumpt = true,
+                  analyses = { unusedparams = true },
+                  staticcheck = true,
+                },
+              },
+            })
+          end,
+
+          -- Python
+          ["pyright"] = function()
+            lspconfig.pyright.setup({
+              capabilities = capabilities,
+              settings = {
+                python = {
+                  analysis = {
+                    -- typeCheckingMode = "off",
+                  }
+                }
+              }
+            })
+          end,
+
+          -- Lua
+          ["lua_ls"] = function()
+            lspconfig.lua_ls.setup({
+              capabilities = capabilities,
+              settings = {
+                Lua = {
+                  diagnostics = { globals = { "vim" } },
+                },
+              },
+            })
+          end,
+        }
+      })
     end
   },
+
+  -- 3. None-ls: Linting & Formatting
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+        "williamboman/mason.nvim",
+        "jay-babu/mason-null-ls.nvim",
+        "davidmh/cspell.nvim",
+    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("mason-null-ls").setup({
+        ensure_installed = {
+            "cspell", "ruff", "gofumpt", "goimports",
+            "prettier", "shfmt", "clang_format", "rust_analyzer",
+            "black",
+        },
+        automatic_installation = true,
+      })
+
+      local null_ls = require("null-ls")
+      local formatting = null_ls.builtins.formatting
+      local diagnostics = null_ls.builtins.diagnostics
+      local code_actions = null_ls.builtins.code_actions
+      local cspell = require('cspell')
+
+      -- CSpell 配置路径查找
+      local cspell_config = {
+          find_json = function(cwd)
+              local project_conf = vim.fn.glob(cwd .. "/cspell.json")
+              if project_conf ~= "" then return project_conf end
+              return vim.fn.expand("~/.vim/spell/cspell.json")
+          end,
+      }
+
+      null_ls.setup({
+        debug = false,
+        sources = {
+            -- CSpell
+            cspell.diagnostics.with({
+                config = cspell_config,
+                diagnostics_postprocess = function(diagnostic)
+                    diagnostic.severity = vim.diagnostic.severity.WARN
+                end,
+            }),
+            cspell.code_actions.with({ config = cspell_config }),
+
+            -- Formatting
+            formatting.gofumpt,
+            formatting.goimports,
+            formatting.black,
+            formatting.clang_format,
+            formatting.prettier.with({ filetypes = { "html", "json", "yaml", "markdown" } }),
+            formatting.shfmt,
+        },
+      })
+    end
+  },
+
+  -- 4. Trouble: 诊断列表 (保留，用于查看所有错误)
+  {
+      "folke/trouble.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      keys = {
+          { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
+      },
+      config = function()
+          require("trouble").setup({})
+
+          vim.diagnostic.config({
+              virtual_text = true,
+              signs = true,
+              underline = true,
+              update_in_insert = false,
+              severity_sort = true,
+          })
+
+          local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+          for type, icon in pairs(signs) do
+              local hl = "DiagnosticSign" .. type
+              vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+          end
+      end
+  },
+
+  -- ==========================================
+  -- 自动补全 (Codeium)
+  -- ==========================================
 
   -- Codeium
   {
@@ -232,6 +305,7 @@ require("lazy").setup({
   -- ==========================================
   -- 搜索与导航 (FZF, CtrlSF)
   -- ==========================================
+
   -- ==========================================
   -- 模糊查找与全局替换 (Telescope + Spectre)
   -- ==========================================

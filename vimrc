@@ -10,6 +10,7 @@ set nocompatible
 lua require('basic')
 lua require('copy-to-sys')
 lua require('plugins')
+lua require('lsp')
 
 "==========================================
 " General Settings 基础设置
@@ -364,34 +365,6 @@ function EraseTrailingSpace()
   call winrestview(b:save_view)
 endfunction
 nnoremap <silent> <leader>s :call EraseTrailingSpace()<CR>
-
-augroup StripWhitespaceGroup
-  autocmd!
-  " 保存前触发
-  autocmd BufWritePre * call s:RunEraseTrailingSpace()
-augroup END
-
-function! s:RunEraseTrailingSpace()
-  " 1. 排除 markdown 和 diff
-  if &ft =~ 'markdown\|diff'
-    return
-  endif
-
-  " 2. 排除大文件 (>100KB) 避免性能问题
-  if getfsize(expand("%")) > 102400
-    return
-  endif
-
-  " 3. 调用你的核心函数
-  if exists('*EraseTrailingSpace')
-    call EraseTrailingSpace()
-  endif
-endfunction
-
-" augroup erase_trailing_space
-"   au!
-"   au BufWritePre * silent! :call EraseTrailingSpace()
-" augroup END
 
 
 "==========================================

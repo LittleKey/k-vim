@@ -26,6 +26,11 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
+if ! command -v python3 &> /dev/null; then
+    echo "Error: python3 is not installed (required for CSpell config generation)."
+    exit 1
+fi
+
 # 1. 备份现有配置
 echo "[Step 1] Checking existing configuration..."
 
@@ -55,6 +60,37 @@ if [ ! -e "$TARGET_DIR" ]; then
     echo "  -> Linked $BASEDIR to $TARGET_DIR"
 else
     echo "  -> Target already exists (verified in Step 1)."
+fi
+
+# 2.5 生成 CSpell 配置 (新增步骤)
+echo "[Step 2.5] Generating CSpell configuration..."
+
+# 切换到 BASEDIR 确保相对路径正确
+cd "$BASEDIR"
+
+# 检查生成脚本是否存在 (虽然后缀是json，但你是用python3执行的)
+if [ -f "spell/cspell.json" ]; then
+    echo "  -> Found generator script: spell/cspell.json"
+    
+    # 执行生成命令
+    if python3 spell/cspell.json; then
+        echo "  -> Python script executed successfully."
+        
+        # 检查生成结果并移动
+        if [ -f "cspell.json" ]; then
+            # 确保 ./spell 目录存在
+            mkdir -p ./spell/
+            mv cspell.json ./spell/
+            echo "  -> Moved generated cspell.json to ./spell/"
+        else
+            echo "  -> Warning: Python script ran, but 'cspell.json' was not found in the root."
+        end
+    else
+        echo "  -> Error: Failed to execute python script."
+        exit 1
+    fi
+else
+    echo "  -> Warning: 'spell/cspell.json' not found. Skipping generation."
 fi
 
 # 3. 初始化 Lazy.nvim 插件
