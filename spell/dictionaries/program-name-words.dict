@@ -9,3 +9,7 @@ tinygo
 esbuild
 rclone
 wizer
+gopls
+bashls
+jsonls
+nvim

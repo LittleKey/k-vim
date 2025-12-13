@@ -62,7 +62,19 @@ require("lazy").setup({
     end
   },
 
-
+  -- ==========================================
+  -- Lua 开发增强 (自动解决 vim 全局变量问题)
+  -- ==========================================
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- 仅在 lua 文件加载
+    opts = {
+      library = {
+        -- 让 lua_ls 能够识别 lazy.nvim 的配置语法 (plugins.lua)
+        { path = "lazy.nvim", words = { "LazyVim" } },
+      },
+    },
+  },
 
   -- ==========================================
   -- LSP 完整生态 (无 cmp 版)
@@ -87,7 +99,6 @@ require("lazy").setup({
     end,
   },
 
-  -- 2. LSP Config: 核心配置
   -- 2. LSP Config: 核心配置
   {
     "neovim/nvim-lspconfig",
@@ -127,20 +138,13 @@ require("lazy").setup({
           },
         },
 
-        -- Lua
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = { globals = { "vim" } },
-            },
-          },
-        },
-
         -- 其他没有任何特殊配置的服务器，留空即可
         rust_analyzer = {},
         ts_ls = {},     -- 注意: tsserver 已更名为 ts_ls
         bashls = {},
         jsonls = {},
+        lua_ls = {},
+        tsp_server = {},
       }
 
       -- 4. Mason-LSPConfig 自动配置
@@ -231,23 +235,21 @@ require("lazy").setup({
   },
 
   -- 4. Trouble: 诊断列表 (保留，用于查看所有错误)
+  -- 5. Trouble: 诊断列表 (修复 v3 版本命令)
   {
       "folke/trouble.nvim",
       dependencies = { "nvim-tree/nvim-web-devicons" },
+      cmd = "Trouble", -- 懒加载命令变了
       keys = {
-          { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
+          -- 使用新的 v3 命令格式
+          { "<C-x>", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+          { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
       },
+      opts = {}, -- v3 版本必须有这个 opts 空表或者配置表
       config = function()
           require("trouble").setup({})
 
-          vim.diagnostic.config({
-              virtual_text = true,
-              signs = true,
-              underline = true,
-              update_in_insert = false,
-              severity_sort = true,
-          })
-
+          -- 依然保留你的图标配置
           local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
           for type, icon in pairs(signs) do
               local hl = "DiagnosticSign" .. type
