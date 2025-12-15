@@ -181,68 +181,74 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 		},
 		config = function()
-			-- 1. 全局配置
 			vim.opt.updatetime = 300
+
+			-- 1. 初始化 Mason
+			-- 这步至关重要：它会将 mason/bin 加入到 Neovim 的 PATH 中
+			-- 所以我们不需要手动拼接路径，直接用命令名即可
+			require("mason").setup()
 
 			-- 2. 准备 Capabilities
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- 如果有 cmp: capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-			-- 3. 定义服务器配置表 (Data Driven)
-			-- 将所有特定服务器的 settings 放在这里，而不是散落在 handlers 里
+			-- 3. 定义服务器配置 (只写你需要修改的部分)
 			local servers = {
-				-- Go
+				-- === Gopls ===
 				gopls = {
+					-- 不需要写 cmd，默认就是 {"gopls"}，Mason 会让它生效
+					filetypes = { "go", "gomod", "gowork", "gotmpl" },
+					root_markers = { "go.work", "go.mod", ".git" },
 					settings = {
 						gopls = {
-							analyses = { unusedparams = true },
+							-- 【配置生效】
+							buildFlags = { "-tags=meteor_robot" },
+							analyses = {
+								unusedparams = true,
+								unreachable = true,
+							},
 							staticcheck = true,
+							usePlaceholders = true,
+							completeUnimported = true,
 						},
 					},
 				},
 
-				-- Python
+				-- === Python ===
 				pyright = {
 					settings = {
-						python = {
-							analysis = {
-								-- typeCheckingMode = "off",
-							},
-						},
+						python = { analysis = { typeCheckingMode = "off" } },
 					},
 				},
 
-				-- 其他没有任何特殊配置的服务器，留空即可
+				-- === 其他服务器 (空表代表使用默认配置) ===
 				rust_analyzer = {},
-				ts_ls = {}, -- 注意: tsserver 已更名为 ts_ls
+				ts_ls = {},
 				bashls = {},
 				jsonls = {},
 				lua_ls = {},
 				tsp_server = {},
 			}
 
-			-- 4. Mason-LSPConfig 自动配置
+			-- 4. 确保安装 (Mason-LSPConfig 仅用于安装，不负责 setup)
 			require("mason-lspconfig").setup({
-				-- 自动从上面的 servers 表中获取键名作为安装列表
 				ensure_installed = vim.tbl_keys(servers),
 				automatic_installation = true,
-
-				-- 5. 使用 Handlers 统一处理启动逻辑
-				handlers = {
-					function(server_name)
-						-- 获取 servers 表中的自定义配置，如果为空则默认为空表
-						local server_config = servers[server_name] or {}
-
-						-- 强制注入 capabilities
-						server_config.capabilities =
-							vim.tbl_deep_extend("force", capabilities, server_config.capabilities or {})
-
-						-- 启动 LSP
-						-- 注意: 在 Mason 场景下，这里调用 setup 是必须的，
-						-- 它负责将 Mason 下载的二进制路径注入到 cmd 中。
-						require("lspconfig")[server_name].setup(server_config)
-					end,
-				},
 			})
+
+			-- 5. 显式注册配置 (不依赖 Mason 回调，绝对稳健)
+			for name, config in pairs(servers) do
+				-- 合并 capabilities
+				config.capabilities = vim.tbl_deep_extend("force", capabilities, config.capabilities or {})
+
+				-- 【核心】直接注册到 Nvim 0.11
+				-- vim.lsp.config 会自动查找 nvim-lspconfig 提供的默认配置(包含默认cmd)
+				-- 并将你的 config 合并进去
+				vim.lsp.config(name, config)
+
+				-- 启用服务
+				vim.lsp.enable(name)
+			end
 		end,
 	},
 
