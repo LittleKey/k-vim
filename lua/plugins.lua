@@ -694,12 +694,14 @@ require("lazy").setup({
 					-- 如果你不喜欢它的默认分隔符，可以换回类似 airline 的三角形
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
-					globalstatus = true, -- 建议开启：只在底部显示一个全局状态栏，而不是每个窗口一个
+					globalstatus = false, -- 建议开启：只在底部显示一个全局状态栏，而不是每个窗口一个
 				},
 				sections = {
 					lualine_a = { "mode" },
 					lualine_b = { "branch", "diff", "diagnostics" },
-					lualine_c = { "filename" },
+					lualine_c = {
+						{ "filename", file_status = true, newfile_status = true, path = 1 },
+					},
 					-- 在这里添加你想要的信息，比如文件编码、文件类型等
 					lualine_x = { "encoding", "fileformat", "filetype" },
 					lualine_y = { "progress" },

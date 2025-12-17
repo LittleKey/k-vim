@@ -254,6 +254,7 @@ local indent_rules = {
 			"toml",
 			"lua",
 			"json",
+			"typespec",
 		},
 		size = 2,
 	},
