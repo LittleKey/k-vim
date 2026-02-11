@@ -35,3 +35,4 @@ golangci
 easyjson
 memfs
 timestamptz
+godotenv

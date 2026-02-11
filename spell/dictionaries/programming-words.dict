@@ -38,3 +38,5 @@ devtmpfs
 jsonify
 mqtt
 dtos
+gobuilder
+tzdata

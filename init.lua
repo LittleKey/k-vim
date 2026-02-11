@@ -143,12 +143,12 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- 移动增强
-map("n", "k", "gk", opts)
-map("n", "gk", "k", opts)
-map("n", "j", "gj", opts)
-map("n", "gj", "j", opts)
-map("n", "H", "^", opts)
-map("n", "L", "$", opts)
+map({ "n", "v" }, "k", "gk", opts)
+map({ "n", "v" }, "gk", "k", opts)
+map({ "n", "v" }, "j", "gj", opts)
+map({ "n", "v" }, "gj", "j", opts)
+map({ "n", "v" }, "H", "^", opts)
+map({ "n", "v" }, "L", "$", opts)
 
 -- 命令行增强
 map("c", "<C-j>", "<Down>", { noremap = true })
@@ -212,6 +212,9 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 
+-- Map S to split the line at the cursor position
+vim.keymap.set("n", "S", "i<CR><Esc>k$:s/\\s\\+$//e<CR>$", { desc = "Split line and strip trailing space" })
+
 -- ==========================================================================
 -- 4. Autocommands (自动命令)
 -- ==========================================================================
@@ -255,6 +258,7 @@ local indent_rules = {
 			"lua",
 			"json",
 			"typespec",
+			"sql",
 		},
 		size = 2,
 	},

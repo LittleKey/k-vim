@@ -320,15 +320,18 @@ require("lazy").setup({
 		end,
 	},
 
-	-- 4. Trouble: 诊断列表 (保留，用于查看所有错误)
-	-- 5. Trouble: 诊断列表 (修复 v3 版本命令)
+	-- 4. Trouble: 诊断列表
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "Trouble", -- 懒加载命令变了
 		keys = {
 			-- 使用新的 v3 命令格式
-			{ "<C-x>", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+			{
+				"<leader>x",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
 			{ "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
 		},
 		opts = {}, -- v3 版本必须有这个 opts 空表或者配置表
@@ -455,6 +458,15 @@ require("lazy").setup({
 			},
 		},
 		config = function()
+			require("spectre").setup({
+				default = {
+					replace = {
+						-- Switch from 'sed' to 'sd' so regex syntax matches 'rg'
+						-- Make sure to install 'sd' via brew/pacman/cargo first! (brew install sd)
+						cmd = "sd",
+					},
+				},
+			})
 			local telescope = require("telescope")
 			local actions = require("telescope.actions")
 
@@ -564,7 +576,7 @@ require("lazy").setup({
 		-- 定义快捷键
 		keys = {
 			{
-				"s",
+				"r",
 				mode = { "n", "x", "o" },
 				function()
 					require("flash").jump()
@@ -572,7 +584,7 @@ require("lazy").setup({
 				desc = "Flash",
 			},
 			{
-				"S",
+				"R",
 				mode = { "n", "o", "x" },
 				function()
 					require("flash").treesitter()
@@ -674,6 +686,13 @@ require("lazy").setup({
 					-- 这里让 catppuccin 自动适配 lualine
 					-- 虽然 lualine 内部也会找 theme, 但这里开启集成更稳
 				},
+				custom_highlights = function(colors)
+					return {
+						["@module.go"] = { bg = "NONE" },
+						["@module.python"] = { bg = "NONE" },
+						["@module.ssh_config"] = { bg = "NONE" },
+					}
+				end,
 			})
 			-- 加载配色
 			vim.cmd.colorscheme("catppuccin-latte")
