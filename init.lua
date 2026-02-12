@@ -180,18 +180,6 @@ map("v", ">", ">gv", opts)
 
 -- 系统剪贴板
 map("v", "<leader>y", '"+y', opts)
--- 支持远程登录时复制到连接方的剪贴板
-vim.g.clipboard = {
-	name = "OSC 52",
-	copy = {
-		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-	},
-	paste = {
-		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-	},
-}
 
 -- 搜索高亮清除
 map("n", "<leader>/", clear_highlight, opts)

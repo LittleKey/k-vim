@@ -411,6 +411,19 @@ require("lazy").setup({
 		end,
 	},
 
+	-- 复制到系统剪贴板(OSC52)
+	{
+		"ojroques/nvim-osc52",
+		config = function()
+			require("osc52").setup({
+				max_length = 0, -- 0 表示不限制长度 (Tmux >= 3.2 支持大块数据)
+				silent = true, -- true 表示复制时不显示 "Copied..." 消息，保持清爽
+				trim = false, -- 是否去除首尾空格
+				tmux_passthrough = true, -- 重点：使用 Tmux 的直通模式 (依赖你刚才设置的 allow-passthrough)
+			})
+		end,
+	},
+
 	-- ==========================================
 	-- 搜索与导航 (FZF, CtrlSF)
 	-- ==========================================
