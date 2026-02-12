@@ -72,23 +72,17 @@ cd "$BASEDIR"
 if [ -f "spell/cspell.json" ]; then
     echo "  -> Found generator script: spell/cspell.json"
     
+    cd spell/
+
     # 执行生成命令
-    if python3 spell/cspell.json; then
+    if python3 cspell.py ; then
         echo "  -> Python script executed successfully."
-        
-        # 检查生成结果并移动
-        if [ -f "cspell.json" ]; then
-            # 确保 ./spell 目录存在
-            mkdir -p ./spell/
-            mv cspell.json ./spell/
-            echo "  -> Moved generated cspell.json to ./spell/"
-        else
-            echo "  -> Warning: Python script ran, but 'cspell.json' was not found in the root."
-        end
     else
         echo "  -> Error: Failed to execute python script."
         exit 1
     fi
+
+    cd ../
 else
     echo "  -> Warning: 'spell/cspell.json' not found. Skipping generation."
 fi
